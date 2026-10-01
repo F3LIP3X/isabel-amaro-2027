@@ -54,7 +54,15 @@ body{
 img{ max-width: 100%; display: block; }
 [hidden]{ display: none !important; }
 
-h1,h2,h3{ font-family: var(--display); font-weight: 400; margin: 0; }
+h1,h2,h3{ font-family: var(--display); font-weight: 500; margin: 0; }
+
+/* Bodoni Moda a tamaño óptico grande tiene trazos finísimos que desaparecen:
+   fijamos un tamaño óptico bajo para que los remates sean más gruesos. */
+h1,h2,h3,.nav__brand,.countdown__unit strong,.countdown__today,.prose__lead,.prose__sign,
+.timeline__time,.gift__iban,.faq__item summary,.footer__names{
+  font-optical-sizing: none;
+  font-variation-settings: "opsz" 11;
+}
 p{ margin: 0; }
 
 .sr-only{
@@ -159,7 +167,7 @@ p{ margin: 0; }
 
 .hero__lead{ font-size: 1.05rem; color: var(--gold); margin-bottom: 1rem; }
 .hero__names{
-  font-style: italic; font-weight: 400;
+  font-style: italic; font-weight: 500;
   font-size: clamp(3.6rem, 10vw, 8.5rem);
   line-height: .92; letter-spacing: -.01em;
   display: flex; flex-direction: column; align-items: flex-start;
@@ -170,15 +178,34 @@ p{ margin: 0; }
 .countdown{ display: flex; gap: clamp(1.1rem, 3vw, 2rem); margin: 2.25rem 0; flex-wrap: wrap; }
 .countdown__unit{ display: flex; flex-direction: column; min-width: 3.4rem; }
 .countdown__unit strong{
-  font-family: var(--display); font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-family: var(--display); font-weight: 500; font-size: clamp(1.9rem, 4vw, 2.6rem);
   line-height: 1; font-variant-numeric: lining-nums tabular-nums;
 }
 .countdown__unit span{ font-size: .85rem; color: var(--gold); margin-top: .35rem; }
+@media (max-width: 860px){
+  .countdown{
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem;
+    margin: 1.75rem 0; max-width: 420px;
+  }
+  .countdown__unit{
+    min-width: 0; align-items: center; text-align: center;
+    padding: .9rem .25rem .75rem; border: 1px solid rgba(196,160,90,.55); border-radius: 6px;
+    background: rgba(247,241,234,.06);
+  }
+  .countdown__unit strong{ font-size: 2.1rem; }
+  .countdown__unit span{ color: #f7f1ea; font-size: .8rem; margin-top: .45rem; }
+}
 .countdown__today{ font-family: var(--display); font-style: italic; font-size: 1.6rem; }
+
+/* Ilustraciones: olivo, botella y copas (línea fina) */
+.deco{ pointer-events: none; }
+.hero__art{ position: relative; justify-self: center; width: min(100%, 440px); }
+.hero__rama{ position: absolute; z-index: 2; color: #a9b27f; }
+.hero__rama--b{ width: 34%; right: -15%; bottom: -3%; }
 
 /* Arco */
 .arch{
-  margin: 0; justify-self: center; width: min(100%, 440px);
+  margin: 0; width: 100%;
   aspect-ratio: 4 / 5;
   background: var(--gold);
   clip-path: url(#arco);
@@ -207,7 +234,8 @@ p{ margin: 0; }
 @media (max-width: 860px){
   .hero{ min-height: 0; padding-block: calc(var(--nav-h) + 1.5rem) 3.5rem; }
   .hero__grid{ grid-template-columns: 1fr; gap: 2.5rem; }
-  .arch{ width: min(86%, 380px); }
+  .hero__art{ width: min(80%, 360px); }
+    .hero__rama--b{ right: -12%; }
 }
 
 /* ========================== BOTONES ========================== */
@@ -232,7 +260,8 @@ p{ margin: 0; }
 /* ========================== SECCIONES ======================== */
 .section{ padding-block: clamp(4rem, 9vw, 7.5rem); }
 .section--tint{ background: var(--cal-tint); }
-.section--wine{ background: var(--wine); }
+.section--wine{ background: var(--wine); position: relative; overflow: hidden; }
+.section--wine > .wrap{ position: relative; z-index: 1; }
 
 .section__grid{
   display: grid; gap: clamp(1.5rem, 4vw, 4rem);
@@ -341,15 +370,22 @@ p{ margin: 0; }
   background: var(--wine); text-align: center;
   padding: clamp(3.5rem, 8vw, 5.5rem) var(--gutter);
 }
-.footer__mark{ color: var(--gold); margin: 0 auto 1rem; }
+.footer__deco{ display: flex; align-items: flex-end; justify-content: center; gap: 1.5rem; margin-bottom: 1.5rem; }
+.footer__rama{ width: 96px; height: auto; color: #a9b27f; }
+.footer__rama--espejo{ transform: scaleX(-1); }
+.footer__botella{ width: 34px; height: auto; color: var(--gold); }
 .footer__names{ font-family: var(--display); font-style: italic; font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; }
 .footer__date{ margin-top: .75rem; }
 .footer__thanks{ margin-top: 1.5rem; color: var(--gold); }
+.footer__credit{ margin-top: 2.5rem; font-size: .9rem; color: #d9cfcf; }
+.footer__credit a{ color: #f7f1ea; text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: .25em; }
+.footer__credit a:hover{ text-decoration-color: #f7f1ea; }
 
 /* ========================== IMPRESIÓN ========================= */
 @media print{
   .nav, .countdown, .skip-link{ display: none; }
   .hero, .section--wine, .footer{ background: none; color: #000; min-height: 0; }
+  .deco, .footer__deco{ display: none; }
   .on-dark, .on-dark .prose strong{ color: #000; }
   .section__title{ position: static; }
   .faq__item[open] summary::after, .faq__item summary::after{ display: none; }
