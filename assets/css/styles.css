@@ -45,8 +45,8 @@ body{
   background: var(--cal);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 17px;
-  line-height: 1.7;
+  font-size: 18px;
+  line-height: 1.8;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -104,7 +104,7 @@ p{ margin: 0; }
   display: flex; align-items: center; justify-content: space-between; gap: 2rem;
 }
 .nav__brand{
-  font-family: var(--display); font-style: italic; font-size: 1.35rem;
+  font-family: var(--display); font-size: 1.35rem;
   color: inherit; text-decoration: none; white-space: nowrap;
 }
 .nav__menu{ display: flex; gap: 1.75rem; }
@@ -167,7 +167,7 @@ p{ margin: 0; }
 
 .hero__lead{ font-size: 1.05rem; color: var(--gold); margin-bottom: 1rem; }
 .hero__names{
-  font-style: italic; font-weight: 500;
+  font-weight: 500;
   font-size: clamp(3.6rem, 10vw, 8.5rem);
   line-height: .92; letter-spacing: -.01em;
   display: flex; flex-direction: column; align-items: flex-start;
@@ -175,7 +175,7 @@ p{ margin: 0; }
 .hero__amp{ font-size: .5em; line-height: 1; color: var(--gold); margin: .08em 0 .12em .45em; }
 .hero__meta{ margin-top: 1.75rem; font-size: 1.1rem; line-height: 1.6; }
 
-.countdown{ display: flex; gap: clamp(1.1rem, 3vw, 2rem); margin: 2.25rem 0; flex-wrap: wrap; }
+.countdown{ display: flex; gap: clamp(1.1rem, 3vw, 2rem); margin: 2.5rem 0; flex-wrap: wrap; }
 .countdown__unit{ display: flex; flex-direction: column; min-width: 3.4rem; }
 .countdown__unit strong{
   font-family: var(--display); font-weight: 500; font-size: clamp(1.9rem, 4vw, 2.6rem);
@@ -195,7 +195,7 @@ p{ margin: 0; }
   .countdown__unit strong{ font-size: 2.1rem; }
   .countdown__unit span{ color: #f7f1ea; font-size: .8rem; margin-top: .45rem; }
 }
-.countdown__today{ font-family: var(--display); font-style: italic; font-size: 1.6rem; }
+.countdown__today{ font-family: var(--display); font-size: 1.6rem; }
 
 /* Ilustraciones: olivo, botella y copas (línea fina) */
 .deco{ pointer-events: none; }
@@ -258,13 +258,13 @@ p{ margin: 0; }
 .link:hover{ text-decoration-color: var(--wine); }
 
 /* ========================== SECCIONES ======================== */
-.section{ padding-block: clamp(4rem, 9vw, 7.5rem); }
+.section{ padding-block: clamp(5.5rem, 12vw, 10rem); }
 .section--tint{ background: var(--cal-tint); }
 .section--wine{ background: var(--wine); position: relative; overflow: hidden; }
 .section--wine > .wrap{ position: relative; z-index: 1; }
 
 .section__grid{
-  display: grid; gap: clamp(1.5rem, 4vw, 4rem);
+  display: grid; gap: clamp(2rem, 6vw, 6rem);
   grid-template-columns: minmax(0, .8fr) minmax(0, 1.7fr);
   align-items: start;
 }
@@ -272,7 +272,7 @@ p{ margin: 0; }
   font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.1; letter-spacing: -.005em;
   position: sticky; top: calc(var(--nav-h) + 2rem);
 }
-.section__body > * + *{ margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.section__body > * + *{ margin-top: clamp(3.5rem, 7vw, 5.5rem); }
 
 @media (max-width: 860px){
   .section__grid{ grid-template-columns: 1fr; }
@@ -280,19 +280,19 @@ p{ margin: 0; }
 }
 
 .prose{ max-width: 60ch; }
-.prose > * + *{ margin-top: 1.1rem; }
+.prose > * + *{ margin-top: 1.5rem; }
 .prose__lead{ font-family: var(--display); font-size: clamp(1.35rem, 2.4vw, 1.7rem); line-height: 1.4; }
-.prose__sign{ font-family: var(--display); font-style: italic; font-size: 1.6rem; padding-top: .5rem; }
+.prose__sign{ font-family: var(--display); font-size: 1.6rem; padding-top: .5rem; }
 .on-dark .prose strong{ color: #fff; }
 
 /* Lugares */
-.venues{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem 2rem; }
-.venue{ border-top: 2px solid var(--wine); padding-top: 1.25rem; }
+.venues{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 4rem 3rem; }
+.venue{ border-top: 2px solid var(--wine); padding-top: 1.75rem; }
 .venue h3{ font-size: 1.5rem; line-height: 1.25; }
 .venue__when{ color: var(--gold-text); font-weight: 600; margin-top: .35rem; }
 .venue__addr{ color: var(--muted); font-size: .95rem; margin-top: .5rem; line-height: 1.6; }
 .venue__map{
-  display: block; width: 100%; height: 240px; margin: 1.1rem 0;
+  display: block; width: 100%; height: 260px; margin: 1.75rem 0 1.5rem;
   border: 1px solid var(--line); background: var(--cal-tint);
 }
 
@@ -303,23 +303,23 @@ p{ margin: 0; }
 /* Itinerario */
 .timeline{ list-style: none; margin: 0; padding: 0; }
 .timeline__item{
-  display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: 1.25rem;
-  padding-block: 1.5rem; border-top: 1px solid var(--line);
+  display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: 1.75rem;
+  padding-block: 2.25rem; border-top: 1px solid var(--line);
 }
 .timeline__item:last-child{ border-bottom: 1px solid var(--line); }
 .timeline__time{
-  font-family: var(--display); font-style: italic; font-size: 1.7rem; line-height: 1.2;
+  font-family: var(--display); font-size: 1.7rem; line-height: 1.2;
   color: var(--wine); font-variant-numeric: lining-nums tabular-nums;
 }
 .timeline__body h3{ font-size: 1.3rem; line-height: 1.3; }
-.timeline__body p{ color: var(--muted); margin-top: .35rem; max-width: 52ch; }
+.timeline__body p{ color: var(--muted); margin-top: .6rem; max-width: 52ch; }
 
 @media (max-width: 520px){
   .timeline__item{ grid-template-columns: 1fr; gap: .25rem; }
 }
 
 /* Notas */
-.note{ border-left: 3px solid var(--gold); padding-left: 1.25rem; max-width: 60ch; }
+.note{ border-left: 3px solid var(--gold); padding-left: 1.75rem; max-width: 60ch; }
 .note h3{ font-size: 1.3rem; margin-bottom: .4rem; }
 .note p{ color: var(--muted); }
 .note strong{ color: var(--ink); }
@@ -327,8 +327,8 @@ p{ margin: 0; }
 /* Alojamiento */
 .stays{ border-top: 2px solid var(--wine); }
 .stay{
-  display: grid; grid-template-columns: minmax(0, 1fr); gap: .25rem;
-  padding-block: 1.5rem; border-bottom: 1px solid var(--line);
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: .5rem;
+  padding-block: 2.25rem; border-bottom: 1px solid var(--line);
 }
 .stay h3{ font-size: 1.4rem; line-height: 1.3; }
 .stay__meta{ color: var(--gold-text); font-weight: 600; font-size: .95rem; }
@@ -351,7 +351,7 @@ p{ margin: 0; }
 .faq__item summary{
   list-style: none; cursor: pointer;
   display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
-  padding-block: 1.25rem;
+  padding-block: 1.75rem;
   font-family: var(--display); font-size: 1.2rem; line-height: 1.35;
 }
 .faq__item summary::-webkit-details-marker{ display: none; }
@@ -362,7 +362,7 @@ p{ margin: 0; }
   transition: transform .25s ease;
 }
 .faq__item[open] summary::after{ transform: rotate(-135deg) translateY(-3px); }
-.faq__answer{ padding-bottom: 1.4rem; max-width: 58ch; }
+.faq__answer{ padding-bottom: 2rem; max-width: 58ch; }
 .faq__answer p{ color: var(--muted); }
 
 /* ============================= PIE ============================ */
@@ -374,7 +374,7 @@ p{ margin: 0; }
 .footer__rama{ width: 96px; height: auto; color: #a9b27f; }
 .footer__rama--espejo{ transform: scaleX(-1); }
 .footer__botella{ width: 34px; height: auto; color: var(--gold); }
-.footer__names{ font-family: var(--display); font-style: italic; font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; }
+.footer__names{ font-family: var(--display); font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; }
 .footer__date{ margin-top: .75rem; }
 .footer__thanks{ margin-top: 1.5rem; color: var(--gold); }
 .footer__credit{ margin-top: 2.5rem; font-size: .9rem; color: #d9cfcf; }
