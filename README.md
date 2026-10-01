@@ -3,10 +3,11 @@
 Web de la boda de Isabel y Amaro. Sitio estático (HTML + CSS + JS), sin dependencias
 ni proceso de compilación: se abre con doble clic y se publica en GitHub Pages.
 
-El diseño parte de Granada: fondo granate y cal blanca, oro viejo como acento y una
-portada con la foto dentro de un arco apuntado de inspiración nazarí. Tipografías
-*Bodoni Moda* (títulos) y *Hanken Grotesk* (texto). Los colores están como variables
-al principio de [`assets/css/styles.css`](assets/css/styles.css).
+Paleta verde oliva oscuro, cal blanca y oro viejo. La portada es una composición
+centrada tipo invitación: los nombres flanquean la foto, que va en un arco apuntado
+de inspiración nazarí con el "&" como sello dorado. Tipografías *Bodoni Moda*
+(títulos) y *Hanken Grotesk* (texto). Los colores están como variables al principio
+de [`assets/css/styles.css`](assets/css/styles.css).
 
 ## Qué hay que rellenar
 

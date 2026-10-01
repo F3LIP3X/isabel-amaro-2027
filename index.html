@@ -10,7 +10,7 @@
 <meta property="og:description" content="Nos casamos. Aquí tenéis toda la información del fin de semana.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://picsum.photos/seed/isabel-amaro/1200/630">
-<meta name="theme-color" content="#3a1220">
+<meta name="theme-color" content="#363d23">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,38 +46,34 @@
 
   <!-- ─────────────── PORTADA ─────────────── -->
   <section class="hero on-dark">
-    <div class="wrap hero__grid">
-      <div class="hero__text">
-        <p class="hero__lead">Nos casamos</p>
-        <h1 class="hero__names">
-          <span>Isabel</span>
-          <span class="hero__amp" aria-hidden="true">&amp;</span>
-          <span class="sr-only">y</span>
-          <span>Amaro</span>
-        </h1>
-        <p class="hero__meta">
-          <span data-date-long>12 de junio de 2027</span><br>
-          Granada
-        </p>
+    <div class="wrap hero__inner">
+      <p class="hero__lead">Nos casamos</p>
+      <h1 class="sr-only">Isabel y Amaro</h1>
 
-        <div class="countdown" id="countdown" aria-live="polite">
-          <div class="countdown__unit"><strong data-cd="days">—</strong><span>días</span></div>
-          <div class="countdown__unit"><strong data-cd="hours">—</strong><span>horas</span></div>
-          <div class="countdown__unit"><strong data-cd="minutes">—</strong><span>minutos</span></div>
-          <div class="countdown__unit"><strong data-cd="seconds">—</strong><span>segundos</span></div>
+      <div class="hero__stage" aria-hidden="true">
+        <span class="hero__name hero__name--a">Isabel</span>
+        <div class="hero__art">
+          <figure class="arch">
+            <div class="arch__photo">
+              <img src="https://picsum.photos/seed/isabel-amaro/1200/1500" alt="" width="1200" height="1500">
+            </div>
+          </figure>
+          <span class="hero__amp">&amp;</span>
+          <svg class="deco hero__rama" viewBox="0 0 330 400"><use href="#rama"/></svg>
         </div>
-
-        <a class="btn btn--light" href="#confirmacion">Confirmar asistencia</a>
+        <span class="hero__name hero__name--b">Amaro</span>
       </div>
 
-      <div class="hero__art">
-        <figure class="arch">
-          <div class="arch__photo">
-            <img src="https://picsum.photos/seed/isabel-amaro/1200/1500" alt="Isabel y Amaro" width="1200" height="1500">
-          </div>
-        </figure>
-        <svg class="deco hero__rama hero__rama--b" viewBox="0 0 330 400" aria-hidden="true"><use href="#rama"/></svg>
+      <p class="hero__date"><span><span data-date-long>12 de junio de 2027</span>, Granada</span></p>
+
+      <div class="countdown" id="countdown" aria-live="polite">
+        <div class="countdown__unit"><strong data-cd="days">—</strong><span>días</span></div>
+        <div class="countdown__unit"><strong data-cd="hours">—</strong><span>horas</span></div>
+        <div class="countdown__unit"><strong data-cd="minutes">—</strong><span>minutos</span></div>
+        <div class="countdown__unit"><strong data-cd="seconds">—</strong><span>segundos</span></div>
       </div>
+
+      <a class="btn btn--gold" href="#confirmacion">Confirmar asistencia</a>
     </div>
 
     <!-- Forma del arco (apuntado, de inspiración nazarí) -->
@@ -125,7 +121,7 @@
   </section>
 
   <!-- ─────────────── CONFIRMACIÓN ─────────────── -->
-  <section class="section section--wine on-dark" id="confirmacion">
+  <section class="section section--olive on-dark" id="confirmacion">
     <div class="wrap section__grid">
       <h2 class="section__title">Confirmación</h2>
 
@@ -137,7 +133,7 @@
         </div>
 
         <div class="rsvp">
-          <a class="btn btn--light btn--lg" id="rsvpBtn" href="#" target="_blank" rel="noopener">Ir al formulario</a>
+          <a class="btn btn--gold btn--lg" id="rsvpBtn" href="#" target="_blank" rel="noopener">Ir al formulario</a>
           <p class="rsvp__alt">Si tenéis cualquier duda, escribidnos directamente por WhatsApp.</p>
         </div>
       </div>
