@@ -9,44 +9,55 @@ de inspiración nazarí con el "&" como sello dorado. Tipografías *Bodoni Moda*
 (títulos) y *Hanken Grotesk* (texto). Los colores están como variables al principio
 de [`assets/css/styles.css`](assets/css/styles.css).
 
+La página sigue el recorrido de un invitado: portada → bienvenida → **el gran día**
+(lugares con mapa, programa y vestimenta) → **confirmación** → alojamiento y
+transporte → regalo → preguntas. El botón «Confirmar asistencia» está siempre a mano
+en el menú.
+
 ## Qué hay que rellenar
 
-Casi todo lo editable está en un único sitio: el objeto `BODA` al principio de
-[`assets/js/main.js`](assets/js/main.js).
+### En `assets/js/main.js` (objeto `BODA`)
 
 ```js
 const BODA = {
   fecha: '2027-06-12T12:00:00+02:00',   // fecha y hora de la ceremonia
+  duracionHoras: 14,                    // duración para «Añadir al calendario»
+  lugar: 'Granada',                     // lugar en la invitación de calendario
   formulario: 'https://forms.gle/...',  // enlace al formulario de confirmación
+  limiteConfirmacion: '1 de abril de 2027',
+  direcciones: {                        // dirección de cada lugar (Google Maps)
+    ceremony:  'Granada centro',
+    reception: 'Granada centro'
+  },
   iban: 'ES00 0000 ...',                // cuenta para el regalo
-  mapas: { ceremony: '...', reception: '...' },
-  limiteConfirmacion: '1 de abril de 2027'
+  titular: '',                          // titular de la cuenta (vacío = no se muestra)
+  whatsapp: ''                          // p. ej. '34600111222' (vacío = sin enlace)
 };
 ```
 
-Cambiando `fecha` se actualizan a la vez la cuenta atrás, la fecha de la portada y
-la del pie.
+- `fecha` actualiza a la vez la cuenta atrás, la fecha de la portada, la de «El gran
+  día», la del pie y el evento de calendario.
+- Cada dirección de `direcciones` alimenta el mapa incrustado y el enlace «Cómo
+  llegar», que abre la ruta en Google Maps.
 
-### Pendiente de confirmar en `index.html`
+### En `index.html`
 
-- [ ] Fecha real de la boda (ahora hay un **12 de junio de 2027** de ejemplo)
-- [ ] Iglesia y finca: nombre, dirección y horas
-- [ ] Horas del itinerario
-- [ ] Hoteles recomendados y enlaces de reserva
-- [ ] Número de cuenta real
-- [ ] Enlace del formulario de confirmación
+- [ ] Nombre de la iglesia y de la finca, y su dirección escrita
+- [ ] Horas del programa del día (y la del primer autobús de vuelta)
+- [ ] Hoteles recomendados, precios y enlaces de reserva
 - [ ] Repasar las preguntas frecuentes
 
 ### Fotos
 
-`assets/img/hero.svg` es un marcador de posición. Sustituidlo por la foto de la
-pareja, idealmente **vertical (4:5)** y de unos 1200 px de ancho, y actualizad el
-`src` en `index.html`:
+La foto de la portada es temporal (`picsum.photos`). Sustituidla por la de la
+pareja, idealmente **vertical (4:5)** y de unos 1200 px de ancho: guardadla en
+`assets/img/` y cambiad el `src` en `index.html`. Haced lo mismo con
+`og:image` (la imagen que aparece al compartir el enlace), en horizontal 1200×630.
 
 ```html
-<figure class="arch">
-  <img src="assets/img/hero.jpg" alt="Isabel y Amaro" width="1200" height="1500">
-</figure>
+<div class="arch__photo">
+  <img src="assets/img/portada.jpg" alt="" width="1200" height="1500" fetchpriority="high" decoding="async">
+</div>
 ```
 
 ## Formulario de confirmación
@@ -54,7 +65,8 @@ pareja, idealmente **vertical (4:5)** y de unos 1200 px de ancho, y actualizad e
 La web no tiene servidor, así que la confirmación se delega en un formulario
 externo (igual que hace WithJoy enlazando a Google Forms). Crea un
 [Google Form](https://forms.google.com) con estos campos y pega el enlace corto en
-`BODA.formulario`:
+`BODA.formulario`. Basta con **una respuesta por invitación**: los acompañantes y
+los niños se indican dentro del mismo formulario.
 
 1. Nombre y apellidos
 2. ¿Asistirás? (sí / no)
@@ -90,13 +102,14 @@ permiten) o un dominio con acceso restringido.
 ```
 index.html              una sola página con todas las secciones
 assets/css/styles.css   estilos (paleta y tipografía en :root)
-assets/js/main.js       configuración, cuenta atrás, menú, copiar IBAN
+assets/js/main.js       configuración, calendario, cuenta atrás, menú, copiar IBAN
 assets/img/             imágenes
 ```
 
 ## Accesibilidad y detalles
 
 - Responsive hasta 360 px de ancho
-- Navegación por teclado y `prefers-reduced-motion`
-- Hoja de estilos de impresión (las FAQ se imprimen abiertas)
+- Navegación por teclado, `prefers-reduced-motion` y textos con contraste AA
+- «Añadir al calendario» para Google Calendar y Apple/Outlook (`.ics`)
+- Hoja de estilos de impresión (las preguntas se imprimen desplegadas)
 - `noindex` para que no se indexe en buscadores

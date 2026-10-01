@@ -6,24 +6,36 @@
    ============================================================ */
 
 const BODA = {
-  // Fecha y hora de la ceremonia (zona horaria de España).
+  // Fecha y hora de la ceremonia (hora de España).
   // Formato: AAAA-MM-DDTHH:MM:SS+02:00  (+02:00 en verano, +01:00 en invierno)
   fecha: '2027-06-12T12:00:00+02:00',
+
+  // Duración aproximada, para la invitación de calendario (de la ceremonia al último autobús)
+  duracionHoras: 14,
+
+  // Lugar que aparece en la invitación de calendario
+  lugar: 'Granada',
 
   // Enlace al formulario de confirmación (Google Forms, Typeform…)
   formulario: 'https://forms.gle/CAMBIAR-ESTE-ENLACE',
 
-  // Número de cuenta para el regalo
-  iban: 'ES00 0000 0000 0000 0000 0000',
+  // Fecha límite para confirmar (texto libre)
+  limiteConfirmacion: '1 de abril de 2027',
 
-  // Enlaces de Google Maps de cada lugar
-  mapas: {
-    ceremony:  'https://maps.google.com/?q=Granada',
-    reception: 'https://maps.google.com/?q=Granada'
+  // Dirección de cada lugar, tal y como se buscaría en Google Maps.
+  // Se usa para el mapa incrustado y para el enlace «Cómo llegar».
+  direcciones: {
+    ceremony:  'Granada centro',
+    reception: 'Granada centro'
   },
 
-  // Fecha límite para confirmar (texto libre)
-  limiteConfirmacion: '1 de abril de 2027'
+  // Número de cuenta para el regalo y nombre del titular (si se deja vacío, no se muestra)
+  iban: 'ES00 0000 0000 0000 0000 0000',
+  titular: '',
+
+  // WhatsApp de contacto, con prefijo de país y sin espacios, p. ej. '34600111222'
+  // (si se deja vacío, el texto aparece sin enlace)
+  whatsapp: ''
 };
 
 /* ------------------------------------------------------------ */
@@ -36,28 +48,94 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const fecha = new Date(BODA.fecha);
 
   if (!isNaN(fecha)) {
-    const largo = fecha.toLocaleDateString('es-ES', {
-      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Madrid'
-    });
+    const opciones = { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Madrid' };
+    const largo = fecha.toLocaleDateString('es-ES', opciones);
+    const completo = fecha.toLocaleDateString('es-ES', { ...opciones, weekday: 'long' });
     $$('[data-date-long]').forEach(el => { el.textContent = largo; });
+    $$('[data-date-full]').forEach(el => { el.textContent = completo.charAt(0).toUpperCase() + completo.slice(1); });
     document.documentElement.setAttribute('data-wedding-date', BODA.fecha);
   }
 
   const btn = $('#rsvpBtn');
   if (btn) btn.href = BODA.formulario;
 
+  $$('[data-rsvp-deadline]').forEach(el => { el.textContent = BODA.limiteConfirmacion; });
+
+  // Mapas incrustados y enlaces «Cómo llegar» a partir de la misma dirección
+  $$('[data-map-embed]').forEach(el => {
+    const dir = BODA.direcciones[el.dataset.mapEmbed];
+    if (!dir) return;
+    const url = `https://maps.google.com/maps?q=${encodeURIComponent(dir)}&output=embed`;
+    if (el.getAttribute('src') !== url) el.src = url;
+  });
+  $$('[data-map-route]').forEach(el => {
+    const dir = BODA.direcciones[el.dataset.mapRoute];
+    if (dir) el.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dir)}`;
+  });
+
   const iban = $('#iban');
   if (iban) iban.textContent = BODA.iban;
 
-  $$('[data-rsvp-deadline]').forEach(el => { el.textContent = BODA.limiteConfirmacion; });
+  const titular = $('[data-titular]');
+  if (titular && BODA.titular) {
+    titular.textContent = BODA.titular;
+    $('[data-titular-row]')?.removeAttribute('hidden');
+  }
 
-  $$('[data-map]').forEach(el => {
-    const url = BODA.mapas[el.dataset.map];
-    if (url) el.href = url;
+  // Sin número de WhatsApp, el enlace se queda como texto normal
+  const whatsapp = String(BODA.whatsapp || '').replace(/\D/g, '');
+  $$('[data-whatsapp]').forEach(el => {
+    if (whatsapp) el.href = `https://wa.me/${whatsapp}`;
+    else el.replaceWith(document.createTextNode(el.textContent));
   });
 })();
 
-/* ---------- 2. Cuenta atrás --------------------------------- */
+/* ---------- 2. Añadir al calendario ------------------------- */
+(function calendario(){
+  const google = $('#calGoogle');
+  const ics = $('#calIcs');
+  const inicio = new Date(BODA.fecha);
+  if (isNaN(inicio) || (!google && !ics)) return;
+
+  const fin = new Date(inicio.getTime() + BODA.duracionHoras * 3600 * 1000);
+  const utc = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const titulo = 'Boda de Isabel y Amaro';
+  const detalles = `Toda la información: ${location.href.split('#')[0]}`;
+
+  if (google) {
+    google.href = 'https://calendar.google.com/calendar/render?' + new URLSearchParams({
+      action: 'TEMPLATE',
+      text: titulo,
+      dates: `${utc(inicio)}/${utc(fin)}`,
+      details: detalles,
+      location: BODA.lugar
+    });
+  }
+
+  if (ics) {
+    const escapar = s => String(s).replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n');
+    const texto = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Isabel y Amaro//Boda//ES',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      `UID:boda-isabel-amaro-${utc(inicio)}@isabel-amaro`,
+      `DTSTAMP:${utc(new Date())}`,
+      `DTSTART:${utc(inicio)}`,
+      `DTEND:${utc(fin)}`,
+      `SUMMARY:${escapar(titulo)}`,
+      `LOCATION:${escapar(BODA.lugar)}`,
+      `DESCRIPTION:${escapar(detalles)}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+    ics.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(texto);
+  }
+})();
+
+/* ---------- 3. Cuenta atrás --------------------------------- */
 (function cuentaAtras(){
   const box = $('#countdown');
   if (!box) return;
@@ -93,7 +171,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const id = setInterval(() => { if (pintar()) clearInterval(id); }, 1000);
 })();
 
-/* ---------- 3. Menú móvil ----------------------------------- */
+/* ---------- 4. Menú móvil ----------------------------------- */
 (function menuMovil(){
   const toggle = $('#navToggle');
   const menu   = $('#navMenu');
@@ -114,7 +192,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   window.addEventListener('resize', () => { if (innerWidth > 860) cerrar(); });
 })();
 
-/* ---------- 4. Sombra del nav al hacer scroll --------------- */
+/* ---------- 5. Fondo del nav al hacer scroll ---------------- */
 (function navPegajoso(){
   const nav = $('#nav');
   if (!nav) return;
@@ -123,7 +201,20 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   addEventListener('scroll', alternar, { passive: true });
 })();
 
-/* ---------- 5. Sección activa en el menú -------------------- */
+/* ---------- 6. Botón de confirmar del menú ----------------- */
+// Solo aparece cuando el botón de la portada no está a la vista.
+(function ctaDelMenu(){
+  const nav = $('#nav');
+  const delHero = $('.hero .btn');
+  if (!nav || !delHero || !('IntersectionObserver' in window)) return;
+
+  nav.classList.add('js-cta');
+  new IntersectionObserver(([e]) => {
+    nav.classList.toggle('has-cta', !e.isIntersecting);
+  }).observe(delHero);
+})();
+
+/* ---------- 7. Sección activa en el menú -------------------- */
 (function seccionActiva(){
   const enlaces = $$('.nav__menu a[href^="#"]');
   const secciones = enlaces
@@ -142,7 +233,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   secciones.forEach(x => obs.observe(x.seccion));
 })();
 
-/* ---------- 6. Copiar el IBAN ------------------------------- */
+/* ---------- 8. Copiar el IBAN ------------------------------- */
 (function copiarIban(){
   const btn  = $('#copyIban');
   const iban = $('#iban');
@@ -165,9 +256,12 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       ta.remove();
     }
     if (aviso) {
-      aviso.hidden = false;
+      aviso.textContent = 'Número copiado';
       clearTimeout(btn._t);
-      btn._t = setTimeout(() => { aviso.hidden = true; }, 2200);
+      btn._t = setTimeout(() => { aviso.textContent = ''; }, 2500);
     }
   });
 })();
+
+/* ---------- 9. Imprimir con las preguntas desplegadas ------- */
+addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = true; }); });
