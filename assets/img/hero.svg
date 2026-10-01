@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500" role="img" aria-label="Marcador de posicion para la foto de la pareja">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0" stop-color="#efe9dc"/>
+      <stop offset="0.55" stop-color="#ded5c0"/>
+      <stop offset="1" stop-color="#c9bda1"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#g)"/>
+  <g fill="none" stroke="#a69475" stroke-opacity="0.45">
+    <circle cx="600" cy="690" r="190" stroke-width="1.5"/>
+    <circle cx="600" cy="690" r="230" stroke-width="0.8"/>
+  </g>
+  <text x="600" y="730" text-anchor="middle" font-family="Georgia, serif" font-size="150" fill="#777150" letter-spacing="10">I &amp; A</text>
+  <text x="600" y="1010" text-anchor="middle" font-family="Georgia, serif" font-size="38" fill="#8c8670" letter-spacing="14">2027</text>
+  <text x="600" y="1300" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#a69475" letter-spacing="4">sustituid esta imagen por vuestra foto</text>
+</svg>
