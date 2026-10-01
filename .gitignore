@@ -1,0 +1,18 @@
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~
+
+# Dependencias y builds (por si se añaden más adelante)
+node_modules/
+dist/
+.cache/
+
+# Fotos originales sin optimizar
+assets/img/originales/
