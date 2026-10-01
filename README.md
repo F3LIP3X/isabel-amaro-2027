@@ -3,9 +3,10 @@
 Web de la boda de Isabel y Amaro. Sitio estático (HTML + CSS + JS), sin dependencias
 ni proceso de compilación: se abre con doble clic y se publica en GitHub Pages.
 
-El diseño reproduce la plantilla **Brannan** de WithJoy con cabecera **photoArch**:
-tipografías *Gilda Display* y *Pinyon Script*, fondo crema `#e2dccd`, verde oliva
-`#777150` y acento arena `#a69475`.
+El diseño parte de Granada: fondo granate y cal blanca, oro viejo como acento y una
+portada con la foto dentro de un arco apuntado de inspiración nazarí. Tipografías
+*Bodoni Moda* (títulos) y *Hanken Grotesk* (texto). Los colores están como variables
+al principio de [`assets/css/styles.css`](assets/css/styles.css).
 
 ## Qué hay que rellenar
 
@@ -88,7 +89,7 @@ permiten) o un dominio con acceso restringido.
 ```
 index.html              una sola página con todas las secciones
 assets/css/styles.css   estilos (paleta y tipografía en :root)
-assets/js/main.js       configuración, cuenta atrás, menú, animaciones
+assets/js/main.js       configuración, cuenta atrás, menú, copiar IBAN
 assets/img/             imágenes
 ```
 

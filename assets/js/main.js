@@ -77,7 +77,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
     if (resto <= 0) {
       box.classList.add('is-past');
-      box.innerHTML = '<p class="hero__eyebrow" style="margin:0">¡Hoy es el día!</p>';
+      box.innerHTML = '<p class="countdown__today">¡Hoy es el día!</p>';
       return true;
     }
 
@@ -142,29 +142,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   secciones.forEach(x => obs.observe(x.seccion));
 })();
 
-/* ---------- 6. Aparición al hacer scroll -------------------- */
-(function aparecer(){
-  const items = $$('.reveal');
-  if (!items.length) return;
-
-  if (!('IntersectionObserver' in window) ||
-      matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    items.forEach(el => el.classList.add('is-visible'));
-    return;
-  }
-
-  const obs = new IntersectionObserver((entradas, o) => {
-    entradas.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.classList.add('is-visible');
-      o.unobserve(e.target);
-    });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
-
-  items.forEach(el => obs.observe(el));
-})();
-
-/* ---------- 7. Copiar el IBAN ------------------------------- */
+/* ---------- 6. Copiar el IBAN ------------------------------- */
 (function copiarIban(){
   const btn  = $('#copyIban');
   const iban = $('#iban');
