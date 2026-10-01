@@ -10,11 +10,12 @@
   --cream:      #e2dccd;   /* fondo exterior */
   --paper:      #faf7f0;   /* panel interior */
   --paper-tint: #f2ede1;   /* bandas alternas */
-  --olive:      #777150;   /* color principal / texto fuerte */
-  --olive-dark: #5d5840;
-  --tan:        #a69475;   /* acento */
+  --olive:      #6a6446;   /* color principal / texto fuerte */
+  --olive-dark: #524e37;
+  --tan:        #a69475;   /* acento decorativo (no usar para texto) */
+  --tan-text:   #7a6840;   /* acento para texto, contraste AA */
   --ink:        #4c4938;
-  --muted:      #8c8670;
+  --muted:      #5f5a46;
   --line:       #d8d0bc;
 
   /* Tipografía */
@@ -111,7 +112,7 @@ img{ max-width:100%; display:block; }
   text-decoration: none;
   white-space: nowrap;
 }
-.nav__brand span{ color: var(--tan); }
+.nav__brand span{ color: var(--tan-text); }
 
 .nav__menu{ display:flex; gap: clamp(.9rem, 2vw, 1.9rem); }
 .nav__menu a{
@@ -194,7 +195,7 @@ img{ max-width:100%; display:block; }
   font-size: .72rem;
   letter-spacing: .34em;
   text-transform: uppercase;
-  color: var(--tan);
+  color: var(--tan-text);
 }
 
 .hero__names{
@@ -212,7 +213,7 @@ img{ max-width:100%; display:block; }
   font-size: .62em;
   text-transform: none;
   letter-spacing: 0;
-  color: var(--tan);
+  color: var(--tan-text);
   line-height: 1.3;
 }
 
@@ -227,7 +228,7 @@ img{ max-width:100%; display:block; }
   justify-content: center;
   gap: .5rem .9rem;
 }
-.hero__dot{ color: var(--tan); }
+.hero__dot{ color: var(--tan-text); }
 
 @media (max-width: 560px){
   .hero__meta{ flex-direction: column; gap: .4rem; }
@@ -306,7 +307,7 @@ img{ max-width:100%; display:block; }
   font-size: .72rem;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--tan);
+  color: var(--tan-text);
   text-decoration: none;
   border-bottom: 1px solid currentColor;
   padding-bottom: 2px;
@@ -326,7 +327,7 @@ img{ max-width:100%; display:block; }
   font-family: var(--script);
   font-size: clamp(1.5rem, 5vw, 2.1rem);
   line-height: 1.2;
-  color: var(--tan);
+  color: var(--tan-text);
 }
 .section__head h2{
   margin: .35rem 0 0;
@@ -363,7 +364,7 @@ img{ max-width:100%; display:block; }
   font-family: var(--script);
   font-size: 1.9rem;
   line-height:1.2;
-  color: var(--tan);
+  color: var(--tan-text);
   text-align: center;
 }
 .prose__note{
@@ -388,7 +389,7 @@ img{ max-width:100%; display:block; }
 .venue__kicker{
   margin:0;
   font-size: .68rem; letter-spacing: .26em; text-transform: uppercase;
-  color: var(--tan);
+  color: var(--tan-text);
 }
 .venue h3{
   margin: .6rem 0 .4rem;
@@ -396,7 +397,7 @@ img{ max-width:100%; display:block; }
 }
 .venue__time{
   margin:0 0 .5rem;
-  font-family: var(--script); font-size: 1.6rem; line-height:1.2; color: var(--tan);
+  font-family: var(--script); font-size: 1.6rem; line-height:1.2; color: var(--tan-text);
 }
 .venue__addr{ margin:0; font-size:.92rem; color: var(--muted); line-height:1.6; }
 
@@ -444,7 +445,7 @@ img{ max-width:100%; display:block; }
   text-align: right;
   font-size: .95rem;
   letter-spacing: .08em;
-  color: var(--tan);
+  color: var(--tan-text);
   font-variant-numeric: tabular-nums;
   padding-top: .05rem;
 }
@@ -475,7 +476,7 @@ img{ max-width:100%; display:block; }
 .note__title{
   margin:0 0 .6rem;
   font-size:.7rem; letter-spacing:.26em; text-transform:uppercase;
-  color: var(--tan);
+  color: var(--tan-text);
 }
 .note p{ margin:0; font-size:.95rem; color: var(--ink); }
 
@@ -495,10 +496,10 @@ img{ max-width:100%; display:block; }
 .card__kicker{
   margin:0 0 .75rem;
   font-size:.65rem; letter-spacing:.26em; text-transform:uppercase;
-  color: var(--tan);
+  color: var(--tan-text);
 }
 .card h3{ margin:0 0 .3rem; font-weight:400; font-size:1.15rem; color: var(--olive); }
-.card__meta{ margin:0 0 1.15rem; font-size:.82rem; color: var(--tan); }
+.card__meta{ margin:0 0 1.15rem; font-size:.82rem; color: var(--tan-text); }
 .card p{ margin:0; font-size:.93rem; color: var(--muted); }
 .card .link{ margin-top:auto; padding-top:1.25rem; align-self:flex-start; }
 
@@ -512,7 +513,7 @@ img{ max-width:100%; display:block; }
 }
 .gift__label{
   margin:0 0 .75rem;
-  font-size:.68rem; letter-spacing:.26em; text-transform:uppercase; color: var(--tan);
+  font-size:.68rem; letter-spacing:.26em; text-transform:uppercase; color: var(--tan-text);
 }
 .gift__iban{
   margin:0 0 1.5rem;
@@ -524,7 +525,7 @@ img{ max-width:100%; display:block; }
 }
 .gift__hint{
   margin:.9rem 0 0;
-  font-size:.75rem; letter-spacing:.18em; text-transform:uppercase; color: var(--tan);
+  font-size:.75rem; letter-spacing:.18em; text-transform:uppercase; color: var(--tan-text);
 }
 
 /* FAQ */
@@ -564,7 +565,7 @@ img{ max-width:100%; display:block; }
   font-family: var(--script);
   font-size: clamp(2rem, 7vw, 3rem);
   line-height:1.15;
-  color: var(--tan);
+  color: var(--tan-text);
 }
 .footer__date,
 .footer__place{
@@ -594,4 +595,10 @@ img{ max-width:100%; display:block; }
   .frame{ box-shadow:none; max-width:none; }
   .reveal{ opacity:1; transform:none; }
   .faq__answer{ display:block !important; }
+}
+
+/* Mapa incrustado de cada lugar */
+.venue__map{
+  display: block; width: 100%; height: 240px;
+  margin: 1rem 0; border: 1px solid var(--line);
 }
