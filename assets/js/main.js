@@ -210,8 +210,8 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
   nav.classList.add('js-cta');
   new IntersectionObserver(([e]) => {
-    nav.classList.toggle('has-cta', !e.isIntersecting);
-  }).observe(delHero);
+    nav.classList.toggle('has-cta', e.intersectionRatio < .5);
+  }, { threshold: [0, .5, 1] }).observe(delHero);
 })();
 
 /* ---------- 7. Sección activa en el menú -------------------- */

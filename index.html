@@ -34,6 +34,7 @@
 
       <nav class="nav__menu" id="navMenu" aria-label="Secciones">
         <a href="#el-dia">El gran día</a>
+        <a href="#vestimenta">Vestimenta</a>
         <a href="#alojamiento">Alojamiento</a>
         <a href="#regalo">Regalo</a>
         <a href="#faq">Preguntas</a>
@@ -49,24 +50,24 @@
   <!-- ─────────────── PORTADA ─────────────── -->
   <section class="hero on-dark">
     <div class="wrap hero__inner">
-      <p class="hero__lead">Nos casamos</p>
       <h1 class="sr-only">Isabel y Amaro</h1>
 
       <div class="hero__stage" aria-hidden="true">
-        <span class="hero__name hero__name--a">Isabel</span>
+        <div class="hero__names">
+          <span class="hero__name hero__name--a"><svg class="deco hero__vine hero__vine--fondo hero__vine--espejo" viewBox="0 0 300 110"><use href="#enredadera-fondo"/></svg><span class="hero__word">Isabel</span><svg class="deco hero__vine hero__vine--frente hero__vine--espejo" viewBox="0 0 300 110"><use href="#enredadera-frente"/></svg></span>
+          <span class="hero__amp">y</span>
+          <span class="hero__name hero__name--b"><svg class="deco hero__vine hero__vine--fondo" viewBox="0 0 300 110"><use href="#enredadera-fondo"/></svg><span class="hero__word">Amaro</span><svg class="deco hero__vine hero__vine--frente" viewBox="0 0 300 110"><use href="#enredadera-frente"/></svg></span>
+        </div>
         <div class="hero__art">
           <figure class="arch">
-            <div class="arch__photo">
-              <img src="https://picsum.photos/seed/isabel-amaro/1200/1500" alt="" width="1200" height="1500" fetchpriority="high" decoding="async">
-            </div>
-          </figure>
-          <span class="hero__amp">&amp;</span>
-          <svg class="deco hero__rama" viewBox="0 0 330 400"><use href="#rama"/></svg>
+              <div class="arch__photo">
+                <img src="https://picsum.photos/seed/isabel-amaro/1200/1500" alt="" width="1200" height="1500" fetchpriority="high" decoding="async">
+              </div>
+            </figure>
         </div>
-        <span class="hero__name hero__name--b">Amaro</span>
       </div>
 
-      <p class="hero__date"><span><span data-date-long>12 de junio de 2027</span>, Granada</span></p>
+      <p class="hero__date"><span>Nos casamos el <span data-date-long>12 de junio de 2027</span> en Granada</span></p>
 
       <div class="countdown" id="countdown" role="timer" aria-label="Cuenta atrás hasta la boda">
         <div class="countdown__unit"><strong data-cd="days">—</strong><span>días</span></div>
@@ -84,6 +85,8 @@
         <path d="M0,1 V0.52 C0,0.3 0.3,0.17 0.5,0 C0.7,0.17 1,0.3 1,0.52 V1 Z"/>
       </clipPath>
       <symbol id="rama" viewBox="0 0 330 400"><path d="M20 380C60 250 150 150 300 40" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path transform="translate(33.5 341.9) rotate(-113.1)" d="M0 0C13.0 -12.5 36.4 -11.4 52.0 0C36.4 11.4 13.0 12.5 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(33.5 341.9) rotate(-23.1)" d="M0 0C13.0 -12.5 36.4 -11.4 52.0 0C36.4 11.4 13.0 12.5 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(49.3 306.9) rotate(-118.4)" d="M0 0C12.3 -11.9 34.6 -10.9 49.4 0C34.6 10.9 12.3 11.9 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(49.3 306.9) rotate(-8.4)" d="M0 0C12.3 -11.9 34.6 -10.9 49.4 0C34.6 10.9 12.3 11.9 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(67.9 273.1) rotate(-103.9)" d="M0 0C11.7 -11.2 32.8 -10.3 46.8 0C32.8 10.3 11.7 11.2 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(67.9 273.1) rotate(-13.9)" d="M0 0C11.7 -11.2 32.8 -10.3 46.8 0C32.8 10.3 11.7 11.2 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(89.4 240.3) rotate(-109.6)" d="M0 0C11.1 -10.6 30.9 -9.7 44.2 0C30.9 9.7 11.1 10.6 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(89.4 240.3) rotate(0.4)" d="M0 0C11.1 -10.6 30.9 -9.7 44.2 0C30.9 9.7 11.1 10.6 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(113.9 208.4) rotate(-95.6)" d="M0 0C10.4 -10.0 29.1 -9.2 41.6 0C29.1 9.2 10.4 10.0 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(113.9 208.4) rotate(-5.6)" d="M0 0C10.4 -10.0 29.1 -9.2 41.6 0C29.1 9.2 10.4 10.0 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(141.3 177.0) rotate(-102.1)" d="M0 0C9.8 -9.4 27.3 -8.6 39.0 0C27.3 8.6 9.8 9.4 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(141.3 177.0) rotate(7.9)" d="M0 0C9.8 -9.4 27.3 -8.6 39.0 0C27.3 8.6 9.8 9.4 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(171.9 146.0) rotate(-88.9)" d="M0 0C9.1 -8.7 25.5 -8.0 36.4 0C25.5 8.0 9.1 8.7 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(171.9 146.0) rotate(1.1)" d="M0 0C9.1 -8.7 25.5 -8.0 36.4 0C25.5 8.0 9.1 8.7 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(205.5 115.2) rotate(-96.2)" d="M0 0C8.4 -8.1 23.7 -7.4 33.8 0C23.7 7.4 8.4 8.1 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(205.5 115.2) rotate(13.8)" d="M0 0C8.4 -8.1 23.7 -7.4 33.8 0C23.7 7.4 8.4 8.1 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(242.3 84.3) rotate(-83.9)" d="M0 0C7.8 -7.5 21.8 -6.9 31.2 0C21.8 6.9 7.8 7.5 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(242.3 84.3) rotate(6.1)" d="M0 0C7.8 -7.5 21.8 -6.9 31.2 0C21.8 6.9 7.8 7.5 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(282.3 53.2) rotate(-92.0)" d="M0 0C7.1 -6.9 20.0 -6.3 28.6 0C20.0 6.3 7.1 6.9 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(282.3 53.2) rotate(18.0)" d="M0 0C7.1 -6.9 20.0 -6.3 28.6 0C20.0 6.3 7.1 6.9 0 0Z" fill="currentColor" opacity="0.95"/><path d="M76.3 259.7L91.4 269.4" stroke="currentColor" stroke-width="2.4" fill="none"/><ellipse cx="94.8" cy="276.6" rx="7.5" ry="10.5" fill="#9b3a56"/><path d="M133.0 186.1L119.6 174.0" stroke="currentColor" stroke-width="2.4" fill="none"/><ellipse cx="116.7" cy="176.4" rx="7.5" ry="10.5" fill="#9b3a56"/><path d="M202.2 118.0L214.1 131.5" stroke="currentColor" stroke-width="2.4" fill="none"/><ellipse cx="216.8" cy="139.5" rx="7.5" ry="10.5" fill="#9b3a56"/></symbol>
+      <symbol id="enredadera-fondo" viewBox="0 0 300 110"><path d="M0 78C40 90 70 52 110 60S180 80 215 62S280 48 300 56" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></symbol>
+      <symbol id="enredadera-frente" viewBox="0 0 300 110"><path d="M0 78C40 90 70 52 110 60S180 80 215 62S280 48 300 56" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="26 44" stroke-dashoffset="-18"/><path transform="translate(28.4 79.1) rotate(-52.9)" d="M0 0C2.8 -2.6 7.7 -2.4 11.0 0C7.7 2.4 2.8 2.6 0 0Z" fill="currentColor"/><path transform="translate(76.2 62.6) rotate(25.0)" d="M0 0C2.6 -2.5 7.4 -2.3 10.6 0C7.4 2.3 2.6 2.5 0 0Z" fill="currentColor"/><path transform="translate(132.9 65.0) rotate(-29.3)" d="M0 0C2.5 -2.4 7.1 -2.2 10.2 0C7.1 2.2 2.5 2.4 0 0Z" fill="currentColor"/><path transform="translate(169.4 71.2) rotate(45.6)" d="M0 0C2.5 -2.4 6.9 -2.2 9.8 0C6.9 2.2 2.5 2.4 0 0Z" fill="currentColor"/><path transform="translate(204.6 66.5) rotate(-61.9)" d="M0 0C2.4 -2.3 6.6 -2.1 9.4 0C6.6 2.1 2.4 2.3 0 0Z" fill="currentColor"/><path transform="translate(245.0 51.3) rotate(30.5)" d="M0 0C2.2 -2.2 6.3 -2.0 9.0 0C6.3 2.0 2.2 2.2 0 0Z" fill="currentColor"/><path transform="translate(283.2 51.0) rotate(-30.8)" d="M0 0C2.1 -2.1 6.0 -1.9 8.6 0C6.0 1.9 2.1 2.1 0 0Z" fill="currentColor"/><path d="M159.3 70.1l2 6" stroke="currentColor" stroke-width=".8" fill="none"/><ellipse cx="161.9" cy="79.1" rx="2.4" ry="3.3" fill="#b0566f"/></symbol>
       <symbol id="ramita" viewBox="0 0 120 60"><path d="M2 32C40 25 80 35 117 27" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path transform="translate(18.1 30.0) rotate(-42.4)" d="M0 0C5.2 -5.0 14.7 -4.6 21.0 0C14.7 4.6 5.2 5.0 0 0Z" fill="currentColor" opacity="0.75"/><path transform="translate(18.1 30.0) rotate(33.6)" d="M0 0C5.2 -5.0 14.7 -4.6 21.0 0C14.7 4.6 5.2 5.0 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(33.5 29.4) rotate(-46.5)" d="M0 0C4.9 -4.7 13.6 -4.3 19.5 0C13.6 4.3 4.9 4.7 0 0Z" fill="currentColor" opacity="0.75"/><path transform="translate(33.5 29.4) rotate(45.5)" d="M0 0C4.9 -4.7 13.6 -4.3 19.5 0C13.6 4.3 4.9 4.7 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(49.0 29.5) rotate(-36.5)" d="M0 0C4.5 -4.3 12.6 -4.0 18.0 0C12.6 4.0 4.5 4.3 0 0Z" fill="currentColor" opacity="0.75"/><path transform="translate(49.0 29.5) rotate(39.5)" d="M0 0C4.5 -4.3 12.6 -4.0 18.0 0C12.6 4.0 4.5 4.3 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(64.5 30.0) rotate(-44.3)" d="M0 0C4.1 -4.0 11.5 -3.6 16.5 0C11.5 3.6 4.1 4.0 0 0Z" fill="currentColor" opacity="0.75"/><path transform="translate(64.5 30.0) rotate(47.7)" d="M0 0C4.1 -4.0 11.5 -3.6 16.5 0C11.5 3.6 4.1 4.0 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(80.0 30.3) rotate(-38.0)" d="M0 0C3.8 -3.6 10.5 -3.3 15.0 0C10.5 3.3 3.8 3.6 0 0Z" fill="currentColor" opacity="0.75"/><path transform="translate(80.0 30.3) rotate(38.0)" d="M0 0C3.8 -3.6 10.5 -3.3 15.0 0C10.5 3.3 3.8 3.6 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(95.2 29.9) rotate(-49.5)" d="M0 0C3.4 -3.2 9.4 -3.0 13.5 0C9.4 3.0 3.4 3.2 0 0Z" fill="currentColor" opacity="0.75"/><path transform="translate(95.2 29.9) rotate(42.5)" d="M0 0C3.4 -3.2 9.4 -3.0 13.5 0C9.4 3.0 3.4 3.2 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(110.3 28.3) rotate(-47.1)" d="M0 0C3.0 -2.9 8.4 -2.6 12.0 0C8.4 2.6 3.0 2.9 0 0Z" fill="currentColor" opacity="0.75"/><path transform="translate(110.3 28.3) rotate(28.9)" d="M0 0C3.0 -2.9 8.4 -2.6 12.0 0C8.4 2.6 3.0 2.9 0 0Z" fill="currentColor" opacity="0.95"/><path d="M36.6 29.3L36.6 37.3" stroke="currentColor" stroke-width="1.2" fill="none"/><ellipse cx="36.6" cy="39.8" rx="3.4" ry="4.6" fill="#9b3a56"/><path d="M69.2 30.1L69.0 38.1" stroke="currentColor" stroke-width="1.2" fill="none"/><ellipse cx="68.9" cy="40.6" rx="3.4" ry="4.6" fill="#9b3a56"/></symbol>
     </svg>
   </section>
@@ -134,7 +137,6 @@
             <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Granada%20centro" data-map-route="reception" target="_blank" rel="noopener">Cómo llegar</a>
           </article>
         </div>
-
         <div class="group">
           <h3 class="subhead">Programa</h3>
           <ol class="timeline">
@@ -190,11 +192,37 @@
           </ol>
         </div>
 
-        <aside class="dress">
-          <p class="dress__label">Código de vestimenta</p>
-          <p class="dress__title">Etiqueta formal</p>
-          <p>Parte de la celebración es al aire libre, sobre césped y grava: mejor tacón ancho o sandalia que tacón de aguja.</p>
-        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── VESTIMENTA ─────────────── -->
+  <section class="section" id="vestimenta">
+    <div class="wrap section__grid">
+      <header class="section__head">
+        <h2 class="section__title">Código de vestimenta</h2>
+      </header>
+
+      <div class="section__body">
+        <div class="prose">
+          <p class="attire__code">Etiqueta formal</p>
+          <p>Queremos veros guapísimos. Parte de la celebración es al aire libre, así que pensad también en estar cómodos.</p>
+        </div>
+
+        <div class="attire">
+          <div class="attire__item">
+            <h3>Ellos</h3>
+            <p>Traje oscuro y corbata.</p>
+          </div>
+          <div class="attire__item">
+            <h3>Ellas</h3>
+            <p>Vestido largo o de cóctel.</p>
+          </div>
+          <div class="attire__item">
+            <h3>Calzado</h3>
+            <p>Habrá césped y grava: mejor tacón ancho o sandalia que tacón de aguja.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
