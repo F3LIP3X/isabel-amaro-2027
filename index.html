@@ -10,6 +10,8 @@
 <meta property="og:description" content="Nos casamos. Aquí tenéis toda la información del fin de semana.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://picsum.photos/seed/isabel-amaro/1200/630">
+<meta property="og:url" content="https://f3lip3x.github.io/isabel-amaro-2027/">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#363d23">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,9 +29,9 @@
     <a class="nav__brand" href="#top">Isabel &amp; Amaro</a>
 
     <div class="nav__right">
-      <button class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+      <button class="nav__toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu">
         <span class="nav__toggle-bars" aria-hidden="true"></span>
-        <span class="sr-only">Abrir menú</span>
+        <span class="sr-only" data-toggle-label>Abrir menú</span>
       </button>
 
       <nav class="nav__menu" id="navMenu" aria-label="Secciones">
@@ -54,9 +56,9 @@
 
       <div class="hero__stage" aria-hidden="true">
         <div class="hero__names">
-          <span class="hero__name hero__name--a"><svg class="deco hero__vine hero__vine--fondo hero__vine--espejo" viewBox="0 0 300 110"><use href="#enredadera-fondo"/></svg><span class="hero__word">Isabel</span><svg class="deco hero__vine hero__vine--frente hero__vine--espejo" viewBox="0 0 300 110"><use href="#enredadera-frente"/></svg></span>
+          <span class="hero__name hero__name--a"><svg aria-hidden="true" focusable="false" class="deco hero__vine hero__vine--fondo hero__vine--espejo" viewBox="0 0 300 110"><use href="#enredadera-fondo"/></svg><span class="hero__word">Isabel</span><svg aria-hidden="true" focusable="false" class="deco hero__vine hero__vine--frente hero__vine--espejo" viewBox="0 0 300 110"><use href="#enredadera-frente"/></svg></span>
           <span class="hero__amp">y</span>
-          <span class="hero__name hero__name--b"><svg class="deco hero__vine hero__vine--fondo" viewBox="0 0 300 110"><use href="#enredadera-fondo"/></svg><span class="hero__word">Amaro</span><svg class="deco hero__vine hero__vine--frente" viewBox="0 0 300 110"><use href="#enredadera-frente"/></svg></span>
+          <span class="hero__name hero__name--b"><svg aria-hidden="true" focusable="false" class="deco hero__vine hero__vine--fondo" viewBox="0 0 300 110"><use href="#enredadera-fondo"/></svg><span class="hero__word">Amaro</span><svg aria-hidden="true" focusable="false" class="deco hero__vine hero__vine--frente" viewBox="0 0 300 110"><use href="#enredadera-frente"/></svg></span>
         </div>
         <div class="hero__art">
           <figure class="arch">
@@ -247,7 +249,7 @@
         </div>
 
         <div class="rsvp">
-          <a class="btn btn--gold btn--lg" id="rsvpBtn" href="#" target="_blank" rel="noopener">Ir al formulario</a>
+          <a class="btn btn--solid btn--lg" id="rsvpBtn" href="#" target="_blank" rel="noopener">Ir al formulario</a>
           <p class="rsvp__note">Basta con una respuesta por invitación: en el formulario podréis añadir a vuestros acompañantes.</p>
           <p class="rsvp__note">¿Alguna duda? <a class="link" href="#" data-whatsapp target="_blank" rel="noopener">Escribidnos por WhatsApp</a>.</p>
         </div>
@@ -364,7 +366,7 @@
             <div class="faq__answer"><p>Nos encantan los peques. Indicadnos en el formulario cuántos vienen y su edad para organizar menús infantiles y un espacio para ellos.</p></div>
           </details>
           <details class="faq__item">
-            <summary>Tengo alergias o sigo una dieta especial</summary>
+            <summary>¿Y si tengo alergias o sigo una dieta especial?</summary>
             <div class="faq__answer"><p>Decídnoslo en el formulario de confirmación con el mayor detalle posible. El catering preparará menú vegetariano, vegano y sin gluten.</p></div>
           </details>
           <details class="faq__item">
@@ -401,9 +403,9 @@
 <!-- ─────────────── PIE ─────────────── -->
 <footer class="footer on-dark">
   <div class="crest" aria-hidden="true">
-    <svg viewBox="0 0 330 400" class="crest__rama crest__rama--espejo"><use href="#rama"/></svg>
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 330 400" class="crest__rama crest__rama--espejo"><use href="#rama"/></svg>
     <span class="monogram">I<span>&amp;</span>A</span>
-    <svg viewBox="0 0 330 400" class="crest__rama"><use href="#rama"/></svg>
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 330 400" class="crest__rama"><use href="#rama"/></svg>
   </div>
   <p class="footer__names">Isabel &amp; Amaro</p>
   <p class="footer__date"><span data-date-long>12 de junio de 2027</span>, Granada</p>

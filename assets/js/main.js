@@ -56,8 +56,18 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     document.documentElement.setAttribute('data-wedding-date', BODA.fecha);
   }
 
+  // Mientras el formulario no sea real, el botón no lleva a ningún sitio falso
   const btn = $('#rsvpBtn');
-  if (btn) btn.href = BODA.formulario;
+  const formulario = String(BODA.formulario || '');
+  if (btn) {
+    if (formulario && !/CAMBIAR/i.test(formulario)) btn.href = formulario;
+    else {
+      btn.removeAttribute('href');
+      btn.removeAttribute('target');
+      btn.setAttribute('aria-disabled', 'true');
+      btn.textContent = 'Formulario disponible muy pronto';
+    }
+  }
 
   $$('[data-rsvp-deadline]').forEach(el => { el.textContent = BODA.limiteConfirmacion; });
 
@@ -73,8 +83,11 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
     if (dir) el.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dir)}`;
   });
 
+  // Un IBAN de ejemplo (solo ceros) no se muestra ni se puede copiar
   const iban = $('#iban');
-  if (iban) iban.textContent = BODA.iban;
+  const ibanReal = /[1-9]/.test(String(BODA.iban || '').replace(/^\D+/, ''));
+  if (iban) iban.textContent = ibanReal ? BODA.iban : 'Muy pronto lo tendréis aquí';
+  if (!ibanReal) $('#copyIban')?.setAttribute('hidden', '');
 
   const titular = $('[data-titular]');
   if (titular && BODA.titular) {
@@ -177,19 +190,23 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   const menu   = $('#navMenu');
   if (!toggle || !menu) return;
 
-  const cerrar = () => {
-    menu.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-  };
-
-  toggle.addEventListener('click', () => {
-    const abierto = menu.classList.toggle('is-open');
+  const etiqueta = $('[data-toggle-label]', toggle);
+  const marcar = abierto => {
+    menu.classList.toggle('is-open', abierto);
     toggle.setAttribute('aria-expanded', String(abierto));
-  });
+    if (etiqueta) etiqueta.textContent = abierto ? 'Cerrar menú' : 'Abrir menú';
+  };
+  const cerrar = () => marcar(false);
+
+  toggle.addEventListener('click', () => marcar(!menu.classList.contains('is-open')));
 
   $$('a', menu).forEach(a => a.addEventListener('click', cerrar));
   document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
-  window.addEventListener('resize', () => { if (innerWidth > 860) cerrar(); });
+  // Un toque fuera del menú lo cierra
+  document.addEventListener('click', e => {
+    if (menu.classList.contains('is-open') && !menu.contains(e.target) && !toggle.contains(e.target)) cerrar();
+  });
+  window.addEventListener('resize', () => { if (innerWidth > 960) cerrar(); });
 })();
 
 /* ---------- 5. Fondo del nav al hacer scroll ---------------- */
@@ -216,21 +233,29 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 /* ---------- 7. Sección activa en el menú -------------------- */
 (function seccionActiva(){
+  // Una sola sección activa: la que cruza la línea a media pantalla.
+  // Las que no están en el menú (bienvenida, confirmación) no marcan ninguna.
   const enlaces = $$('.nav__menu a[href^="#"]');
-  const secciones = enlaces
-    .map(a => ({ enlace: a, seccion: $(a.getAttribute('href')) }))
-    .filter(x => x.seccion);
+  const secciones = $$('main section[id]');
+  if (!enlaces.length || !secciones.length) return;
 
-  if (!secciones.length || !('IntersectionObserver' in window)) return;
-
-  const obs = new IntersectionObserver(entradas => {
-    entradas.forEach(e => {
-      const par = secciones.find(x => x.seccion === e.target);
-      if (par) par.enlace.classList.toggle('is-active', e.isIntersecting);
+  let pendiente = false;
+  function actualizar(){
+    pendiente = false;
+    const linea = innerHeight * .45;
+    const actual = secciones.filter(s => s.getBoundingClientRect().top <= linea).pop();
+    const id = actual && actual.getBoundingClientRect().bottom > linea ? actual.id : '';
+    enlaces.forEach(a => {
+      const activo = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('is-active', activo);
+      if (activo) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
     });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-
-  secciones.forEach(x => obs.observe(x.seccion));
+  }
+  const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(actualizar); } };
+  addEventListener('scroll', pedir, { passive: true });
+  addEventListener('resize', pedir);
+  actualizar();
 })();
 
 /* ---------- 8. Copiar el IBAN ------------------------------- */
@@ -263,5 +288,10 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   });
 })();
 
-/* ---------- 9. Imprimir con las preguntas desplegadas ------- */
+/* ---------- 9. Enlaces aún sin dirección ------------------ */
+// Un enlace que se abriría en otra pestaña pero sigue en "#" es un hueco
+// pendiente (p. ej. reservas de hotel): se oculta hasta que tenga URL real.
+$$('a[href="#"][target="_blank"]').forEach(a => { a.hidden = true; });
+
+/* ---------- 10. Imprimir con las preguntas desplegadas ------- */
 addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = true; }); });
