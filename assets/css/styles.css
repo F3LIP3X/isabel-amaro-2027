@@ -69,7 +69,7 @@ p, ul, dl{ margin: 0; }
 
 /* Bodoni Moda a tamaño óptico grande tiene trazos finísimos que desaparecen:
    fijamos un tamaño óptico bajo para que los remates sean más gruesos. */
-h1,h2,h3,h4,.nav__brand,.hero__name,.hero__date,.countdown__unit strong,.countdown__today,
+h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 .prose__lead,.letter__sign,.section__sub,.timeline__time,.gift__iban,
 .faq__item summary,.monogram,.footer__names{
   font-optical-sizing: none;
@@ -114,6 +114,22 @@ h1,h2,h3,h4,.nav__brand,.hero__name,.hero__date,.countdown__unit strong,.countdo
   height: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter);
   display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
 }
+/* Escritorio: marca | contador + menú | botón. Columnas laterales iguales: el bloque
+   central queda siempre en el centro exacto, aparezca o no el botón (que solo se ve
+   tras la portada), y comparte línea base con la marca y el botón */
+@media (min-width: 1200px){
+  .nav__inner{
+    display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-content: center; align-items: baseline; gap: 1.5rem;
+  }
+  .nav__inner .nav__right{ display: contents; }
+  .nav__brand{ justify-self: start; }
+  .nav__inner .nav__menu{ grid-column: 2; align-items: baseline; }
+  .nav__cta{ grid-column: 3; justify-self: end; }
+}
+/* Con la cuenta atrás completa, la cabecera se ensancha para que todo quepa */
+@media (min-width: 1360px){ .nav__inner{ max-width: 1360px; } }
+
 .nav__brand{
   font-family: var(--display); font-size: 1.35rem;
   color: inherit; text-decoration: none; white-space: nowrap;
@@ -156,8 +172,21 @@ h1,h2,h3,h4,.nav__brand,.hero__name,.hero__date,.countdown__unit strong,.countdo
 .nav__toggle[aria-expanded="true"] .nav__toggle-bars{ transform: translateY(-4px) rotate(45deg); top: 4px; }
 .nav__toggle[aria-expanded="true"] .nav__toggle-bars::before{ transform: translateY(8px) rotate(-90deg); }
 
-/* El menú de escritorio con el botón necesita ~940px: por debajo, hamburguesa */
-@media (max-width: 960px){
+/* Cuenta atrás en la cabecera: a la izquierda del menú, con un filete que la separa */
+.nav__count{
+  display: flex; align-items: center; gap: .9rem; white-space: nowrap; line-height: 1;
+  font-size: .82rem; font-weight: 500; letter-spacing: .02em;
+  padding-right: 1.75rem; border-right: 1px solid currentColor; border-color: rgba(196,160,90,.6);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.nav__count-unit{ display: inline-flex; align-items: baseline; gap: .28rem; line-height: 1; }
+.nav__count strong{ font-family: var(--display); font-weight: 500; font-size: 1.1rem; line-height: 1; }
+.nav__count-today{ font-family: var(--display); font-size: 1rem; }
+/* Hasta 1359px solo caben los días */
+@media (max-width: 1359px){ .nav__count-unit--sec{ display: none; } }
+
+/* Marca + cuenta atrás + menú + botón necesitan ~1200px: por debajo, hamburguesa */
+@media (max-width: 1199px){
   .nav__inner{ gap: 1rem; }
   .nav__brand{ font-size: 1.2rem; }
   .nav__right{ gap: .5rem; }
@@ -175,6 +204,13 @@ h1,h2,h3,h4,.nav__brand,.hero__name,.hero__date,.countdown__unit strong,.countdo
   .nav__menu.is-open{ display: flex; }
   .nav__menu a{ padding-block: .9rem; border-bottom: 1px solid var(--line); font-size: 1rem; }
   .nav__menu a:last-child{ border-bottom: 0; }
+  /* En el panel, la cuenta atrás es la primera fila */
+  .nav__count{
+    padding: .9rem 0; border-right: 0; border-bottom: 1px solid var(--line);
+    font-size: .95rem; color: var(--muted); flex-wrap: wrap; gap: .3rem .6rem;
+  }
+  .nav__count strong{ color: var(--ink); font-size: 1.2rem; }
+  .nav__count-unit--sec{ display: inline; }
   /* El panel es claro aunque el nav sea transparente: foco en oro oscuro */
   .nav .nav__menu.is-open :focus-visible{ outline-color: var(--gold-text); }
 }
@@ -188,120 +224,99 @@ h1,h2,h3,h4,.nav__brand,.hero__name,.hero__date,.countdown__unit strong,.countdo
 /* ========================== PORTADA ========================== */
 .on-dark{ color: var(--ivory); }
 
+/* Vídeo desenfocado de fondo con un velo oliva; en el centro, la estrella de
+   ocho puntas (dos cuadrados cruzados) con los nombres, la fecha y la cuenta atrás */
 .hero{
-  position: relative;
+  position: relative; isolation: isolate;
   min-height: 100svh;
-  padding-block: calc(var(--nav-h) + 1.25rem) 3rem;
-  display: flex; align-items: center;
+  padding-block: calc(var(--nav-h) + 1rem) 1.5rem;
+  display: flex; align-items: center; justify-content: center;
   background-color: var(--olive);
-  /* celosía de estrellas de ocho puntas, apenas visible */
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'><g fill='none' stroke='%23c4a05a' stroke-opacity='.09' stroke-width='1'><rect x='28' y='28' width='40' height='40'/><rect x='28' y='28' width='40' height='40' transform='rotate(45 48 48)'/></g></svg>");
-  background-size: 96px 96px;
   overflow: hidden;
 }
-
-/* Composición de invitación: todo centrado y simétrico */
-.hero__inner{ display: flex; flex-direction: column; align-items: center; text-align: center; }
-
-/* Nombres a la izquierda, foto a la derecha */
-.hero__stage{
-  width: 100%;
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center;
-  gap: clamp(2rem, 6vw, 6rem);
-  margin: 0 0 clamp(2.5rem, 4vw, 3.25rem);
-  text-align: left;
+.hero__video{
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: blur(5px) saturate(.85);
+  transform: scale(1.08);   /* que el desenfoque no deje bordes claros */
 }
-.hero__names{ display: flex; flex-direction: column; align-items: flex-start; justify-self: start; }
-.hero__name{
-  font-family: var(--display); font-weight: 500;
-  font-size: clamp(3rem, min(8.2vw, 13svh), 8.25rem); line-height: 1; letter-spacing: -.015em;
-}
-.hero__amp{
-  font-family: var(--display); font-size: clamp(2.6rem, min(5vw, 8svh), 5rem); line-height: .8;
-  color: var(--gold-light); margin: -.05em 0 .15em; align-self: center;
+.hero__veil{
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse at center, rgba(54,61,35,.25) 0%, rgba(54,61,35,.7) 75%),
+    rgba(54,61,35,.25);
 }
 
-.hero__art{ position: relative; width: clamp(220px, min(24vw, 37svh), 380px); }
-
-.deco{ pointer-events: none; }
-
-/* Enredadera de olivo muy fina que se cuela entre las letras: el tallo pasa por
-   detrás de la palabra y algunos tramos (con las hojas) por delante */
-.hero__name{ position: relative; display: inline-block; }
-.hero__word{ position: relative; z-index: 1; }
-.hero__vine{
-  position: absolute; left: -7%; top: -.02em; width: 114%; height: auto;
-  color: var(--leaf-light); opacity: .9; pointer-events: none;
+.hero__star{
+  --s: min(780px, calc(100svh - var(--nav-h) - 2.5rem), 96vw);
+  position: relative; flex: none;
+  width: var(--s); aspect-ratio: 1;
+  container-type: inline-size;
+  display: grid; place-items: center;
 }
-.hero__vine--fondo{ z-index: 0; }
-.hero__vine--frente{ z-index: 2; }
-.hero__vine--espejo{ transform: scaleX(-1); }
+.hero__star-shape{ position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hero__star-fill{ fill: rgba(54,61,35,.72); }
+.hero__star-line{ fill: none; stroke: var(--gold); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.hero__star-line--fina{ stroke-width: 1; opacity: .55; }
 
-/* Fecha entre dos filetes dorados */
-.hero__date{
-  display: flex; align-items: center; justify-content: center; gap: 1.25rem;
-  font-family: var(--display); font-size: clamp(1.2rem, 1.9vw, 1.5rem); line-height: 1.35;
-  text-wrap: balance;
-}
-.hero__date [data-date-long]{ white-space: nowrap; }
-.hero__date::before,
-.hero__date::after{ content: ""; width: clamp(2rem, 6vw, 4.5rem); height: 1px; background: var(--gold); opacity: .7; }
-
-/* Cuenta atrás: franja con separadores finos */
-.countdown{ display: flex; justify-content: center; margin: 1.75rem 0 2.25rem; }
-.countdown__unit{
-  display: flex; flex-direction: column; align-items: center;
-  padding-inline: clamp(1rem, 3vw, 2.25rem);
-  border-left: 1px solid rgba(196,160,90,.4);
-}
-.countdown__unit:first-child{ border-left: 0; }
-.countdown__unit strong{
-  font-family: var(--display); font-weight: 500; font-size: clamp(2rem, 3.6vw, 2.75rem);
-  line-height: 1; font-variant-numeric: lining-nums tabular-nums; min-width: 2ch;
-}
-.countdown__unit span{ font-size: .875rem; color: #cfcbb8; margin-top: .5rem; letter-spacing: .02em; }
-.countdown__today{ font-family: var(--display); font-size: 1.6rem; }
-
-/* Arco */
-.arch{
-  margin: 0; width: 100%;
-  aspect-ratio: 4 / 5;
-  background: var(--gold);
-  clip-path: url(#arco);
-  padding: 6px;
-  position: relative;
-}
-.arch__photo{
-  width: 100%; height: 100%;
-  clip-path: url(#arco);
-  background: var(--olive-soft);
-}
-.arch__photo img{ width: 100%; height: 100%; object-fit: cover; }
-
-/* Única animación de entrada: el arco se abre y el resto aparece en orden */
+/* Ramas de olivo muy discretas que serpentean sobre las aristas de la estrella:
+   hoja plana translúcida con delineado fino; en los cruces alternos la arista pasa por encima */
+.hero__olivo{ position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; opacity: .8; }
+.olv-tallo{ fill: none; stroke: var(--leaf-light); stroke-opacity: .7; stroke-width: 1.1px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.olv-hoja{ fill: rgba(169,178,127,.38); stroke: rgba(196,205,152,.75); stroke-width: .8px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.olv-rabo{ fill: none; stroke: var(--leaf-light); stroke-opacity: .7; stroke-width: .9px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.olv-fruto{ fill: rgba(86,104,98,.85); stroke: rgba(196,205,152,.6); stroke-width: .7px; vector-effect: non-scaling-stroke; }
+.olv-paso-halo{ fill: none; stroke: rgba(48,55,32,.95); stroke-width: 4.5px; stroke-linecap: butt; vector-effect: non-scaling-stroke; }
+.olv-paso{ fill: none; stroke: var(--gold); stroke-width: 2px; stroke-linecap: butt; vector-effect: non-scaling-stroke; }
 @media (prefers-reduced-motion: no-preference){
-  .arch{ animation: abrir 1.1s cubic-bezier(.2,.65,.3,1) .15s both; }
-  .hero__name, .hero__amp, .hero__date, .countdown, .hero .btn{ animation: entrar .7s ease both; }
-  .hero__name{ animation-delay: .25s; }
-  .hero__amp{ animation-delay: .55s; }
-  .hero__date{ animation-delay: .4s; }
-  .countdown{ animation-delay: .5s; }
-  .hero .btn{ animation-delay: .6s; }
+  .hero__olivo{ animation: entrar .9s ease .8s both; }
 }
-@keyframes abrir{ from{ clip-path: inset(100% 0 0 0); } to{ clip-path: url(#arco); } }
+
+
+
+.hero__content{
+  position: relative; width: 62cqi;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+/* Escala de la portada, todo en proporción a la estrella:
+   nombres 6,4 · fecha 3,1 */
+.hero__names{
+  font-size: max(1.35rem, 6.4cqi); line-height: 1.05; letter-spacing: -.01em;
+  white-space: nowrap;
+}
+.hero__amp{ color: var(--gold-light); }
+.hero__date{
+  margin-top: 3.6cqi;
+  font-family: var(--display); font-size: max(.95rem, 3.1cqi); line-height: 1.3;
+}
+/* una frase por línea */
+.hero__date > span{ display: block; }
+
+/* Cuenta atrás: vive en la cabecera (ver .nav__count) */
+
+/* El botón respira bajo la fecha */
+.hero__content .btn{ margin-top: 5cqi; }
+
+/* Entrada: la estrella aparece y el contenido después, en orden */
+@media (prefers-reduced-motion: no-preference){
+  .hero__star-shape{ animation: estrella 1.1s cubic-bezier(.2,.65,.3,1) .1s both; }
+  .hero__names, .hero__date, .hero .btn{ animation: entrar .7s ease both; }
+  .hero__names{ animation-delay: .35s; }
+  .hero__date{ animation-delay: .5s; }
+  .hero .btn{ animation-delay: .65s; }
+}
+@keyframes estrella{ from{ opacity: 0; transform: scale(.94) rotate(-8deg); } to{ opacity: 1; transform: none; } }
 @keyframes entrar{ from{ opacity: 0; } to{ opacity: 1; } }
 
+/* En móvil la estrella es más ancha que la pantalla: sus puntas laterales se
+   salen y el cuadrado central aprovecha casi todo el ancho */
 @media (max-width: 860px){
-  .hero{ min-height: 0; padding-block: calc(var(--nav-h) + 2rem) 4rem; }
-  .hero__stage{ grid-template-columns: 1fr; gap: 2.25rem; margin: 0 0 2.5rem; text-align: center; }
-  .hero__names{ align-items: center; justify-self: center; }
-  .hero__name{ font-size: clamp(3rem, 15vw, 4.5rem); }
-  .hero__amp{ margin: .05em 0 .1em; }
-  .hero__art{ justify-self: center; width: min(74%, 300px); }
-  .hero__date::before, .hero__date::after{ display: none; }
-  .countdown__unit{ padding-inline: clamp(.7rem, 4vw, 1.25rem); }
-  .countdown__unit strong{ font-size: clamp(1.7rem, 8vw, 2.1rem); }
-  .countdown__unit span{ font-size: .8rem; }
+  .hero{ padding-block: calc(var(--nav-h) + .5rem) 1rem; }
+  .hero__star{ --s: min(132vw, 700px); }
+  .hero__content{ width: 60cqi; margin-top: 0; }
+  /* más aire arriba, donde la estrella se estrecha: título más pequeño y bloque compacto */
+  .hero__names{ font-size: max(1.15rem, 5.6cqi); }
+  .hero__date{ margin-top: 3cqi; }
 }
 
 /* ========================== BOTONES ========================== */
@@ -573,7 +588,8 @@ h1,h2,h3,h4,.nav__brand,.hero__name,.hero__date,.countdown__unit strong,.countdo
 
 /* ========================== IMPRESIÓN ========================= */
 @media print{
-  .nav, .countdown, .skip-link, .venue__map, .cal, .hero .btn, .rsvp .btn, #copyIban{ display: none; }
+  .hero__video, .hero__veil, .hero__star-shape, .hero__olivo,
+  .nav, .skip-link, .venue__map, .cal, .hero .btn, .rsvp .btn, #copyIban{ display: none; }
   .hero, .section, .footer{ background: none; color: #000; min-height: 0; }
   .deco, .crest{ display: none; }
   .on-dark, .on-dark .prose strong, .on-dark .link{ color: #000; }

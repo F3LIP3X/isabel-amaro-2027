@@ -35,6 +35,12 @@
       </button>
 
       <nav class="nav__menu" id="navMenu" aria-label="Secciones">
+        <div class="nav__count" data-countdown role="timer" aria-label="Cuenta atrás hasta la boda">
+          <span class="nav__count-unit"><strong data-cd="days">—</strong> días</span>
+          <span class="nav__count-unit nav__count-unit--sec"><strong data-cd="hours">—</strong> h</span>
+          <span class="nav__count-unit nav__count-unit--sec"><strong data-cd="minutes">—</strong> min</span>
+          <span class="nav__count-unit nav__count-unit--sec"><strong data-cd="seconds">—</strong> s</span>
+        </div>
         <a href="#el-dia">El gran día</a>
         <a href="#vestimenta">Vestimenta</a>
         <a href="#alojamiento">Alojamiento</a>
@@ -51,41 +57,45 @@
 
   <!-- ─────────────── PORTADA ─────────────── -->
   <section class="hero on-dark">
-    <div class="wrap hero__inner">
-      <h1 class="sr-only">Isabel y Amaro</h1>
+    <!-- Vídeo de stock provisional (Mixkit, licencia libre): cambiar por uno propio -->
+    <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+      <source src="assets/video/boda-360.mp4" type="video/mp4" media="(max-width: 860px)">
+      <source src="assets/video/boda-720.mp4" type="video/mp4">
+    </video>
+    <div class="hero__veil" aria-hidden="true"></div>
 
-      <div class="hero__stage" aria-hidden="true">
-        <div class="hero__names">
-          <span class="hero__name hero__name--a"><svg aria-hidden="true" focusable="false" class="deco hero__vine hero__vine--fondo hero__vine--espejo" viewBox="0 0 300 110"><use href="#enredadera-fondo"/></svg><span class="hero__word">Isabel</span><svg aria-hidden="true" focusable="false" class="deco hero__vine hero__vine--frente hero__vine--espejo" viewBox="0 0 300 110"><use href="#enredadera-frente"/></svg></span>
-          <span class="hero__amp">y</span>
-          <span class="hero__name hero__name--b"><svg aria-hidden="true" focusable="false" class="deco hero__vine hero__vine--fondo" viewBox="0 0 300 110"><use href="#enredadera-fondo"/></svg><span class="hero__word">Amaro</span><svg aria-hidden="true" focusable="false" class="deco hero__vine hero__vine--frente" viewBox="0 0 300 110"><use href="#enredadera-frente"/></svg></span>
-        </div>
-        <div class="hero__art">
-          <figure class="arch">
-              <div class="arch__photo">
-                <img src="https://picsum.photos/seed/isabel-amaro/1200/1500" alt="" width="1200" height="1500" fetchpriority="high" decoding="async">
-              </div>
-            </figure>
-        </div>
+    <div class="hero__star">
+      <svg class="hero__star-shape" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <polygon class="hero__star-fill" points="50,0 64.64,14.64 85.36,14.64 85.36,35.36 100,50 85.36,64.64 85.36,85.36 64.64,85.36 50,100 35.36,85.36 14.64,85.36 14.64,64.64 0,50 14.64,35.36 14.64,14.64 35.36,14.64"/>
+        <rect class="hero__star-line" x="14.64" y="14.64" width="70.72" height="70.72"/>
+        <rect class="hero__star-line" x="14.64" y="14.64" width="70.72" height="70.72" transform="rotate(45 50 50)"/>
+        <g transform="translate(50 50) scale(.93) translate(-50 -50)">
+          <rect class="hero__star-line hero__star-line--fina" x="14.64" y="14.64" width="70.72" height="70.72"/>
+          <rect class="hero__star-line hero__star-line--fina" x="14.64" y="14.64" width="70.72" height="70.72" transform="rotate(45 50 50)"/>
+        </g>
+      </svg>
+
+      <!-- Ramas de olivo entrelazadas con las aristas de la estrella (generadas; ver olivo en el CSS) -->
+      <svg class="hero__olivo" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <defs>
+          <g id="olv-rama"><path class="olv-tallo" d="M0 50 L0.04 50.66 L0.11 51.31 L0.21 51.91 L0.37 52.46 L0.61 52.93 L0.92 53.32 L1.31 53.64 L1.79 53.87 L2.33 54.03 L2.93 54.14 L3.58 54.2 L4.24 54.24 L4.91 54.29 L5.55 54.35 L6.15 54.45 L6.7 54.62 L7.17 54.85 L7.57 55.16 L7.88 55.56 L8.11 56.03 L8.27 56.57 L8.38 57.18 L8.44 57.82 L8.49 58.49 L8.53 59.15 L8.59 59.79 L8.7 60.4 L8.86 60.94 L9.09 61.41 L9.4 61.81 L9.8 62.12 L10.27 62.35 L10.82 62.52 L11.42 62.62 L12.06 62.69 L12.73 62.73 L13.39 62.77 L14.04 62.83 L14.64 62.94 L15.18 63.1 L15.66 63.33 L16.05 63.65 L16.36 64.04 L16.6 64.52 L16.76 65.06 L16.86 65.66 L16.93 66.31 L16.97 66.97 L17.01 67.64 L17.08 68.28 L17.18 68.88 L17.34 69.43 L17.58 69.9 L17.89 70.29 L18.28 70.61 L18.76 70.84 L19.3 71 L19.91 71.11 L20.55 71.17 L21.21 71.21 L21.88 71.26 L22.52 71.32 L23.12 71.42 L23.67 71.59 L24.14 71.82 L24.54 72.13"/><path class="olv-hoja" transform="translate(2.93 54.14) rotate(49.37)" d="M0 0C1.5 -1.2 4.2 -0.96 6.01 0C4.2 0.96 1.5 1.2 0 0Z"/><path class="olv-hoja" transform="translate(8.03 55.83) rotate(22.9)" d="M0 0C1.41 -1.13 3.94 -0.9 5.63 0C3.94 0.9 1.41 1.13 0 0Z"/><path class="olv-hoja" transform="translate(9.15 61.5) rotate(97.48)" d="M0 0C1.31 -1.05 3.67 -0.84 5.25 0C3.67 0.84 1.31 1.05 0 0Z"/><path class="olv-hoja" transform="translate(14.52 62.91) rotate(-30.48)" d="M0 0C1.22 -0.97 3.41 -0.78 4.87 0C3.41 0.78 1.22 0.97 0 0Z"/><path class="olv-hoja" transform="translate(16.99 67.24) rotate(128.52)" d="M0 0C1.12 -0.9 3.15 -0.72 4.49 0C3.15 0.72 1.12 0.9 0 0Z"/><path class="olv-hoja" transform="translate(19.91 71.11) rotate(-34.63)" d="M0 0C1.03 -0.82 2.88 -0.66 4.12 0C2.88 0.66 1.03 0.82 0 0Z"/><path class="olv-hoja" transform="translate(24.54 72.13) rotate(45)" d="M0 0C1.05 -0.84 2.94 -0.67 4.2 0C2.94 0.67 1.05 0.84 0 0Z"/><path class="olv-paso-halo" d="M3.32 53.32L5.16 55.16"/><path class="olv-paso" d="M3.32 53.32L5.16 55.16"/><path class="olv-paso-halo" d="M11.81 61.81L13.65 63.65"/><path class="olv-paso" d="M11.81 61.81L13.65 63.65"/><path class="olv-paso-halo" d="M20.29 70.29L22.13 72.13"/><path class="olv-paso" d="M20.29 70.29L22.13 72.13"/><path class="olv-rabo" d="M7.88 55.56L10.1 54.66"/><ellipse class="olv-fruto" transform="translate(10.1 54.66) rotate(-22.03)" cx="1.1" cy="0" rx="1.15" ry=".82"/><path class="olv-rabo" d="M16.05 63.65L14.67 65.61"/><ellipse class="olv-fruto" transform="translate(14.67 65.61) rotate(125)" cx="1.1" cy="0" rx="1.15" ry=".82"/><path class="olv-rabo" d="M19.91 71.11L20.62 68.82"/><ellipse class="olv-fruto" transform="translate(20.62 68.82) rotate(-72.63)" cx="1.1" cy="0" rx="1.15" ry=".82"/></g>
+        </defs>
+        <use href="#olv-rama"/>
+        <use href="#olv-rama" transform="matrix(1 0 0 -1 0 100)"/>
+        <use href="#olv-rama" transform="matrix(-1 0 0 1 100 0)"/>
+        <use href="#olv-rama" transform="matrix(-1 0 0 -1 100 100)"/>
+      </svg>
+
+      <div class="hero__content">
+        <h1 class="hero__names">Isabel <span class="hero__amp">y</span> Amaro</h1>
+
+        <p class="hero__date"><span>Nos casamos el</span> <span data-date-long>12 de junio de 2027</span> <span>en Granada</span></p>
+
+        <a class="btn btn--gold" href="#confirmacion">Confirmar asistencia</a>
       </div>
-
-      <p class="hero__date"><span>Nos casamos el <span data-date-long>12 de junio de 2027</span> en Granada</span></p>
-
-      <div class="countdown" id="countdown" role="timer" aria-label="Cuenta atrás hasta la boda">
-        <div class="countdown__unit"><strong data-cd="days">—</strong><span>días</span></div>
-        <div class="countdown__unit"><strong data-cd="hours">—</strong><span>horas</span></div>
-        <div class="countdown__unit"><strong data-cd="minutes">—</strong><span>minutos</span></div>
-        <div class="countdown__unit"><strong data-cd="seconds">—</strong><span>segundos</span></div>
-      </div>
-
-      <a class="btn btn--gold" href="#confirmacion">Confirmar asistencia</a>
     </div>
 
-    <!-- Forma del arco (apuntado, de inspiración nazarí) -->
     <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
-      <clipPath id="arco" clipPathUnits="objectBoundingBox">
-        <path d="M0,1 V0.52 C0,0.3 0.3,0.17 0.5,0 C0.7,0.17 1,0.3 1,0.52 V1 Z"/>
-      </clipPath>
       <symbol id="rama" viewBox="0 0 330 400"><path d="M20 380C60 250 150 150 300 40" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path transform="translate(33.5 341.9) rotate(-113.1)" d="M0 0C13.0 -12.5 36.4 -11.4 52.0 0C36.4 11.4 13.0 12.5 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(33.5 341.9) rotate(-23.1)" d="M0 0C13.0 -12.5 36.4 -11.4 52.0 0C36.4 11.4 13.0 12.5 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(49.3 306.9) rotate(-118.4)" d="M0 0C12.3 -11.9 34.6 -10.9 49.4 0C34.6 10.9 12.3 11.9 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(49.3 306.9) rotate(-8.4)" d="M0 0C12.3 -11.9 34.6 -10.9 49.4 0C34.6 10.9 12.3 11.9 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(67.9 273.1) rotate(-103.9)" d="M0 0C11.7 -11.2 32.8 -10.3 46.8 0C32.8 10.3 11.7 11.2 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(67.9 273.1) rotate(-13.9)" d="M0 0C11.7 -11.2 32.8 -10.3 46.8 0C32.8 10.3 11.7 11.2 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(89.4 240.3) rotate(-109.6)" d="M0 0C11.1 -10.6 30.9 -9.7 44.2 0C30.9 9.7 11.1 10.6 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(89.4 240.3) rotate(0.4)" d="M0 0C11.1 -10.6 30.9 -9.7 44.2 0C30.9 9.7 11.1 10.6 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(113.9 208.4) rotate(-95.6)" d="M0 0C10.4 -10.0 29.1 -9.2 41.6 0C29.1 9.2 10.4 10.0 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(113.9 208.4) rotate(-5.6)" d="M0 0C10.4 -10.0 29.1 -9.2 41.6 0C29.1 9.2 10.4 10.0 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(141.3 177.0) rotate(-102.1)" d="M0 0C9.8 -9.4 27.3 -8.6 39.0 0C27.3 8.6 9.8 9.4 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(141.3 177.0) rotate(7.9)" d="M0 0C9.8 -9.4 27.3 -8.6 39.0 0C27.3 8.6 9.8 9.4 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(171.9 146.0) rotate(-88.9)" d="M0 0C9.1 -8.7 25.5 -8.0 36.4 0C25.5 8.0 9.1 8.7 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(171.9 146.0) rotate(1.1)" d="M0 0C9.1 -8.7 25.5 -8.0 36.4 0C25.5 8.0 9.1 8.7 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(205.5 115.2) rotate(-96.2)" d="M0 0C8.4 -8.1 23.7 -7.4 33.8 0C23.7 7.4 8.4 8.1 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(205.5 115.2) rotate(13.8)" d="M0 0C8.4 -8.1 23.7 -7.4 33.8 0C23.7 7.4 8.4 8.1 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(242.3 84.3) rotate(-83.9)" d="M0 0C7.8 -7.5 21.8 -6.9 31.2 0C21.8 6.9 7.8 7.5 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(242.3 84.3) rotate(6.1)" d="M0 0C7.8 -7.5 21.8 -6.9 31.2 0C21.8 6.9 7.8 7.5 0 0Z" fill="currentColor" opacity="0.95"/><path transform="translate(282.3 53.2) rotate(-92.0)" d="M0 0C7.1 -6.9 20.0 -6.3 28.6 0C20.0 6.3 7.1 6.9 0 0Z" fill="currentColor" opacity="0.78"/><path transform="translate(282.3 53.2) rotate(18.0)" d="M0 0C7.1 -6.9 20.0 -6.3 28.6 0C20.0 6.3 7.1 6.9 0 0Z" fill="currentColor" opacity="0.95"/><path d="M76.3 259.7L91.4 269.4" stroke="currentColor" stroke-width="2.4" fill="none"/><ellipse cx="94.8" cy="276.6" rx="7.5" ry="10.5" fill="#9b3a56"/><path d="M133.0 186.1L119.6 174.0" stroke="currentColor" stroke-width="2.4" fill="none"/><ellipse cx="116.7" cy="176.4" rx="7.5" ry="10.5" fill="#9b3a56"/><path d="M202.2 118.0L214.1 131.5" stroke="currentColor" stroke-width="2.4" fill="none"/><ellipse cx="216.8" cy="139.5" rx="7.5" ry="10.5" fill="#9b3a56"/></symbol>
       <symbol id="enredadera-fondo" viewBox="0 0 300 110"><path d="M0 78C40 90 70 52 110 60S180 80 215 62S280 48 300 56" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></symbol>
       <symbol id="enredadera-frente" viewBox="0 0 300 110"><path d="M0 78C40 90 70 52 110 60S180 80 215 62S280 48 300 56" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="26 44" stroke-dashoffset="-18"/><path transform="translate(28.4 79.1) rotate(-52.9)" d="M0 0C2.8 -2.6 7.7 -2.4 11.0 0C7.7 2.4 2.8 2.6 0 0Z" fill="currentColor"/><path transform="translate(76.2 62.6) rotate(25.0)" d="M0 0C2.6 -2.5 7.4 -2.3 10.6 0C7.4 2.3 2.6 2.5 0 0Z" fill="currentColor"/><path transform="translate(132.9 65.0) rotate(-29.3)" d="M0 0C2.5 -2.4 7.1 -2.2 10.2 0C7.1 2.2 2.5 2.4 0 0Z" fill="currentColor"/><path transform="translate(169.4 71.2) rotate(45.6)" d="M0 0C2.5 -2.4 6.9 -2.2 9.8 0C6.9 2.2 2.5 2.4 0 0Z" fill="currentColor"/><path transform="translate(204.6 66.5) rotate(-61.9)" d="M0 0C2.4 -2.3 6.6 -2.1 9.4 0C6.6 2.1 2.4 2.3 0 0Z" fill="currentColor"/><path transform="translate(245.0 51.3) rotate(30.5)" d="M0 0C2.2 -2.2 6.3 -2.0 9.0 0C6.3 2.0 2.2 2.2 0 0Z" fill="currentColor"/><path transform="translate(283.2 51.0) rotate(-30.8)" d="M0 0C2.1 -2.1 6.0 -1.9 8.6 0C6.0 1.9 2.1 2.1 0 0Z" fill="currentColor"/><path d="M159.3 70.1l2 6" stroke="currentColor" stroke-width=".8" fill="none"/><ellipse cx="161.9" cy="79.1" rx="2.4" ry="3.3" fill="#b0566f"/></symbol>

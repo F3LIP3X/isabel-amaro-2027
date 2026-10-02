@@ -150,33 +150,29 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
 /* ---------- 3. Cuenta atrás --------------------------------- */
 (function cuentaAtras(){
-  const box = $('#countdown');
-  if (!box) return;
+  const cajas = $$('[data-countdown]');
+  if (!cajas.length) return;
 
   const objetivo = new Date(BODA.fecha).getTime();
-  if (isNaN(objetivo)) { box.hidden = true; return; }
+  if (isNaN(objetivo)) { cajas.forEach(c => { c.hidden = true; }); return; }
 
-  const campos = {
-    days:    $('[data-cd="days"]',    box),
-    hours:   $('[data-cd="hours"]',   box),
-    minutes: $('[data-cd="minutes"]', box),
-    seconds: $('[data-cd="seconds"]', box)
-  };
+  const campos = {};
+  ['days', 'hours', 'minutes', 'seconds'].forEach(k => { campos[k] = $$(`[data-cd="${k}"]`); });
+  const poner = (k, v) => campos[k].forEach(el => { el.textContent = v; });
 
   function pintar(){
     const resto = objetivo - Date.now();
 
     if (resto <= 0) {
-      box.classList.add('is-past');
-      box.innerHTML = '<p class="countdown__today">¡Hoy es el día!</p>';
+      cajas.forEach(c => { c.classList.add('is-past'); c.innerHTML = '<span class="nav__count-today">¡Hoy es el día!</span>'; });
       return true;
     }
 
     const s = Math.floor(resto / 1000);
-    campos.days.textContent    = Math.floor(s / 86400);
-    campos.hours.textContent   = String(Math.floor(s % 86400 / 3600)).padStart(2, '0');
-    campos.minutes.textContent = String(Math.floor(s % 3600 / 60)).padStart(2, '0');
-    campos.seconds.textContent = String(s % 60).padStart(2, '0');
+    poner('days', Math.floor(s / 86400));
+    poner('hours', String(Math.floor(s % 86400 / 3600)).padStart(2, '0'));
+    poner('minutes', String(Math.floor(s % 3600 / 60)).padStart(2, '0'));
+    poner('seconds', String(s % 60).padStart(2, '0'));
     return false;
   }
 
@@ -212,7 +208,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   document.addEventListener('click', e => {
     if (menu.classList.contains('is-open') && !menu.contains(e.target) && !toggle.contains(e.target)) cerrar();
   });
-  window.addEventListener('resize', () => { if (innerWidth > 960) cerrar(); });
+  window.addEventListener('resize', () => { if (innerWidth > 1199) cerrar(); });
 })();
 
 /* ---------- 5. Fondo del nav al hacer scroll ---------------- */
@@ -294,10 +290,19 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   });
 })();
 
-/* ---------- 9. Enlaces aún sin dirección ------------------ */
+/* ---------- 9. Vídeo de portada ---------------------------- */
+// Con «reducir movimiento» el vídeo se queda quieto en su primer fotograma
+(function videoPortada(){
+  const v = $('#heroVideo');
+  if (!v || !matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  v.removeAttribute('autoplay');
+  v.pause();
+})();
+
+/* ---------- 10. Enlaces aún sin dirección ------------------ */
 // Un enlace que se abriría en otra pestaña pero sigue en "#" es un hueco
 // pendiente (p. ej. reservas de hotel): se oculta hasta que tenga URL real.
 $$('a[href="#"][target="_blank"]').forEach(a => { a.hidden = true; });
 
-/* ---------- 10. Imprimir con las preguntas desplegadas ------- */
+/* ---------- 11. Imprimir con las preguntas desplegadas ------- */
 addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = true; }); });
