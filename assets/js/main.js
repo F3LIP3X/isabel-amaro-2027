@@ -30,6 +30,13 @@ const BODA = {
     reception: 'Hacienda Señorío de Nevada, Granada'
   },
 
+  // Coordenadas (latitud, longitud) para los mapas del apartado «El gran día»
+  coordenadas: {
+    ceremony:  [37.17593, -3.59903],
+    bus:       [37.17735, -3.59985],
+    reception: [36.98164, -3.60658]
+  },
+
   // Número de cuenta para el regalo y nombre del titular (si se deja vacío, no se muestra)
   iban: 'ES00 0000 0000 0000 0000 0000',
   titular: '',
@@ -301,3 +308,40 @@ $$('a[href="#"][target="_blank"]').forEach(a => { a.hidden = true; });
 
 /* ---------- 11. Imprimir con las preguntas desplegadas ------- */
 addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = true; }); });
+
+
+/* ---------- 12. Mapas con estilo propio ---------------------- */
+(function mapas(){
+  const mapas = $$('.map');
+  const c = BODA.coordenadas;
+  // Sin la librería o sin WebGL, los mapas se ocultan y quedan los enlaces «Cómo llegar»
+  const hayWebGL = (() => { try { return !!document.createElement('canvas').getContext('webgl'); } catch { return false; } })();
+  if (typeof maplibregl === 'undefined' || !c || !hayWebGL) { mapas.forEach(m => { m.hidden = true; }); return; }
+
+  const zoom = { ceremony: 16.5, bus: 16.5, reception: 14.5 };
+
+  mapas.forEach(el => {
+    const clave = el.id.replace('map-', '');
+    const pos = c[clave];
+    if (!pos) { el.hidden = true; return; }
+    const centro = [pos[1], pos[0]];
+
+    const mapa = new maplibregl.Map({
+      container: el, style: 'https://tiles.openfreemap.org/styles/bright',
+      center: centro, zoom: zoom[clave] || 15, cooperativeGestures: true, attributionControl: false
+    });
+    mapa.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+    mapa.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+
+    const marca = document.createElement('div');
+    marca.className = 'pin';
+    marca.innerHTML = '<span class="pin__dot"></span>';
+    new maplibregl.Marker({ element: marca, anchor: 'center' }).setLngLat(centro).addTo(mapa);
+
+    // La atribución empieza plegada (se abre con el icono «i»)
+    mapa.once('load', () => {
+      const a = el.querySelector('.maplibregl-ctrl-attrib');
+      if (a) { a.classList.remove('maplibregl-compact-show'); a.removeAttribute('open'); }
+    });
+  });
+})();

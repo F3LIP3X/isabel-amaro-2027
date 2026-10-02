@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Hanken+Grotesk:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.css">
 </head>
 <body>
 
@@ -97,6 +98,7 @@
 
     <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
       <symbol id="rama" viewBox="0 0 330 400"><path class="rama-tallo" d="M20 380 L22.04 373.52 L24.17 367.1 L26.38 360.72 L28.67 354.39 L31.05 348.1 L33.51 341.86 L36.06 335.66 L38.69 329.51 L41.41 323.39 L44.21 317.31 L47.1 311.28 L50.08 305.28 L53.14 299.32 L56.29 293.39 L59.53 287.5 L62.86 281.64 L66.27 275.82 L69.77 270.02 L73.36 264.25 L77.04 258.52 L80.8 252.81 L84.66 247.13 L88.6 241.47 L92.64 235.84 L96.77 230.23 L100.98 224.65 L105.29 219.08 L109.68 213.53 L114.17 208.01 L118.75 202.5 L123.42 197.01 L128.18 191.53 L133.04 186.07 L137.99 180.62 L143.03 175.19 L148.16 169.76 L153.39 164.34 L158.71 158.94 L164.12 153.54 L169.63 148.15 L175.23 142.76 L180.93 137.38 L186.72 132 L192.61 126.63 L198.59 121.25 L204.67 115.87 L210.85 110.5 L217.12 105.12 L223.49 99.74 L229.95 94.35 L236.52 88.96 L243.18 83.56 L249.93 78.16 L256.79 72.74 L263.74 67.31 L270.8 61.88 L277.95 56.43 L285.2 50.97 L292.55 45.49 L300 40"/><path class="rama-hoja" transform="translate(41.41 323.39) rotate(-27.63)" d="M0 0C16 -12.8 44.8 -10.24 64 0C44.8 10.24 16 12.8 0 0Z"/><path class="rama-hoja" transform="translate(68.92 271.41) rotate(-96.66)" d="M0 0C14.5 -11.6 40.6 -9.28 58 0C40.6 9.28 14.5 11.6 0 0Z"/><path class="rama-hoja" transform="translate(103.21 221.75) rotate(-14.26)" d="M0 0C13 -10.4 36.4 -8.32 52 0C36.4 8.32 13 10.4 0 0Z"/><path class="rama-hoja" transform="translate(144.45 173.67) rotate(-84.71)" d="M0 0C11.5 -9.2 32.2 -7.36 46 0C32.2 7.36 11.5 9.2 0 0Z"/><path class="rama-hoja" transform="translate(192.85 126.41) rotate(-4.15)" d="M0 0C10 -8 28 -6.4 40 0C28 6.4 10 8 0 0Z"/><path class="rama-hoja" transform="translate(248.57 79.24) rotate(-76.55)" d="M0 0C8.5 -6.8 23.8 -5.44 34 0C23.8 5.44 8.5 6.8 0 0Z"/><path class="rama-hoja" transform="translate(300 40) rotate(-36.27)" d="M0 0C9.5 -7.6 26.6 -6.08 38 0C26.6 6.08 9.5 7.6 0 0Z"/><path class="rama-rabo" d="M78.53 256.23L63.99 242.5"/><ellipse class="rama-fruto" transform="translate(63.99 242.5) rotate(-136.66)" cx="11.7" cy="0" rx="13" ry="9"/><path class="rama-rabo" d="M148.16 169.76L164.8 180.86"/><ellipse class="rama-fruto" transform="translate(164.8 180.86) rotate(33.7)" cx="11.7" cy="0" rx="13" ry="9"/><path class="rama-rabo" d="M217.12 105.12L207 87.87"/><ellipse class="rama-fruto" transform="translate(207 87.87) rotate(-120.41)" cx="11.7" cy="0" rx="13" ry="9"/></symbol>
+      <symbol id="flecha" viewBox="0 0 40 98"><path class="rama-tallo" d="M20 4 C23 24 17 46 20 84"/><path class="rama-hoja" transform="translate(22.6 18.4) rotate(-52)" d="M0 0C3.2 -2.6 9.1 -2.1 13.0 0C9.1 2.1 3.2 2.6 0 0Z"/><path class="rama-hoja" transform="translate(22.6 18.4) rotate(-128)" d="M0 0C3.2 -2.6 9.1 -2.1 13.0 0C9.1 2.1 3.2 2.6 0 0Z"/><path class="rama-hoja" transform="translate(22.1 32.8) rotate(-52)" d="M0 0C3.0 -2.4 8.4 -1.9 12.0 0C8.4 1.9 3.0 2.4 0 0Z"/><path class="rama-hoja" transform="translate(22.1 32.8) rotate(-128)" d="M0 0C3.0 -2.4 8.4 -1.9 12.0 0C8.4 1.9 3.0 2.4 0 0Z"/><path class="rama-hoja" transform="translate(19.4 47.2) rotate(-52)" d="M0 0C2.8 -2.2 7.7 -1.8 11.0 0C7.7 1.8 2.8 2.2 0 0Z"/><path class="rama-hoja" transform="translate(19.4 47.2) rotate(-128)" d="M0 0C2.8 -2.2 7.7 -1.8 11.0 0C7.7 1.8 2.8 2.2 0 0Z"/><path class="rama-hoja" transform="translate(17.7 61.6) rotate(-52)" d="M0 0C2.5 -2.0 7.0 -1.6 10.0 0C7.0 1.6 2.5 2.0 0 0Z"/><path class="rama-hoja" transform="translate(17.7 61.6) rotate(-128)" d="M0 0C2.5 -2.0 7.0 -1.6 10.0 0C7.0 1.6 2.5 2.0 0 0Z"/><path class="rama-hoja" transform="translate(20 84) rotate(90)" d="M0 0C2.5 -2.0 7.0 -1.6 10.0 0C7.0 1.6 2.5 2.0 0 0Z"/><path class="rama-rabo" d="M20.8 40.0L14.8 46.0"/><ellipse class="rama-fruto" transform="translate(14.8 46.0) rotate(100)" cx="2.4" cy="0" rx="2.6" ry="1.8"/><path class="rama-rabo" d="M17.8 68.0L23.8 73.0"/><ellipse class="rama-fruto" transform="translate(23.8 73.0) rotate(80)" cx="2.4" cy="0" rx="2.6" ry="1.8"/></symbol>
       <symbol id="ramita" viewBox="0 0 120 60"><path class="rama-tallo" d="M2 31 L3.92 31.06 L5.83 31.13 L7.75 31.19 L9.67 31.25 L11.58 31.3 L13.5 31.35 L15.42 31.39 L17.33 31.42 L19.25 31.44 L21.17 31.45 L23.08 31.45 L25 31.45 L26.92 31.43 L28.83 31.39 L30.75 31.35 L32.67 31.29 L34.58 31.23 L36.5 31.15 L38.42 31.05 L40.33 30.95 L42.25 30.84 L44.17 30.72 L46.08 30.59 L48 30.45 L49.92 30.3 L51.83 30.15 L53.75 29.99 L55.67 29.83 L57.58 29.66 L59.5 29.5 L61.42 29.34 L63.33 29.17 L65.25 29.01 L67.17 28.85 L69.08 28.7 L71 28.55 L72.92 28.41 L74.83 28.28 L76.75 28.16 L78.67 28.05 L80.58 27.95 L82.5 27.85 L84.42 27.77 L86.33 27.71 L88.25 27.65 L90.17 27.61 L92.08 27.57 L94 27.55 L95.92 27.55 L97.83 27.55 L99.75 27.56 L101.67 27.58 L103.58 27.61 L105.5 27.65 L107.42 27.7 L109.33 27.75 L111.25 27.81 L113.17 27.87 L115.08 27.94 L117 28"/><path class="rama-hoja" transform="translate(20.4 31.45) rotate(42.35)" d="M0 0C3.25 -2.6 9.1 -2.08 13 0C9.1 2.08 3.25 2.6 0 0Z"/><path class="rama-hoja" transform="translate(34.58 31.23) rotate(-44.21)" d="M0 0C3 -2.4 8.4 -1.92 12 0C8.4 1.92 3 2.4 0 0Z"/><path class="rama-hoja" transform="translate(48.77 30.39) rotate(37.65)" d="M0 0C2.75 -2.2 7.7 -1.76 11 0C7.7 1.76 2.75 2.2 0 0Z"/><path class="rama-hoja" transform="translate(62.95 29.2) rotate(-46.87)" d="M0 0C2.5 -2 7 -1.6 10 0C7 1.6 2.5 2 0 0Z"/><path class="rama-hoja" transform="translate(77.13 28.14) rotate(38.54)" d="M0 0C2.25 -1.8 6.3 -1.44 9 0C6.3 1.44 2.25 1.8 0 0Z"/><path class="rama-hoja" transform="translate(91.32 27.59) rotate(-42.92)" d="M0 0C2 -1.6 5.6 -1.28 8 0C5.6 1.28 2 1.6 0 0Z"/><path class="rama-hoja" transform="translate(105.5 27.65) rotate(43.29)" d="M0 0C1.75 -1.4 4.9 -1.12 7 0C4.9 1.12 1.75 1.4 0 0Z"/><path class="rama-hoja" transform="translate(117 28) rotate(1.95)" d="M0 0C1.88 -1.5 5.25 -1.2 7.5 0C5.25 1.2 1.88 1.5 0 0Z"/><path class="rama-rabo" d="M41.1 30.91L41.63 26.34"/><ellipse class="rama-fruto" transform="translate(41.63 26.34) rotate(-83.34)" cx="2.25" cy="0" rx="2.5" ry="1.8"/><path class="rama-rabo" d="M68.7 28.73L69.85 33.18"/><ellipse class="rama-fruto" transform="translate(69.85 33.18) rotate(75.5)" cx="2.25" cy="0" rx="2.5" ry="1.8"/><path class="rama-rabo" d="M91.7 27.58L92.43 23.04"/><ellipse class="rama-fruto" transform="translate(92.43 23.04) rotate(-80.85)" cx="2.25" cy="0" rx="2.5" ry="1.8"/></symbol>
     </svg>
   </section>
@@ -134,74 +136,80 @@
       </header>
 
       <div class="section__body">
+        <h3 class="subhead">Programa</h3>
         <div class="venues">
           <article class="venue">
-            <p class="venue__when">Ceremonia · 13:00</p>
-            <h3>Iglesia del Sagrario</h3>
-            <p class="venue__addr">Catedral de Granada</p>
-            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Iglesia%20del%20Sagrario%2C%20Catedral%20de%20Granada" data-map-route="ceremony" target="_blank" rel="noopener">Cómo llegar</a>
+            <div class="venue__head">
+              <p class="venue__time">13:00</p>
+              <div class="venue__info">
+                <p class="venue__when">Ceremonia</p>
+                <h3>Iglesia del Sagrario</h3>
+                <p class="venue__addr">Junto a la Catedral de Granada. Es una ceremonia religiosa: pedimos puntualidad y mucho respeto.</p>
+              </div>
+              <a class="btn btn--ghost venue__go" href="https://www.google.com/maps/dir/?api=1&amp;destination=Iglesia%20del%20Sagrario%2C%20Catedral%20de%20Granada" data-map-route="ceremony" target="_blank" rel="noopener">Cómo llegar</a>
+            </div>
+            <div class="map" id="map-ceremony" role="img" aria-label="Mapa con la ubicación de la Iglesia del Sagrario"></div>
           </article>
+          <div class="venue-sep" aria-hidden="true"><svg viewBox="0 0 40 98" focusable="false"><use href="#flecha"/></svg></div>
           <article class="venue">
-            <p class="venue__when">Autobús · 14:30</p>
-            <h3>Parada de la Catedral</h3>
-            <p class="venue__addr">Gran Vía de Colón, junto a la Catedral</p>
-            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Gran%20V%C3%ADa%20de%20Col%C3%B3n%2C%20Catedral%20de%20Granada" data-map-route="bus" target="_blank" rel="noopener">Cómo llegar</a>
+            <div class="venue__head">
+              <p class="venue__time">14:30</p>
+              <div class="venue__info">
+                <p class="venue__when">Autobús</p>
+                <h3>Salida del autobús</h3>
+                <p class="venue__addr">Desde la parada de la Gran Vía, junto a la Catedral. El trayecto hasta la finca dura unos 15 minutos.</p>
+              </div>
+              <a class="btn btn--ghost venue__go" href="https://www.google.com/maps/dir/?api=1&amp;destination=Gran%20V%C3%ADa%20de%20Col%C3%B3n%2C%20Catedral%20de%20Granada" data-map-route="bus" target="_blank" rel="noopener">Cómo llegar</a>
+            </div>
+            <div class="map" id="map-bus" role="img" aria-label="Mapa con la parada del autobús en la Gran Vía, junto a la Catedral"></div>
           </article>
+          <div class="venue-sep" aria-hidden="true"><svg viewBox="0 0 40 98" focusable="false"><use href="#flecha"/></svg></div>
           <article class="venue">
-            <p class="venue__when">Celebración · desde las 15:00</p>
-            <h3>Hacienda Señorío de Nevada</h3>
-            <p class="venue__addr">Cóctel, banquete y baile</p>
-            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hacienda%20Se%C3%B1or%C3%ADo%20de%20Nevada%2C%20Granada" data-map-route="reception" target="_blank" rel="noopener">Cómo llegar</a>
+            <div class="venue__head">
+              <p class="venue__time">15:00</p>
+              <div class="venue__info">
+                <p class="venue__when">Cóctel de bienvenida</p>
+                <h3>Hacienda Señorío de Nevada</h3>
+                <p class="venue__addr">De 15:00 a 17:00, para brindar, picar algo y saludarnos con calma.</p>
+              </div>
+              <a class="btn btn--ghost venue__go" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hacienda%20Se%C3%B1or%C3%ADo%20de%20Nevada%2C%20Granada" data-map-route="reception" target="_blank" rel="noopener">Cómo llegar</a>
+            </div>
+            <div class="map" id="map-reception" role="img" aria-label="Mapa con la ubicación de la Hacienda Señorío de Nevada"></div>
+          </article>
+          <div class="venue-sep" aria-hidden="true"><svg viewBox="0 0 40 98" focusable="false"><use href="#flecha"/></svg></div>
+          <article class="venue venue--simple">
+            <div class="venue__head">
+              <p class="venue__time">17:00</p>
+              <div class="venue__info">
+                <p class="venue__when">En la finca</p>
+                <h3>Banquete</h3>
+                <p class="venue__addr">Plato principal y postre.</p>
+              </div>
+            </div>
+          </article>
+          <div class="venue-sep" aria-hidden="true"><svg viewBox="0 0 40 98" focusable="false"><use href="#flecha"/></svg></div>
+          <article class="venue venue--simple">
+            <div class="venue__head">
+              <p class="venue__time">18:00</p>
+              <div class="venue__info">
+                <p class="venue__when">En la finca</p>
+                <h3>Barra libre y baile</h3>
+                <p class="venue__addr">Empieza la fiesta.</p>
+              </div>
+            </div>
+          </article>
+          <div class="venue-sep" aria-hidden="true"><svg viewBox="0 0 40 98" focusable="false"><use href="#flecha"/></svg></div>
+          <article class="venue venue--simple">
+            <div class="venue__head">
+              <p class="venue__time">01:00</p>
+              <div class="venue__info">
+                <p class="venue__when">Regreso</p>
+                <h3>Autobús de vuelta</h3>
+                <p class="venue__addr">Regreso a Neptuno, ya de madrugada del domingo 4 de abril.</p>
+              </div>
+            </div>
           </article>
         </div>
-        <div class="group">
-          <h3 class="subhead">Programa</h3>
-          <ol class="timeline">
-            <li class="timeline__item timeline__item--key">
-              <p class="timeline__time">13:00</p>
-              <div class="timeline__body">
-                <h4>Ceremonia</h4>
-                <p>En la Iglesia del Sagrario, junto a la Catedral. Es una ceremonia religiosa: pedimos puntualidad y mucho respeto.</p>
-              </div>
-            </li>
-            <li class="timeline__item">
-              <p class="timeline__time">14:30</p>
-              <div class="timeline__body">
-                <h4>Salida del autobús</h4>
-                <p>Desde la parada de la Gran Vía, junto a la Catedral. El trayecto hasta la finca dura unos 15 minutos.</p>
-              </div>
-            </li>
-            <li class="timeline__item">
-              <p class="timeline__time">15:00</p>
-              <div class="timeline__body">
-                <h4>Cóctel de bienvenida</h4>
-                <p>De 15:00 a 17:00, para brindar, picar algo y saludarnos con calma.</p>
-              </div>
-            </li>
-            <li class="timeline__item">
-              <p class="timeline__time">17:00</p>
-              <div class="timeline__body">
-                <h4>Banquete</h4>
-                <p>Plato principal y postre.</p>
-              </div>
-            </li>
-            <li class="timeline__item">
-              <p class="timeline__time">18:00</p>
-              <div class="timeline__body">
-                <h4>Barra libre y baile</h4>
-                <p>Empieza la fiesta.</p>
-              </div>
-            </li>
-            <li class="timeline__item">
-              <p class="timeline__time">01:00</p>
-              <div class="timeline__body">
-                <h4>Autobús de vuelta</h4>
-                <p>Regreso a Neptuno, ya de madrugada del domingo 4 de abril.</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-
       </div>
     </div>
   </section>
@@ -417,6 +425,7 @@
   <p class="footer__credit">Web desarrollada por <a href="https://github.com/F3LIP3X" target="_blank" rel="noopener">Felipe Toledano Escudero</a>, el padrino de la boda. © 2027 </p>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
 </html>

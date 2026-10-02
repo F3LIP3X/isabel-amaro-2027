@@ -403,12 +403,59 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 @media (max-width: 480px){ .firma{ font-size: 2.5rem; } }
 
 /* ========================= EL GRAN DÍA ======================= */
-.venues{ display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 2.5rem 2rem; }
-.venue{ border-top: 2px solid var(--olive); padding-top: 1.5rem; }
+.venues{ display: grid; gap: 0; }
+.venue{
+  background: #fbfaf6; border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 10px 30px -18px rgba(54,61,35,.35);
+}
+.venue__head{
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1rem 1.5rem; align-items: center;
+  padding: 1.5rem 1.75rem;
+}
+.venue__time{
+  font-family: var(--display); font-size: 2.4rem; line-height: 1; color: var(--olive);
+  padding-right: 1.5rem; border-right: 1px solid var(--gold); width: 7.2rem; box-sizing: border-box;
+  font-optical-sizing: none; font-variation-settings: "opsz" 11;
+}
+.venue__when{ color: var(--gold-text); font-weight: 600; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
+.venue h3{ font-size: 1.5rem; line-height: 1.25; margin-top: .3rem; }
+.venue__addr{ color: var(--muted); font-size: .95rem; line-height: 1.5; margin-top: .25rem; }
+.venue__go{ white-space: nowrap; }
+.venues{ margin-top: 1.75rem; }
+.venue--simple .venue__head{ padding-block: 1.25rem; }
+.venue--simple .venue__time{ font-size: 2.4rem; }
+.venue--simple .venue__info h3{ font-size: 1.3rem; }
+@media (max-width: 640px){
+  .venue__head{ grid-template-columns: auto minmax(0, 1fr); padding: 1.25rem; }
+  .venue__go{ grid-column: 1 / -1; justify-self: stretch; text-align: center; }
+  .venue__time, .venue--simple .venue__time{ font-size: 1.9rem; width: auto; padding-right: 1rem; }
+}
+.venue-sep{ display: flex; justify-content: center; padding: .25rem 0; color: var(--leaf); }
+.venue-sep svg{ width: 52px; height: 128px; overflow: visible; }
 .venue__when{ color: var(--gold-text); font-weight: 600; font-size: .95rem; }
-.venue h3{ font-size: 1.55rem; line-height: 1.25; margin-top: .4rem; }
-.venue__addr{ color: var(--muted); font-size: .95rem; line-height: 1.6; margin-top: .5rem; }
-.venue .link{ display: inline-block; margin-top: 1rem; }
+.venue h3{ font-size: 1.45rem; line-height: 1.25; }
+.venue__addr{ color: var(--muted); font-size: .95rem; line-height: 1.5; grid-column: 2; }
+.venue .link{ grid-column: 3; grid-row: 1 / span 2; align-self: center; white-space: nowrap; }
+@media (max-width: 640px){
+  .venue{ grid-template-columns: 1fr; }
+  .venue__addr, .venue .link{ grid-column: 1; grid-row: auto; }
+  .venue .link{ justify-self: start; margin-top: .5rem; }
+}
+
+/* Mapas: estilo claro y legible, con bordes redondeados */
+.map{
+  height: 280px; background: #eae7dc;
+  border-top: 1px solid var(--line); position: relative; isolation: isolate;
+}
+.map .maplibregl-canvas{ filter: sepia(.18) saturate(.95) contrast(1.04); }
+.map .maplibregl-ctrl-attrib{ font-size: .62rem; border-radius: 10px; }
+.map .maplibregl-ctrl-group{ border-radius: 10px; }
+.pin{ width: 0; height: 0; }
+.pin__dot{
+  position: absolute; left: -11px; top: -11px; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--gold); border: 4px solid var(--olive); box-shadow: 0 0 0 6px rgba(196,160,90,.4), 0 2px 8px rgba(0,0,0,.35);
+}
+@media (max-width: 720px){ .map{ height: 260px; } }
 
 /* Programa: línea de tiempo con un punto por momento */
 .timeline{
@@ -601,7 +648,7 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 /* ========================== IMPRESIÓN ========================= */
 @media print{
   .hero__video, .hero__veil, .hero__star-shape, .hero__olivo,
-  .nav, .skip-link, .cal, .hero .btn, .rsvp .btn, #copyIban{ display: none; }
+  .nav, .skip-link, .maps, .cal, .hero .btn, .rsvp .btn, #copyIban{ display: none; }
   .hero, .section, .footer{ background: none; color: #000; min-height: 0; }
   .deco, .crest{ display: none; }
   .on-dark, .on-dark .prose strong, .on-dark .link{ color: #000; }
