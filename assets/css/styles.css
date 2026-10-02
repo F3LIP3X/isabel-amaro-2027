@@ -71,7 +71,7 @@ p, ul, dl{ margin: 0; }
    fijamos un tamaño óptico bajo para que los remates sean más gruesos. */
 h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 .prose__lead,.letter__sign,.section__sub,.timeline__time,.gift__iban,
-.faq__item summary,.monogram,.footer__names{
+.faq__item summary,.monogram__txt,.footer__names{
   font-optical-sizing: none;
   font-variation-settings: "opsz" 11;
 }
@@ -387,7 +387,9 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 
 /* ========================= BIENVENIDA ======================== */
 .letter{ max-width: 44rem; text-align: center; }
-.ornament{ display: block; width: 240px; height: auto; margin: 0 auto 1.5rem; color: var(--leaf); }
+.ornament{ display: block; width: 320px; max-width: 100%; height: auto; margin: 0 auto 1.25rem; color: var(--leaf); overflow: visible; }
+/* Punto dorado entre las dos ramas */
+.ornament__dot{ fill: var(--gold); }
 .letter__title{ font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.1; }
 .letter .prose{ max-width: 36rem; margin: 2rem auto 0; }
 .letter__sign{ margin-top: 2.25rem; font-family: var(--display); font-size: 1.6rem; }
@@ -552,19 +554,29 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
   padding: clamp(4rem, 9vw, 6rem) var(--gutter) clamp(2.5rem, 5vw, 3.5rem);
 }
 
+/* Ramas de olivo simplificadas (ornamento de bienvenida y escudo del pie): hoja plana
+   translúcida con delineado fino y unas pocas olivas pequeñas; el color lo da el contenedor */
+.rama-tallo{ fill: none; stroke: currentColor; stroke-opacity: .75; stroke-width: 1.1px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.rama-hoja{ fill: currentColor; fill-opacity: .3; stroke: currentColor; stroke-opacity: .8; stroke-width: .8px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.rama-rabo{ fill: none; stroke: currentColor; stroke-opacity: .75; stroke-width: .9px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.rama-fruto{ fill: #566862; stroke: currentColor; stroke-opacity: .7; stroke-width: .7px; vector-effect: non-scaling-stroke; }
+
 /* Escudo: monograma entre dos ramas de olivo */
-.crest{ display: flex; align-items: center; justify-content: center; gap: .25rem; margin-bottom: 1.75rem; }
+.crest{ display: flex; align-items: center; justify-content: center; gap: .6rem; margin-bottom: 1.75rem; }
 .crest__rama{ width: 74px; height: auto; color: var(--leaf-light); }
 .crest__rama--espejo{ transform: scaleX(-1); }
 .monogram{
-  width: 78px; height: 78px; border-radius: 50%;
+  position: relative; width: 104px; height: 104px; flex: none;
   display: flex; align-items: center; justify-content: center;
-  border: 1.5px solid var(--gold);
-  outline: 1px solid rgba(196,160,90,.45); outline-offset: 4px;
   font-family: var(--display); font-size: 1.45rem; line-height: 1; letter-spacing: -.02em;
   color: var(--ivory);
 }
-.monogram span{ color: var(--gold-light); font-size: .85em; margin-inline: .05em; }
+/* La estrella de ocho puntas de la portada, en pequeño */
+.monogram__star{ position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.monogram__star rect{ fill: none; stroke: var(--gold); stroke-width: 1.4px; vector-effect: non-scaling-stroke; }
+.monogram__star-fina rect{ stroke-width: .8px; opacity: .5; }
+.monogram__txt{ position: relative; }
+.monogram__txt span{ color: var(--gold-light); font-size: .85em; margin-inline: .05em; }
 
 .footer__names{ font-family: var(--display); font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.1; }
 .footer__date{ margin-top: .75rem; }
