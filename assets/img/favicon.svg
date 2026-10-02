@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <circle cx="32" cy="32" r="32" fill="#363d23"/>
   <circle cx="32" cy="32" r="29.5" fill="none" stroke="#c4a05a" stroke-width="3"/>
-  <text x="32" y="43" text-anchor="middle" font-family="'Bodoni 72', Didot, 'Bodoni MT', Georgia, 'Times New Roman', serif" font-weight="bold" font-size="31" fill="#f7f1ea" letter-spacing="-1.5">I<tspan fill="#d4b46f" font-size="24" dy="-1.5">&amp;</tspan><tspan dy="1.5">A</tspan></text>
+  <text x="32" y="43" text-anchor="middle" font-family="'Bodoni 72', Didot, 'Bodoni MT', Georgia, 'Times New Roman', serif" font-weight="bold" font-size="31" fill="#f7f1ea" letter-spacing="-1.5">I<tspan fill="#d4b46f" font-size="24">y</tspan>A</text>
 </svg>

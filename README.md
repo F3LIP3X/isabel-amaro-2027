@@ -1,4 +1,4 @@
-# Isabel & Amaro · 2027
+# Isabel y Amaro · 2027
 
 Web de la boda de Isabel y Amaro. Sitio estático (HTML + CSS + JS), sin dependencias
 ni proceso de compilación: se abre con doble clic y se publica en GitHub Pages.

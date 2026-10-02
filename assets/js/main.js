@@ -1,5 +1,5 @@
 /* ============================================================
-   Isabel & Amaro · 2027
+   Isabel y Amaro · 2027
    ------------------------------------------------------------
    TODO lo que hay que cambiar está en el objeto BODA de abajo.
    El resto del archivo no hace falta tocarlo.
