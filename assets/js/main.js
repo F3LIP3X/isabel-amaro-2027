@@ -201,7 +201,13 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   toggle.addEventListener('click', () => marcar(!menu.classList.contains('is-open')));
 
   $$('a', menu).forEach(a => a.addEventListener('click', cerrar));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
+  // Escape cierra y, si el foco estaba en el menú, lo devuelve al botón
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape' || !menu.classList.contains('is-open')) return;
+    const dentro = menu.contains(document.activeElement);
+    cerrar();
+    if (dentro) toggle.focus();
+  });
   // Un toque fuera del menú lo cierra
   document.addEventListener('click', e => {
     if (menu.classList.contains('is-open') && !menu.contains(e.target) && !toggle.contains(e.target)) cerrar();
