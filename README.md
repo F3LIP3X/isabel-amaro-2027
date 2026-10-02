@@ -20,7 +20,7 @@ en el menú.
 
 ```js
 const BODA = {
-  fecha: '2027-06-12T12:00:00+02:00',   // fecha y hora de la ceremonia
+  fecha: '2027-04-03T13:00:00+02:00',   // fecha y hora de la ceremonia
   duracionHoras: 14,                    // duración para «Añadir al calendario»
   lugar: 'Granada',                     // lugar en la invitación de calendario
   formulario: 'https://forms.gle/...',  // enlace al formulario de confirmación

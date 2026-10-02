@@ -70,7 +70,7 @@ p, ul, dl{ margin: 0; }
 /* Bodoni Moda a tamaño óptico grande tiene trazos finísimos que desaparecen:
    fijamos un tamaño óptico bajo para que los remates sean más gruesos. */
 h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
-.prose__lead,.letter__sign,.section__sub,.timeline__time,.gift__iban,
+.prose__lead,.section__sub,.timeline__time,.gift__iban,
 .faq__item summary,.monogram__txt,.footer__names{
   font-optical-sizing: none;
   font-variation-settings: "opsz" 11;
@@ -392,24 +392,23 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 .ornament__dot{ fill: var(--gold); }
 .letter__title{ font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.1; }
 .letter .prose{ max-width: 36rem; margin: 2rem auto 0; }
-.letter__sign{ margin-top: 2.25rem; font-family: var(--display); font-size: 1.6rem; }
+.letter__sign{
+  margin-top: 2.5rem; display: flex; justify-content: center; gap: 1.25rem 3rem; flex-wrap: wrap;
+}
+.firma{
+  font-family: "Pinyon Script", "Snell Roundhand", "Segoe Script", cursive;
+  font-size: 3rem; line-height: 1.15; font-weight: 400;
+  padding: 0 .5rem; color: var(--ink);
+}
+@media (max-width: 480px){ .firma{ font-size: 2.5rem; } }
 
 /* ========================= EL GRAN DÍA ======================= */
-.venues{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 3.5rem 3rem; }
+.venues{ display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 2.5rem 2rem; }
 .venue{ border-top: 2px solid var(--olive); padding-top: 1.5rem; }
 .venue__when{ color: var(--gold-text); font-weight: 600; font-size: .95rem; }
 .venue h3{ font-size: 1.55rem; line-height: 1.25; margin-top: .4rem; }
 .venue__addr{ color: var(--muted); font-size: .95rem; line-height: 1.6; margin-top: .5rem; }
-.venue__map{
-  display: block; width: 100%; height: auto; aspect-ratio: 4 / 3;
-  margin: 1.5rem 0 1.25rem;
-  border: 1px solid var(--line); background: var(--cal);
-}
-/* En pantallas con ratón, el mapa va en tonos apagados hasta que se pasa por encima */
-@media (hover: hover){
-  .venue__map{ filter: grayscale(.85) sepia(.12); transition: filter .4s ease; }
-  .venue__map:hover{ filter: none; }
-}
+.venue .link{ display: inline-block; margin-top: 1rem; }
 
 /* Programa: línea de tiempo con un punto por momento */
 .timeline{
@@ -464,6 +463,7 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 .attire__item{ border-top: 2px solid var(--olive); padding-top: 1.25rem; }
 .attire__item h3{ font-size: 1.35rem; line-height: 1.3; }
 .attire__item p{ color: var(--muted); margin-top: .4rem; }
+.attire__item p strong{ color: var(--ink, inherit); font-weight: 600; }
 @media (max-width: 640px){ .attire{ grid-template-columns: 1fr; gap: 1.75rem; } }
 
 /* ======================== CONFIRMACIÓN ======================= */
@@ -601,7 +601,7 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 /* ========================== IMPRESIÓN ========================= */
 @media print{
   .hero__video, .hero__veil, .hero__star-shape, .hero__olivo,
-  .nav, .skip-link, .venue__map, .cal, .hero .btn, .rsvp .btn, #copyIban{ display: none; }
+  .nav, .skip-link, .cal, .hero .btn, .rsvp .btn, #copyIban{ display: none; }
   .hero, .section, .footer{ background: none; color: #000; min-height: 0; }
   .deco, .crest{ display: none; }
   .on-dark, .on-dark .prose strong, .on-dark .link{ color: #000; }

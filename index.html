@@ -16,7 +16,7 @@
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Hanken+Grotesk:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -89,7 +89,7 @@
       <div class="hero__content">
         <h1 class="hero__names">Isabel <span class="hero__amp">y</span> Amaro</h1>
 
-        <p class="hero__date"><span>Nos casamos el</span> <span data-date-long>12 de junio de 2027</span> <span>en Granada</span></p>
+        <p class="hero__date"><span>Nos casamos el</span> <span data-date-long>3 de abril de 2027</span> <span>en Granada</span></p>
 
         <a class="btn btn--gold" href="#confirmacion">Confirmar asistencia</a>
       </div>
@@ -113,11 +113,11 @@
       </svg>
       <h2 class="letter__title">Bienvenidos</h2>
       <div class="prose">
-        <p class="prose__lead">Hemos preparado esta página con muchísima ilusión para que tengáis a mano todo lo que necesitaréis durante el fin de semana de nuestra boda.</p>
+        <p class="prose__lead">Hemos preparado esta página con muchísima ilusión para que tengáis a mano todo lo que necesitaréis el día de nuestra boda.</p>
         <p>Aquí encontraréis horarios, lugares, transporte y alojamiento, para que solo tengáis que preocuparos de disfrutar con nosotros.</p>
         <p>Ya queda muy poco. ¡Qué ganas de celebrarlo juntos!</p>
       </div>
-      <p class="letter__sign">Isabel y Amaro</p>
+      <p class="letter__sign" aria-label="Isabel y Amaro"><span class="firma" aria-hidden="true">Isabel</span><span class="firma" aria-hidden="true">Amaro</span></p>
     </div>
   </section>
 
@@ -126,7 +126,7 @@
     <div class="wrap section__grid">
       <header class="section__head">
         <h2 class="section__title">El gran día</h2>
-        <p class="section__sub" data-date-full>Sábado, 12 de junio de 2027</p>
+        <p class="section__sub" data-date-full>Sábado, 3 de abril de 2027</p>
         <p class="cal">Añadir al calendario:<br>
           <a class="link" id="calGoogle" href="#" target="_blank" rel="noopener">Google Calendar</a>
           <a class="link" id="calIcs" href="#" download="boda-isabel-y-amaro.ics">Apple u Outlook</a>
@@ -136,70 +136,67 @@
       <div class="section__body">
         <div class="venues">
           <article class="venue">
-            <p class="venue__when">Ceremonia, a las 12:00</p>
-            <h3>Iglesia (por confirmar)</h3>
-            <p class="venue__addr">Dirección pendiente de confirmar, Granada</p>
-            <iframe class="venue__map" src="https://maps.google.com/maps?q=Granada%20centro&amp;output=embed" data-map-embed="ceremony" title="Mapa de la ceremonia" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Granada%20centro" data-map-route="ceremony" target="_blank" rel="noopener">Cómo llegar</a>
+            <p class="venue__when">Ceremonia · 13:00</p>
+            <h3>Iglesia del Sagrario</h3>
+            <p class="venue__addr">Catedral de Granada</p>
+            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Iglesia%20del%20Sagrario%2C%20Catedral%20de%20Granada" data-map-route="ceremony" target="_blank" rel="noopener">Cómo llegar</a>
           </article>
           <article class="venue">
-            <p class="venue__when">Celebración, desde las 14:00</p>
-            <h3>Finca (por confirmar)</h3>
-            <p class="venue__addr">Dirección pendiente de confirmar, Granada</p>
-            <iframe class="venue__map" src="https://maps.google.com/maps?q=Granada%20centro&amp;output=embed" data-map-embed="reception" title="Mapa de la celebración" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Granada%20centro" data-map-route="reception" target="_blank" rel="noopener">Cómo llegar</a>
+            <p class="venue__when">Autobús · 14:30</p>
+            <h3>Parada de la Catedral</h3>
+            <p class="venue__addr">Gran Vía de Colón, junto a la Catedral</p>
+            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Gran%20V%C3%ADa%20de%20Col%C3%B3n%2C%20Catedral%20de%20Granada" data-map-route="bus" target="_blank" rel="noopener">Cómo llegar</a>
+          </article>
+          <article class="venue">
+            <p class="venue__when">Celebración · desde las 15:00</p>
+            <h3>Hacienda Señorío de Nevada</h3>
+            <p class="venue__addr">Cóctel, banquete y baile</p>
+            <a class="link" href="https://www.google.com/maps/dir/?api=1&amp;destination=Hacienda%20Se%C3%B1or%C3%ADo%20de%20Nevada%2C%20Granada" data-map-route="reception" target="_blank" rel="noopener">Cómo llegar</a>
           </article>
         </div>
         <div class="group">
           <h3 class="subhead">Programa</h3>
           <ol class="timeline">
-            <li class="timeline__item">
-              <p class="timeline__time">11:30</p>
-              <div class="timeline__body">
-                <h4>Llegada de invitados</h4>
-                <p>Nos vemos en la puerta de la iglesia. Venid con margen para saludar y colocarnos sin prisas.</p>
-              </div>
-            </li>
             <li class="timeline__item timeline__item--key">
-              <p class="timeline__time">12:00</p>
+              <p class="timeline__time">13:00</p>
               <div class="timeline__body">
                 <h4>Ceremonia</h4>
-                <p>El momento. Os pedimos que durante la ceremonia dejéis el móvil guardado: habrá fotógrafo y luego compartiremos todo.</p>
+                <p>En la Iglesia del Sagrario, junto a la Catedral. Es una ceremonia religiosa: pedimos puntualidad y mucho respeto.</p>
               </div>
             </li>
             <li class="timeline__item">
-              <p class="timeline__time">13:15</p>
+              <p class="timeline__time">14:30</p>
               <div class="timeline__body">
-                <h4>Traslado a la finca</h4>
-                <p>Saldrán autobuses desde la puerta de la iglesia. Indicadnos en el formulario si los vais a usar.</p>
+                <h4>Salida del autobús</h4>
+                <p>Desde la parada de la Gran Vía, junto a la Catedral. El trayecto hasta la finca dura unos 15 minutos.</p>
               </div>
             </li>
             <li class="timeline__item">
-              <p class="timeline__time">14:00</p>
+              <p class="timeline__time">15:00</p>
               <div class="timeline__body">
                 <h4>Cóctel de bienvenida</h4>
-                <p>Aperitivo, sombra y música suave en los jardines.</p>
+                <p>De 15:00 a 17:00, para brindar, picar algo y saludarnos con calma.</p>
               </div>
             </li>
             <li class="timeline__item">
-              <p class="timeline__time">16:00</p>
+              <p class="timeline__time">17:00</p>
               <div class="timeline__body">
                 <h4>Banquete</h4>
-                <p>Encontraréis vuestro sitio en el plano de mesas a la entrada del salón.</p>
+                <p>Plato principal y postre.</p>
               </div>
             </li>
             <li class="timeline__item">
-              <p class="timeline__time">19:00</p>
+              <p class="timeline__time">18:00</p>
               <div class="timeline__body">
                 <h4>Barra libre y baile</h4>
-                <p>Primer baile, tarta y a partir de ahí no respondemos de nada.</p>
+                <p>Empieza la fiesta.</p>
               </div>
             </li>
             <li class="timeline__item">
-              <p class="timeline__time">02:00</p>
+              <p class="timeline__time">01:00</p>
               <div class="timeline__body">
-                <h4>Último autobús de vuelta</h4>
-                <p>Hay dos turnos de regreso al centro de Granada y este es el último. Os confirmaremos la hora del primero.</p>
+                <h4>Autobús de vuelta</h4>
+                <p>Regreso a Neptuno, ya de madrugada del domingo 4 de abril.</p>
               </div>
             </li>
           </ol>
@@ -218,22 +215,23 @@
 
       <div class="section__body">
         <div class="prose">
-          <p class="attire__code">Etiqueta formal</p>
-          <p>Queremos veros guapísimos. Parte de la celebración es al aire libre, así que pensad también en estar cómodos.</p>
+          <p class="attire__code">Boda de día</p>
+          <p>Queremos veros guapísimos, pero también elegantes. Por eso hemos creado este código de vestimenta: para que sepáis qué elegir sin quebraderos de cabeza.</p>
         </div>
 
         <div class="attire">
           <div class="attire__item">
-            <h3>Ellos</h3>
-            <p>Traje oscuro y corbata.</p>
+            <h3>Ellas</h3>
+            <p>Protocolo de boda de día. ¿Os atrevéis con pamela? Recordad que es una boda religiosa: mantengamos el debido respeto.</p>
           </div>
           <div class="attire__item">
-            <h3>Ellas</h3>
-            <p>Vestido largo o de cóctel.</p>
+            <h3>Ellos</h3>
+            <p>Traje azul marino o negro, con corbata. ¿Os atreveréis con un chaqué?</p>
           </div>
           <div class="attire__item">
             <h3>Calzado</h3>
-            <p>Habrá césped y grava: mejor tacón ancho o sandalia que tacón de aguja.</p>
+            <p><strong>Ellas:</strong> habrá césped y grava, así que mejor tacón ancho o sandalia que tacón de aguja.</p>
+            <p><strong>Ellos:</strong> nada de zapatillas deportivas; eso, para el pádel.</p>
           </div>
         </div>
       </div>
@@ -249,12 +247,11 @@
 
       <div class="section__body">
         <div class="prose">
-          <p class="prose__lead">¿Nos acompañáis? Confirmad vuestra asistencia antes del <strong data-rsvp-deadline>1 de abril de 2027</strong>.</p>
+          <p class="prose__lead">¿Nos acompañáis? Confirmad vuestra asistencia antes del <strong data-rsvp-deadline>1 de febrero de 2027</strong>.</p>
           <p>De vuestras respuestas depende buena parte de la organización. En el formulario os preguntaremos:</p>
           <ul class="asks">
             <li>Si venís y con quién</li>
             <li>Menús especiales y alergias</li>
-            <li>Si traéis niños, y sus edades</li>
             <li>Si usaréis el autobús de ida o de vuelta</li>
           </ul>
         </div>
@@ -280,20 +277,20 @@
           <h3 class="subhead">Cómo llegar</h3>
           <div class="travel">
             <div class="travel__item">
-              <h4>En avión</h4>
-              <p>Aeropuerto de Granada (GRX), a 20 minutos, o de Málaga (AGP), a 1 h 30 min.</p>
+              <h4>La ceremonia</h4>
+              <p>Iglesia del Sagrario, junto a la Catedral de Granada, a las 13:00.</p>
             </div>
             <div class="travel__item">
-              <h4>En tren</h4>
-              <p>Estación de Granada, con AVE directo desde Madrid.</p>
+              <h4>Autobús a la finca</h4>
+              <p>Sale a las 14:30 desde la Gran Vía, junto a la Catedral, y llega a la Hacienda Señorío de Nevada sobre las 14:45.</p>
             </div>
             <div class="travel__item">
-              <h4>En coche</h4>
-              <p>Hay aparcamiento gratuito junto a la finca. En la iglesia, lo más cómodo es el parking público más cercano.</p>
+              <h4>Autobús de vuelta</h4>
+              <p>A la 01:00 de la madrugada del 4 de abril, con destino Neptuno.</p>
             </div>
             <div class="travel__item">
-              <h4>Autobuses de la boda</h4>
-              <p>Ida de la iglesia a la finca a las 13:15 y vuelta al centro de Granada en dos turnos, el último a las 02:00. Reservad plaza en el formulario.</p>
+              <h4>Ubicaciones</h4>
+              <p>Tenéis el enlace de Google Maps de cada lugar en la sección «El gran día».</p>
             </div>
           </div>
         </div>
@@ -316,8 +313,8 @@
             </article>
             <article class="stay">
               <h4>Apartamentos</h4>
-              <p class="stay__meta">Ideal para familias</p>
-              <p>Si venís varios días o con niños, esta zona es la más cómoda para moveros a pie.</p>
+              <p class="stay__meta">Para quedarse unos días</p>
+              <p>Si venís varios días, esta zona es la más cómoda para moveros a pie.</p>
               <a class="link" href="#" target="_blank" rel="noopener">Ver opciones</a>
             </article>
           </div>
@@ -366,7 +363,7 @@
         <div class="faq">
           <details class="faq__item">
             <summary>¿Hasta cuándo puedo confirmar mi asistencia?</summary>
-            <div class="faq__answer"><p>Antes del <strong data-rsvp-deadline>1 de abril de 2027</strong>, por favor, para que podamos cerrar el número de comensales y los autobuses.</p></div>
+            <div class="faq__answer"><p>Antes del <strong data-rsvp-deadline>1 de febrero de 2027</strong>, por favor, para que podamos cerrar el número de comensales y los autobuses.</p></div>
           </details>
           <details class="faq__item">
             <summary>¿Puedo llevar acompañante?</summary>
@@ -374,7 +371,7 @@
           </details>
           <details class="faq__item">
             <summary>¿Pueden venir niños?</summary>
-            <div class="faq__answer"><p>Nos encantan los peques. Indicadnos en el formulario cuántos vienen y su edad para organizar menús infantiles y un espacio para ellos.</p></div>
+            <div class="faq__answer"><p>Hemos pensado una celebración solo para adultos. Gracias por entenderlo; sabemos que no siempre es fácil organizarse.</p></div>
           </details>
           <details class="faq__item">
             <summary>¿Y si tengo alergias o sigo una dieta especial?</summary>
@@ -382,23 +379,19 @@
           </details>
           <details class="faq__item">
             <summary>¿Habrá servicio de autobuses?</summary>
-            <div class="faq__answer"><p>Sí, de ida desde la iglesia a la finca y de vuelta al centro de Granada en dos turnos. Es imprescindible indicarlo en el formulario para reservar plaza.</p></div>
+            <div class="faq__answer"><p>Sí. Sale a las 14:30 desde la Gran Vía, junto a la Catedral, y llega a la finca sobre las 14:45. La vuelta es a la 01:00 de la madrugada, con destino Neptuno. Indicad en el formulario si lo vais a usar.</p></div>
           </details>
           <details class="faq__item">
-            <summary>¿Dónde puedo aparcar?</summary>
-            <div class="faq__answer"><p>Hay aparcamiento gratuito junto a la entrada de la finca. En la iglesia, lo más cómodo es el parking público más cercano.</p></div>
+            <summary>¿Dónde cojo el autobús?</summary>
+            <div class="faq__answer"><p>En la parada de la Gran Vía, junto a la Catedral, a las 14:30. Está a un paso de la iglesia, así que podéis ir andando nada más salir de la ceremonia.</p></div>
           </details>
           <details class="faq__item">
             <summary>¿Cuál es el código de vestimenta?</summary>
-            <div class="faq__answer"><p>Etiqueta formal. Parte de la celebración es al aire libre, así que os recomendamos calzado cómodo para césped y grava.</p></div>
-          </details>
-          <details class="faq__item">
-            <summary>¿Es accesible para sillas de ruedas?</summary>
-            <div class="faq__answer"><p>Sí. Avisadnos si alguien necesita ayuda para moverse por el recinto y lo tendremos todo preparado.</p></div>
+            <div class="faq__answer"><p>Boda de día. Ellos, traje azul marino o negro con corbata (o chaqué, si os atrevéis); ellas, vestido de boda de día, con pamela si queréis. Habrá césped y grava: tacón ancho o sandalia, mejor que tacón de aguja. Y nada de zapatillas deportivas.</p></div>
           </details>
           <details class="faq__item">
             <summary>¿Podemos hacer fotos?</summary>
-            <div class="faq__answer"><p>Todas las que queráis, salvo durante la ceremonia. Después compartiremos un enlace para que subáis las vuestras.</p></div>
+            <div class="faq__answer"><p>Todas las que queráis. Disfrutad y haced las fotos que os apetezca.</p></div>
           </details>
           <details class="faq__item">
             <summary>¿A quién puedo preguntar si tengo dudas?</summary>
@@ -419,9 +412,9 @@
     <svg aria-hidden="true" focusable="false" viewBox="0 0 330 400" class="crest__rama"><use href="#rama"/></svg>
   </div>
   <p class="footer__names">Isabel y Amaro</p>
-  <p class="footer__date"><span data-date-long>12 de junio de 2027</span>, Granada</p>
+  <p class="footer__date"><span data-date-long>3 de abril de 2027</span>, Granada</p>
   <p class="footer__thanks">Gracias por acompañarnos. Os queremos.</p>
-  <p class="footer__credit">Web desarrollada por <a href="https://github.com/F3LIP3X" target="_blank" rel="noopener">Felipe Toledano Escudero</a></p>
+  <p class="footer__credit">Web desarrollada por <a href="https://github.com/F3LIP3X" target="_blank" rel="noopener">Felipe Toledano Escudero</a>, el padrino de la boda. © 2027 </p>
 </footer>
 
 <script src="assets/js/main.js"></script>

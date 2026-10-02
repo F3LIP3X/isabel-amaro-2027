@@ -8,25 +8,26 @@
 const BODA = {
   // Fecha y hora de la ceremonia (hora de España).
   // Formato: AAAA-MM-DDTHH:MM:SS+02:00  (+02:00 en verano, +01:00 en invierno)
-  fecha: '2027-06-12T12:00:00+02:00',
+  fecha: '2027-04-03T13:00:00+02:00',
 
-  // Duración aproximada, para la invitación de calendario (de la ceremonia al último autobús)
-  duracionHoras: 14,
+  // Duración aproximada, para la invitación de calendario (de la ceremonia al autobús de vuelta, 01:00)
+  duracionHoras: 12,
 
   // Lugar que aparece en la invitación de calendario
-  lugar: 'Granada',
+  lugar: 'Iglesia del Sagrario, Catedral de Granada',
 
   // Enlace al formulario de confirmación (Google Forms, Typeform…)
   formulario: 'https://forms.gle/CAMBIAR-ESTE-ENLACE',
 
   // Fecha límite para confirmar (texto libre)
-  limiteConfirmacion: '1 de abril de 2027',
+  limiteConfirmacion: '1 de febrero de 2027',
 
-  // Dirección de cada lugar, tal y como se buscaría en Google Maps.
-  // Se usa para el mapa incrustado y para el enlace «Cómo llegar».
+  // Cada lugar, tal y como se buscaría en Google Maps.
+  // Se usa para los enlaces «Cómo llegar» (sin mapa incrustado).
   direcciones: {
-    ceremony:  'Granada centro',
-    reception: 'Granada centro'
+    ceremony:  'Iglesia del Sagrario, Catedral de Granada',
+    bus:       'Gran Vía de Colón, Catedral de Granada',
+    reception: 'Hacienda Señorío de Nevada, Granada'
   },
 
   // Número de cuenta para el regalo y nombre del titular (si se deja vacío, no se muestra)
@@ -35,7 +36,7 @@ const BODA = {
 
   // WhatsApp de contacto, con prefijo de país y sin espacios, p. ej. '34600111222'
   // (si se deja vacío, el texto aparece sin enlace)
-  whatsapp: ''
+  whatsapp: '34674302706'
 };
 
 /* ------------------------------------------------------------ */
@@ -71,13 +72,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
   $$('[data-rsvp-deadline]').forEach(el => { el.textContent = BODA.limiteConfirmacion; });
 
-  // Mapas incrustados y enlaces «Cómo llegar» a partir de la misma dirección
-  $$('[data-map-embed]').forEach(el => {
-    const dir = BODA.direcciones[el.dataset.mapEmbed];
-    if (!dir) return;
-    const url = `https://maps.google.com/maps?q=${encodeURIComponent(dir)}&output=embed`;
-    if (el.getAttribute('src') !== url) el.src = url;
-  });
+  // Enlaces «Cómo llegar» a partir de la dirección de cada lugar
   $$('[data-map-route]').forEach(el => {
     const dir = BODA.direcciones[el.dataset.mapRoute];
     if (dir) el.href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dir)}`;
