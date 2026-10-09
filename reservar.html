@@ -28,7 +28,12 @@
         </ol>
       </div>
 
+      <p class="rsvp__note" id="reservaWeb" hidden>Web del hotel: <a class="link" href="https://www.brozhostel.es/" target="_blank" rel="noopener">brozhostel.es</a></p>
       <p class="rsvp__note"><a class="link" href="index.html#alojamiento">Volver a alojamiento</a></p>
+      <script>
+        // Si se llega desde Broz Hostel, se muestra su web como ayuda extra
+        if (new URLSearchParams(location.search).get('hotel') === 'broz') document.getElementById('reservaWeb').hidden = false;
+      </script>
     </div>
   </div>
 </main>
