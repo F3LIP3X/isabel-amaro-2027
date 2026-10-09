@@ -27,6 +27,18 @@
   --display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
   --sans:    "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
 
+  /* Escala tipográfica (editorial): Bodoni para titulares y cifras, Hanken para el resto.
+     Seis pasos y nada más: etiqueta · pequeño · cuerpo · entradilla · título de ficha · sección */
+  --fs-kicker: .8125rem;                          /* etiquetas en versalitas, Hanken 600 */
+  --fs-sm:     .9375rem;                          /* notas, direcciones */
+  --fs-body:   1.0625rem;                         /* texto corrido */
+  --fs-lead:   clamp(1.3rem, 2.2vw, 1.6rem);      /* entradillas, Bodoni */
+  --fs-h4:     clamp(1.3rem, 1.9vw, 1.5rem);      /* títulos de ficha, Bodoni */
+  --fs-h3:     clamp(1.5rem, 2.4vw, 1.85rem);     /* subtítulos de grupo, Bodoni */
+  --fs-h2:     clamp(2.25rem, 4.2vw, 3.25rem);    /* títulos de sección, Bodoni */
+  --fs-figure: clamp(2rem, 3.4vw, 2.5rem);        /* horas y precios, Bodoni */
+  --radius:    18px;
+
   /* Métrica */
   --wrap:   1120px;
   --gutter: clamp(1.25rem, 5vw, 3rem);
@@ -56,7 +68,7 @@ body{
   color: var(--ink);
   font-family: var(--sans);
   font-size: 18px;
-  line-height: 1.8;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -70,10 +82,17 @@ p, ul, dl{ margin: 0; }
 /* Bodoni Moda a tamaño óptico grande tiene trazos finísimos que desaparecen:
    fijamos un tamaño óptico bajo para que los remates sean más gruesos. */
 h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
-.prose__lead,.section__sub,.timeline__time,.gift__iban,
-.faq__item summary,.monogram__txt,.footer__names{
+.prose__lead,.section__sub,.venue__time,.stay__from strong,.prices dd,.prices__group > dt,
+.gift__iban,.firma,.monogram__txt,.footer__names,.section__title::before{
   font-optical-sizing: none;
   font-variation-settings: "opsz" 11;
+}
+/* Cifras de forma uniforme: horas, precios y cuenta atrás alinean en columna */
+.venue__time,.prices dd,.stay__from strong,.nav__count strong{ font-variant-numeric: lining-nums tabular-nums; }
+
+/* Reducir movimiento: también las transiciones de color y giro */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
 .sr-only{
@@ -190,7 +209,7 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
   .nav__inner{ gap: 1rem; }
   .nav__brand{ font-size: 1.2rem; }
   .nav__right{ gap: .5rem; }
-  .nav__cta{ order: 1; padding: .5rem .9rem; }
+  .nav__cta{ order: 1; padding: .5rem .9rem; display: inline-flex; align-items: center; min-height: 44px; }
   .nav__cta-long{ display: none; }
   .nav__toggle{ display: inline-flex; order: 2; }
   .nav__menu{
@@ -285,12 +304,21 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
   white-space: nowrap;
 }
 .hero__amp{ color: var(--gold-light); }
+/* Fecha en tres líneas con jerarquía editorial: las frases de enlace en
+   versalitas Hanken, la fecha (la cifra) en Bodoni */
 .hero__date{
   margin-top: 3.6cqi;
-  font-family: var(--display); font-size: max(.95rem, 3.1cqi); line-height: 1.3;
+  font-family: var(--sans); font-weight: 600; line-height: 1.3;
+  font-size: max(.75rem, 1.65cqi); letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ivory-soft);
 }
-/* una frase por línea */
 .hero__date > span{ display: block; }
+.hero__date > span:nth-child(2){
+  margin-block: .45em .5em;
+  font-family: var(--display); font-weight: 500; text-transform: none; letter-spacing: 0;
+  font-size: max(1.15rem, 3.6cqi); line-height: 1.15; color: var(--ivory);
+  font-optical-sizing: none; font-variation-settings: "opsz" 11;
+}
 
 /* Cuenta atrás: vive en la cabecera (ver .nav__count) */
 
@@ -346,20 +374,36 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 .section{
   --section-bg: var(--cal);
   background: var(--section-bg);
-  padding-block: clamp(5.5rem, 12vw, 10rem);
+  padding-block: clamp(4.5rem, 11vw, 9rem);
 }
 .section--tint{ --section-bg: var(--cal-tint); }
 .section--olive{ --section-bg: var(--olive); }
 
-/* Título fijo a la izquierda, contenido a la derecha */
+/* Composición asimétrica: titular fijo en una columna estrecha a la izquierda,
+   contenido a la derecha. Las secciones numeradas como capítulos (01, 02…) */
+main{ counter-reset: capitulo; }
 .section__grid{
-  display: grid; gap: clamp(2rem, 6vw, 6rem);
-  grid-template-columns: minmax(0, .8fr) minmax(0, 1.7fr);
+  display: grid; gap: clamp(2.25rem, 6vw, 6rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
   align-items: start;
 }
 .section__head{ position: sticky; top: calc(var(--nav-h) + 2rem); }
-.section__title{ font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.1; letter-spacing: -.005em; }
-.section__sub{ margin-top: 1rem; font-family: var(--display); font-size: 1.25rem; line-height: 1.4; color: var(--olive); }
+.section__title{
+  font-size: var(--fs-h2); line-height: 1.05; letter-spacing: -.015em;
+  text-wrap: balance; overflow-wrap: break-word;
+}
+/* Número de capítulo: decorativo, oculto a lectores de pantalla donde se admite */
+.section__title::before{
+  counter-increment: capitulo;
+  content: counter(capitulo, decimal-leading-zero);
+  content: counter(capitulo, decimal-leading-zero) / "";
+  display: block; margin-bottom: .9rem; padding-bottom: .7rem; width: 3rem;
+  border-bottom: 1px solid var(--gold);
+  font-family: var(--display); font-style: italic; font-size: 1.125rem; line-height: 1;
+  letter-spacing: 0; color: var(--gold-text);
+}
+.on-dark .section__title::before{ color: var(--gold-light); }
+.section__sub{ margin-top: 1.25rem; font-family: var(--display); font-size: 1.25rem; line-height: 1.4; color: var(--olive); }
 .section__body > * + *{ margin-top: clamp(3.5rem, 7vw, 5.5rem); }
 
 @media (max-width: 860px){
@@ -368,20 +412,20 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 }
 
 /* Añadir al calendario */
-.cal{ margin-top: 1.5rem; font-size: .95rem; line-height: 2; color: var(--muted); }
+.cal{ margin-top: 1.5rem; font-size: var(--fs-sm); line-height: 2; color: var(--muted); }
 .cal .link{ margin-right: 1.1rem; }
 
 /* Subtítulo de grupo dentro de una sección, con filete hasta el borde */
 .subhead{
   display: flex; align-items: center; gap: 1.25rem;
-  font-size: clamp(1.45rem, 2.4vw, 1.8rem); line-height: 1.2; margin-bottom: 2rem;
+  font-size: var(--fs-h3); line-height: 1.2; margin-bottom: 2rem;
 }
 .subhead::after{ content: ""; flex: 1; height: 1px; background: var(--line); }
-.group__intro{ max-width: 60ch; margin-bottom: 1.75rem; }
+.group__intro{ max-width: 60ch; margin-bottom: 2rem; }
 
 .prose{ max-width: 60ch; }
 .prose > * + *{ margin-top: 1.5rem; }
-.prose__lead{ font-family: var(--display); font-size: clamp(1.35rem, 2.4vw, 1.7rem); line-height: 1.4; }
+.prose__lead{ font-family: var(--display); font-size: var(--fs-lead); line-height: 1.4; }
 .on-dark .prose strong{ color: #fff; }
 .on-dark .prose__lead strong{ color: var(--gold-light); font-weight: 500; }
 
@@ -390,57 +434,59 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 .ornament{ display: block; width: 320px; max-width: 100%; height: auto; margin: 0 auto 1.25rem; color: var(--leaf); overflow: visible; }
 /* Punto dorado entre las dos ramas */
 .ornament__dot{ fill: var(--gold); }
-.letter__title{ font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.1; }
+.letter__title{ font-size: var(--fs-h2); line-height: 1.05; letter-spacing: -.015em; }
 .letter .prose{ max-width: 36rem; margin: 2rem auto 0; }
+/* Tres niveles y dos familias: titular y entradilla en Bodoni, cuerpo en Hanken, firma en Bodoni cursiva */
+.letter .prose__lead{ color: var(--olive); line-height: 1.45; }
+.letter__body{ font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 48ch; margin-inline: auto; }
 .letter__sign{
   margin-top: 2.5rem; display: flex; justify-content: center; gap: 1.25rem 3rem; flex-wrap: wrap;
 }
 .firma{
-  font-family: "Pinyon Script", "Snell Roundhand", "Segoe Script", cursive;
+  font-family: var(--display); font-style: italic;
   font-size: 3rem; line-height: 1.15; font-weight: 400;
   padding: 0 .5rem; color: var(--ink);
 }
 @media (max-width: 480px){ .firma{ font-size: 2.5rem; } }
 
 /* ========================= EL GRAN DÍA ======================= */
-.venues{ display: grid; gap: 0; }
+/* Programa: una ficha por momento. Hora en Bodoni a la izquierda con filete dorado,
+   etiqueta en versalitas, título y nota; el botón «Cómo llegar» bajo el texto
+   (no en una tercera columna) para que el texto respire */
+.venues{ display: grid; }
 .venue{
-  background: #fbfaf6; border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
-  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 10px 30px -18px rgba(54,61,35,.35);
+  background: #fbfaf6; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 14px 30px -24px rgba(54,61,35,.5);
 }
 .venue__head{
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1rem 1.5rem; align-items: center;
-  padding: 1.5rem 1.75rem;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.1rem 1.75rem; align-items: start;
+  padding: 1.75rem 2rem;
 }
 .venue__time{
-  font-family: var(--display); font-size: 2.4rem; line-height: 1; color: var(--olive);
-  padding-right: 1.5rem; border-right: 1px solid var(--gold); width: 7.2rem; box-sizing: border-box;
-  font-optical-sizing: none; font-variation-settings: "opsz" 11;
+  grid-row: span 2; align-self: stretch;
+  font-family: var(--display); font-size: var(--fs-figure); line-height: 1; color: var(--olive);
+  padding-right: 1.5rem; border-right: 1px solid var(--gold);
 }
-.venue__when{ color: var(--gold-text); font-weight: 600; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
-.venue h3{ font-size: 1.5rem; line-height: 1.25; margin-top: .3rem; }
-.venue__addr{ color: var(--muted); font-size: .95rem; line-height: 1.5; margin-top: .25rem; }
-.venue__go{ white-space: nowrap; }
-.venues{ margin-top: 1.75rem; }
-.venue--simple .venue__head{ padding-block: 1.25rem; }
-.venue--simple .venue__time{ font-size: 2.4rem; }
-.venue--simple .venue__info h3{ font-size: 1.3rem; }
+.venue--simple .venue__time{ grid-row: auto; }
+.venue__when{
+  color: var(--gold-text); font-weight: 600; font-size: var(--fs-kicker); line-height: 1.4;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.venue h3{ font-size: var(--fs-h4); line-height: 1.2; margin-top: .4rem; }
+.venue__addr{ color: var(--muted); font-size: var(--fs-sm); line-height: 1.55; margin-top: .45rem; max-width: 52ch; }
+.venue__go{ grid-column: 2; justify-self: start; padding: .7rem 1.5rem; white-space: nowrap; }
 @media (max-width: 640px){
-  .venue__head{ grid-template-columns: auto minmax(0, 1fr); padding: 1.25rem; }
-  .venue__go{ grid-column: 1 / -1; justify-self: stretch; text-align: center; }
-  .venue__time, .venue--simple .venue__time{ font-size: 1.9rem; width: auto; padding-right: 1rem; }
+  /* Móvil: la hora pasa arriba como cifra de apertura y el texto ocupa todo el ancho */
+  .venue__head{ grid-template-columns: minmax(0, 1fr); gap: .9rem; padding: 1.5rem 1.25rem; }
+  .venue__time, .venue--simple .venue__time{
+    grid-row: auto; justify-self: start; align-self: auto;
+    padding: 0 0 .6rem; border-right: 0; border-bottom: 1px solid var(--gold);
+  }
+  .venue__go{ grid-column: 1; justify-self: stretch; text-align: center; }
 }
-.venue-sep{ display: flex; justify-content: center; padding: .25rem 0; color: var(--leaf); }
-.venue-sep svg{ width: 52px; height: 128px; overflow: visible; }
-.venue__when{ color: var(--gold-text); font-weight: 600; font-size: .95rem; }
-.venue h3{ font-size: 1.45rem; line-height: 1.25; }
-.venue__addr{ color: var(--muted); font-size: .95rem; line-height: 1.5; grid-column: 2; }
-.venue .link{ grid-column: 3; grid-row: 1 / span 2; align-self: center; white-space: nowrap; }
-@media (max-width: 640px){
-  .venue{ grid-template-columns: 1fr; }
-  .venue__addr, .venue .link{ grid-column: 1; grid-row: auto; }
-  .venue .link{ justify-self: start; margin-top: .5rem; }
-}
+/* Ramita de olivo en flecha entre momentos: más corta, para no partir el ritmo */
+.venue-sep{ display: flex; justify-content: center; padding: .5rem 0; color: var(--leaf); }
+.venue-sep svg{ width: 30px; height: 74px; overflow: visible; }
 
 /* Mapas: estilo claro y legible, con bordes redondeados */
 .map{
@@ -457,121 +503,177 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 }
 @media (max-width: 720px){ .map{ height: 260px; } }
 
-/* Programa: línea de tiempo con un punto por momento */
-.timeline{
-  --tl-time: 5.25rem;
-  --tl-gap: 3rem;
-  --tl-dot: 11px;
-  --tl-pad: 1.1rem;
-  --tl-time-size: 1.55rem;
-  --tl-x: calc(var(--tl-time) + var(--tl-gap) / 2);
-  --tl-y: calc(var(--tl-pad) + var(--tl-time-size) * .6);
-  list-style: none; margin: 0; padding: 0;
-}
-.timeline__item{
-  position: relative;
-  display: grid; grid-template-columns: var(--tl-time) minmax(0, 1fr); column-gap: var(--tl-gap);
-  padding-block: var(--tl-pad) 1.6rem;
-}
-/* tramo de línea hasta el punto siguiente */
-.timeline__item:not(:last-child)::after{
-  content: ""; position: absolute; width: 1px;
-  left: calc(var(--tl-x) - .5px);
-  top: var(--tl-y); bottom: calc(var(--tl-y) * -1);
-  background: var(--gold); opacity: .6;
-}
-.timeline__item::before{
-  content: ""; position: absolute; z-index: 1;
-  left: calc(var(--tl-x) - var(--tl-dot) / 2);
-  top: calc(var(--tl-y) - var(--tl-dot) / 2);
-  width: var(--tl-dot); height: var(--tl-dot); border-radius: 50%;
-  background: var(--section-bg); border: 1.5px solid var(--gold);
-}
-.timeline__item--key::before{ background: var(--gold); }
-.timeline__time{
-  font-family: var(--display); font-size: var(--tl-time-size); line-height: 1.2;
-  color: var(--olive); text-align: right; font-variant-numeric: lining-nums tabular-nums;
-}
-.timeline__body h4{ font-size: 1.3rem; line-height: 1.3; padding-top: .1rem; }
-.timeline__body p{ color: var(--muted); margin-top: .45rem; max-width: 52ch; }
-
-@media (max-width: 560px){
-  .timeline{ --tl-x: 5px; --tl-time-size: 1.35rem; }
-  .timeline__item{ grid-template-columns: 1fr; padding-left: 2rem; }
-  .timeline__time{ text-align: left; }
-}
-
 /* ========================= VESTIMENTA ======================== */
 .attire__code{
   font-family: var(--display); font-size: clamp(1.6rem, 3vw, 2.3rem); line-height: 1.15;
   color: var(--olive); font-optical-sizing: none; font-variation-settings: "opsz" 11;
 }
-.attire{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem 2.5rem; }
-.attire__item{ border-top: 2px solid var(--olive); padding-top: 1.25rem; }
-.attire__item h3{ font-size: 1.35rem; line-height: 1.3; }
-.attire__item p{ color: var(--muted); margin-top: .4rem; }
-.attire__item p strong{ color: var(--ink, inherit); font-weight: 600; }
+.attire{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.attire__item:nth-child(n+3){ grid-column: 1 / -1; }
+.attire__item{
+  background: #fbfaf6; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.75rem 1.6rem;
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 10px 30px -18px rgba(54,61,35,.35);
+}
+.attire__item h3{ font-size: var(--fs-h3); line-height: 1.2; display: flex; align-items: center; gap: .7rem; }
+/* Rombo dorado, el mismo motivo que los títulos de sección */
+.attire__item h3::before{ content: ""; width: .5rem; height: .5rem; flex: none; background: var(--gold); rotate: 45deg; }
+.attire__item p{ color: var(--ink); margin-top: .75rem; font-size: var(--fs-body); line-height: 1.6; }
+.attire__item p + p{ margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.attire__item p strong{ display: block; font-size: var(--fs-sm); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-text); font-weight: 600; margin-bottom: .3rem; }
 @media (max-width: 640px){ .attire{ grid-template-columns: 1fr; gap: 1.75rem; } }
 
 /* ======================== CONFIRMACIÓN ======================= */
-.asks{ list-style: none; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem 2rem; }
-.asks li{ position: relative; padding-left: 1.85rem; line-height: 1.5; }
-.asks li::before{
-  /* hoja de olivo */
-  content: ""; position: absolute; left: 0; top: .45em;
-  width: 16px; height: 8px; border-radius: 0 100% 0 100%;
-  background: var(--gold-light); transform: rotate(-30deg);
+/* Preguntas del formulario: columnas con filete dorado encima, sin caja */
+.asks{ list-style: none; padding: 0; margin: 2rem 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.asks li{
+  padding-top: 1.1rem; border-top: 1px solid var(--gold); line-height: 1.5; font-size: var(--fs-body); color: var(--ivory);
 }
-@media (max-width: 560px){ .asks{ grid-template-columns: 1fr; } }
+@media (max-width: 720px){ .asks{ grid-template-columns: 1fr; } }
 
-.rsvp{ display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
-.section__body > .rsvp{ margin-top: 2.75rem; }
-.rsvp .btn{ margin-bottom: .5rem; }
-.rsvp__note{ font-size: .95rem; color: var(--ivory-soft); max-width: 52ch; }
+/* Bloque de acción: separado del texto por una línea dorada */
+.rsvp{
+  display: flex; flex-direction: column; align-items: flex-start; gap: 1rem;
+  margin-top: 2.75rem; padding-top: 2.25rem; border-top: 1px solid rgba(212,180,111,.35);
+}
+.rsvp .btn{ align-self: stretch; text-align: center; margin-bottom: .25rem; }
+.rsvp__note{ font-size: var(--fs-sm); color: var(--ivory-soft); width: min(100%, 52ch); align-self: center; text-align: center; }
 
 /* =================== ALOJAMIENTO Y TRANSPORTE ================ */
-.travel{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.25rem 2.75rem; }
-.travel__item h4{ font-size: 1.2rem; line-height: 1.3; }
-.travel__item p{ color: var(--muted); margin-top: .4rem; }
+/* Pasos del trayecto: una línea dorada los une y cada uno tiene su rombo */
+.travel{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem 3rem; }
+.travel__item{ position: relative; padding-left: 1.75rem; border-left: 1px solid var(--gold); }
+.travel__item::before{
+  content: ""; position: absolute; left: -.34rem; top: .4rem;
+  width: .6rem; height: .6rem; background: var(--gold); rotate: 45deg;
+}
+.travel__item h4{ font-size: var(--fs-h4); line-height: 1.25; }
+.travel__item p{ color: var(--muted); margin-top: .5rem; line-height: 1.6; }
 @media (max-width: 640px){ .travel{ grid-template-columns: 1fr; gap: 1.75rem; } }
 
-.stays{ border-top: 1px solid var(--line); }
-.stay{
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .35rem 2rem; align-items: start;
-  padding-block: 1.75rem; border-bottom: 1px solid var(--line);
+/* Fichas de alojamiento: mismo lenguaje que las del programa (radio, filete, sombra) */
+.stays{ display: grid; gap: 2rem; }
+.stay--card{
+  border: 1px solid var(--line); background: #fbfaf6;
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: 0 14px 30px -24px rgba(54,61,35,.5);
 }
-.stay > *{ grid-column: 1; }
-.stay h4{ font-size: 1.35rem; line-height: 1.3; }
-.stay__meta{ color: var(--gold-text); font-weight: 600; font-size: .92rem; }
-.stay p:not(.stay__meta){ color: var(--muted); max-width: 55ch; }
-.stay .link{ grid-column: 2; grid-row: 1 / span 3; align-self: center; white-space: nowrap; }
-@media (max-width: 640px){
-  .stay{ grid-template-columns: 1fr; }
-  .stay .link{ grid-column: 1; grid-row: auto; justify-self: start; margin-top: .5rem; }
+.carousel{ position: relative; background: var(--olive); }
+.carousel__track{
+  list-style: none; margin: 0; padding: 0; display: flex; overflow-x: auto;
+  scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
 }
+.carousel__track::-webkit-scrollbar{ display: none; }
+.carousel__slide{ flex: 0 0 100%; scroll-snap-align: center; aspect-ratio: 16 / 10; }
+.carousel__slide img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+.carousel__btn{
+  position: absolute; top: 50%; translate: 0 -50%; width: 2.75rem; height: 2.75rem; border: 0; border-radius: 50%;
+  background: rgba(247,246,242,.92); color: var(--olive); display: grid; place-items: center; padding: 0; cursor: pointer;
+  box-shadow: 0 1px 6px rgba(0,0,0,.3);
+}
+.carousel__placeholder{
+  width: 100%; height: 100%; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--olive-soft), var(--olive)); color: var(--ivory-soft); font-size: .9rem; letter-spacing: .08em; text-transform: uppercase;
+}
+.carousel__btn:hover{ background: #fff; }
+.carousel__btn--prev{ left: .6rem; }
+.carousel__btn--next{ right: .6rem; }
+.carousel__btn[disabled]{ opacity: .35; cursor: default; }
+/* Sobre la foto el oro oscuro no se ve: foco claro y por dentro del marco */
+.carousel :focus-visible{ outline: 2px solid var(--gold-light); outline-offset: -4px; }
+.carousel__btn:focus-visible{ outline-color: var(--olive); outline-offset: 2px; }
+.carousel__dots{
+  position: absolute; left: 50%; bottom: .6rem; translate: -50% 0; display: flex; align-items: center;
+  padding-inline: .35rem; border-radius: 999px; background: rgba(35,37,27,.55);
+}
+.carousel__dot{
+  width: 1.75rem; height: 1.75rem; padding: 0; border: 0; background: none; cursor: pointer;
+  display: grid; place-items: center;
+}
+.carousel__dot::before{ content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: rgba(255,255,255,.55); transition: background .2s, scale .2s; }
+.carousel__dot[aria-current="true"]::before{ background: #fff; scale: 1.25; }
+@media (pointer: coarse){ .carousel__dot{ width: 2.75rem; height: 2.75rem; } }
+
+.stay__info{ padding: 1.75rem 2rem 2rem; display: grid; gap: 1.25rem; }
+.stay__top{ display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
+.stay__top h4{ font-size: var(--fs-h4); line-height: 1.2; }
+.stay__desc{ margin-top: .45rem; max-width: 34ch; color: var(--muted); font-size: var(--fs-sm); line-height: 1.55; }
+/* Precio de apertura: etiqueta en versalitas, cifra en Bodoni */
+.stay__from{
+  display: grid; justify-items: end; text-align: right; flex: none; color: var(--gold-text);
+  font-size: var(--fs-kicker); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; line-height: 1.3;
+}
+.stay__from strong{ font-family: var(--display); font-weight: 500; font-size: var(--fs-figure); line-height: 1.1; letter-spacing: 0; color: var(--olive); text-transform: none; }
+
+.stay__more{ border-block: 1px solid var(--line); }
+.stay__more summary{
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3rem; cursor: pointer;
+  list-style: none; font-weight: 600; color: var(--ink);
+}
+.stay__more summary::-webkit-details-marker{ display: none; }
+.stay__more summary svg{ flex: none; color: var(--gold-text); transition: rotate .25s; }
+.stay__more[open] summary svg{ rotate: 180deg; }
+.stay__more summary:hover span{ text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: .25em; }
+
+.prices{ margin: .25rem 0 0; display: grid; }
+.prices dt, .prices dd{ margin: 0; }
+.prices__row{ display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding-block: .7rem; border-top: 1px solid var(--line); }
+.prices__row:first-child{ border-top: 0; }
+.prices__row dt{ color: var(--ink); }
+.prices__row small{ display: block; color: var(--muted); font-size: var(--fs-sm); margin-top: .1rem; }
+.prices__row dd{ font-family: var(--display); font-size: 1.3rem; font-weight: 500; white-space: nowrap; color: var(--olive); }
+.prices__group{ padding-top: .85rem; border-top: 1px solid var(--line); }
+.prices__group > dt{ font-weight: 600; color: var(--ink); }
+.prices__sub{ margin: .35rem 0 0; padding-left: 1rem; border-left: 2px solid var(--gold); }
+.prices__sub .prices__row{ padding-block: .45rem; border-top: 0; }
+.prices__note{ margin: .5rem 0 1rem; font-size: var(--fs-sm); color: var(--muted); }
+
+.stay .stay__go{
+  justify-self: stretch; display: flex; align-items: center; justify-content: center; gap: .55rem;
+  min-height: 3rem; padding: .7rem 1.25rem; border-color: var(--line); background: var(--cal-tint);
+}
+.stay .stay__go svg{ color: var(--gold-text); flex: none; transition: color .2s; }
+.stay .stay__go[aria-disabled="true"]{ opacity: .55; }
+.stay .stay__go:hover{ background: var(--olive); border-color: var(--olive); color: var(--cal); }
+.stay .stay__go:hover svg{ color: var(--gold-light); }
+@media (max-width: 480px){
+  .stay__info{ padding: 1.5rem 1.25rem 1.5rem; }
+  .stay__top{ flex-direction: column; gap: .75rem; }
+  .stay__from{ justify-items: start; text-align: left; grid-template-columns: auto auto; column-gap: .5rem; align-items: baseline; }
+}
+@media (max-width: 640px){ .carousel__slide{ aspect-ratio: 4 / 3; } }
 
 /* =========================== REGALO ========================== */
+/* Tarjeta de regalo: oliva con doble filete dorado, como la portada */
 .gift{
-  max-width: 40rem; background: var(--cal);
-  border: 1px solid var(--line);
-  padding: clamp(1.75rem, 4vw, 2.75rem);
-  display: flex; flex-direction: column; align-items: flex-start;
+  position: relative; max-width: 40rem; margin-inline: auto; width: 100%;
+  background: var(--olive); color: var(--ivory); border-radius: var(--radius);
+  padding: clamp(2.25rem, 5vw, 3.25rem) clamp(1.5rem, 4vw, 2.75rem);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  box-shadow: 0 18px 40px -22px rgba(54,61,35,.6);
 }
-.gift__label{ color: var(--gold-text); font-weight: 600; font-size: .95rem; }
+/* Filete interior: segundo marco dorado, más fino, dentro de la tarjeta */
+.gift::after{
+  content: ""; position: absolute; inset: 12px; border: 1px solid rgba(212,180,111,.45);
+  border-radius: calc(var(--radius) - 6px); pointer-events: none;
+}
+.gift__label{ color: var(--gold-light); font-weight: 600; font-size: var(--fs-kicker); letter-spacing: .16em; text-transform: uppercase; }
+.gift__label::before{ content: ""; display: block; width: .5rem; height: .5rem; margin: 0 auto 1.1rem; background: var(--gold); rotate: 45deg; }
 .gift__iban{
   font-family: var(--display); font-size: clamp(1.25rem, 2.6vw, 1.65rem);
-  line-height: 1.3; letter-spacing: .03em; margin-top: .4rem;
+  line-height: 1.3; letter-spacing: .03em; margin-top: .4rem; color: var(--ivory);
   font-variant-numeric: lining-nums tabular-nums;
   text-wrap: balance;   /* en móvil, dos líneas iguales en vez de una suelta */
 }
 @media (min-width: 640px){ .gift__iban{ white-space: nowrap; } }
-.gift__meta{ display: grid; gap: .3rem; margin: 1.25rem 0 1.75rem; font-size: .95rem; }
+.gift__meta{ display: grid; gap: .3rem; margin: 1.25rem 0 1.75rem; font-size: var(--fs-sm); justify-items: center; }
 .gift__meta div{ display: flex; gap: .4rem; }
-.gift__meta dt{ color: var(--muted); }
+.gift__meta dt{ color: var(--ivory-soft); }
 .gift__meta dt::after{ content: ":"; }
 .gift__meta dd{ margin: 0; font-weight: 600; }
-.gift__actions{ display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; }
-.gift__hint{ font-size: .95rem; font-weight: 600; color: var(--gold-text); }
+.gift__actions{ display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .75rem 1.25rem; }
+.gift .btn--ghost{ color: var(--gold-light); border-color: var(--gold); }
+.gift .btn--ghost:hover{ background: var(--gold); color: var(--olive); border-color: var(--gold); }
+.gift__hint{ font-size: var(--fs-sm); font-weight: 600; color: var(--gold-light); }
 
 /* ========================= PREGUNTAS ========================= */
 .faq{ border-top: 2px solid var(--olive); }
@@ -579,8 +681,8 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 .faq__item summary{
   list-style: none; cursor: pointer;
   display: flex; justify-content: space-between; align-items: center; gap: 1.5rem;
-  padding-block: 1.6rem;
-  font-family: var(--display); font-size: 1.2rem; line-height: 1.35;
+  padding-block: 1.35rem; min-height: 44px;
+  font-size: var(--fs-body); font-weight: 600; line-height: 1.45;
   transition: color .2s ease;
 }
 .faq__item summary:hover{ color: var(--olive-soft); }
@@ -592,7 +694,7 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
   transition: transform .25s ease;
 }
 .faq__item[open] summary::after{ transform: rotate(-135deg) translateY(-3px); }
-.faq__answer{ padding-bottom: 1.75rem; max-width: 58ch; }
+.faq__answer{ padding-bottom: 1.5rem; max-width: 58ch; }
 .faq__answer p{ color: var(--muted); }
 
 /* ============================= PIE ============================ */
@@ -639,7 +741,7 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 /* ======================= PANTALLAS TÁCTILES =================== */
 /* Enlaces sueltos con zona de toque de al menos 44px de alto */
 @media (pointer: coarse){
-  .cal .link, .venue .link, .stay .link, .footer__credit a{
+  .cal .link, .rsvp__note .link, .footer__credit a{
     display: inline-block; padding-block: .65rem; line-height: 1.5;
   }
   .cal{ line-height: 1.6; }
@@ -654,4 +756,13 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
   .on-dark, .on-dark .prose strong, .on-dark .link{ color: #000; }
   .section__head{ position: static; }
   .faq__item summary::after{ display: none; }
+}
+
+/* ========================= CURSOR ============================ */
+/* Flecha de rama de olivo con arras. Solo en ratón: en móvil y tablet no se aplica. */
+@media (hover: hover) and (pointer: fine){
+  html{ cursor: url("../img/cursor.svg") 2 2, auto; }
+  /* !important: varias reglas de componentes (.btn, .carousel__btn…) ya traen cursor: pointer y ganarían por especificidad */
+  a, button, summary, label, [role="button"], .btn, .carousel__btn, .carousel__dot, .carousel__track{ cursor: url("../img/cursor-mano.svg") 11 2, pointer !important; }
+  .carousel__btn[disabled], .btn[aria-disabled="true"]{ cursor: default !important; }
 }

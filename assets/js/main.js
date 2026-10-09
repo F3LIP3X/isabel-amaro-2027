@@ -345,3 +345,64 @@ addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = tr
     });
   });
 })();
+
+/* ===== Carrusel de fotos de la tarjeta de hotel ===== */
+(function carrusel(){
+  $$('.carousel').forEach(car => {
+    const pista = $('.carousel__track', car);
+    const prev = $('.carousel__btn--prev', car), next = $('.carousel__btn--next', car);
+    const puntos = $('.carousel__dots', car);
+    const n = pista.children.length;
+    const indice = () => Math.round(pista.scrollLeft / pista.clientWidth);
+    const ir = i => pista.scrollTo({ left: i * pista.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    const dots = [...pista.children].map((_, k) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'carousel__dot'; b.setAttribute('aria-label', `Foto ${k + 1} de ${n}`);
+      b.addEventListener('click', () => ir(k));
+      puntos.appendChild(b);
+      return b;
+    });
+    const actualizar = () => {
+      const i = Math.min(n - 1, Math.max(0, indice()));
+      dots.forEach((d, k) => k === i ? d.setAttribute('aria-current', 'true') : d.removeAttribute('aria-current'));
+      prev.disabled = i === 0; next.disabled = i === n - 1;
+    };
+    prev.addEventListener('click', () => ir(indice() - 1));
+    next.addEventListener('click', () => ir(indice() + 1));
+    pista.addEventListener('scroll', () => requestAnimationFrame(actualizar), { passive: true });
+    pista.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); ir(indice() + 1); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); ir(indice() - 1); }
+    });
+    actualizar();
+  });
+})();
+
+/* ---------- FAQ: en ordenador, cada pregunta se abre al pasar el ratón ---- */
+(function faqAlPasar(){
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const reducir = matchMedia('(prefers-reduced-motion: reduce)');
+  $$('.faq__item').forEach(item => {
+    const respuesta = $('.faq__answer', item);
+    let anim = null;
+    const mover = abrir => {
+      if (anim) { anim.cancel(); anim = null; respuesta.style.overflow = ''; }
+      if (reducir.matches) { item.open = abrir; return; }
+      if (abrir) item.open = true;             // hace falta abierta para medir su altura
+      const alto = respuesta.scrollHeight + 'px';
+      const de = abrir ? ['0px', alto] : [alto, '0px'];
+      respuesta.style.overflow = 'hidden';
+      anim = respuesta.animate(
+        [{ height: de[0], opacity: abrir ? 0 : 1 }, { height: de[1], opacity: abrir ? 1 : 0 }],
+        { duration: 320, easing: 'cubic-bezier(.2,.65,.3,1)' }
+      );
+      anim.onfinish = () => {
+        respuesta.style.overflow = '';
+        if (!abrir) item.open = false;
+        anim = null;
+      };
+    };
+    item.addEventListener('pointerenter', () => mover(true));
+    item.addEventListener('pointerleave', () => mover(false));
+  });
+})();
