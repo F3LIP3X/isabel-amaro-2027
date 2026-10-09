@@ -263,6 +263,9 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 @media (max-width: 860px){
   .hero{ background-size: cover, auto 150%; background-position: center, 50% 98%; }
 }
+/* Página de instrucciones para reservar */
+.reserva-pasos{ margin: 1.25rem 0 0; padding-left: 1.4rem; display: grid; gap: .6rem; }
+.reserva-pasos li::marker{ color: var(--gold-text); font-weight: 600; }
 /* Filete de tarjeta: dos líneas finas a sangre perdida, bajo la cabecera */
 .hero::before{
   content: ""; position: absolute; z-index: -1; pointer-events: none;
