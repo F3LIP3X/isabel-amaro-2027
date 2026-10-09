@@ -263,9 +263,35 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 @media (max-width: 860px){
   .hero{ background-size: cover, auto 150%; background-position: center, 50% 98%; }
 }
-/* Página de instrucciones para reservar */
-.reserva-pasos{ margin: 1.25rem 0 0; padding-left: 1.4rem; display: grid; gap: .6rem; }
+/* Página de instrucciones para reservar. La frase que hay que decir por teléfono
+   es el elemento principal: un bloque oliva, como un código de reserva de grupo */
+.reserva{ min-height: 100svh; display: grid; place-items: center; padding: 2rem var(--gutter); background: var(--cal-tint); }
+.reserva__card{
+  width: 100%; max-width: 34rem; padding: clamp(1.75rem, 5vw, 2.75rem);
+  background: #fbfaf6; border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 10px 30px -18px rgba(54,61,35,.35);
+}
+.reserva__back{
+  display: inline-flex; align-items: center; gap: .35rem; min-height: 44px; margin: -.5rem 0 1.25rem -.3rem;
+  color: var(--olive); font-weight: 600; font-size: var(--fs-sm); text-decoration: none;
+}
+.reserva__back:hover span, .reserva__back:hover{ text-decoration: underline; text-decoration-color: var(--gold); text-underline-offset: .25em; }
+.reserva__kicker{
+  display: flex; align-items: flex-start; gap: .6rem;
+  color: var(--gold-text); font-size: var(--fs-kicker); font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+}
+.reserva__rombo{ width: .45rem; height: .45rem; flex: none; margin-top: .45em; background: var(--gold); rotate: 45deg; }
+.reserva__title{ margin-top: .6rem; font-size: var(--fs-h2); line-height: 1.1; }
+.reserva__lead{ margin-top: .75rem; color: var(--muted); }
+.reserva-pasos{ margin: 1.75rem 0 0; padding-left: 1.4rem; display: grid; gap: 1rem; }
+.reserva-pasos li{ padding-left: .2rem; }
 .reserva-pasos li::marker{ color: var(--gold-text); font-weight: 600; }
+.reserva__frase{
+  margin: .85rem 0 0 -1.6rem; padding: 1.1rem 1.25rem; text-align: center;
+  background: var(--olive); color: var(--ivory); border-radius: calc(var(--radius) - 6px);
+  font-family: var(--display); font-size: clamp(1.15rem, 3.4vw, 1.4rem); line-height: 1.35;
+}
+.reserva .reserva__web{ display: block; margin-top: 2rem; text-align: center; }
 /* Filete de tarjeta: dos líneas finas a sangre perdida, bajo la cabecera */
 .hero::before{
   content: ""; position: absolute; z-index: -1; pointer-events: none;
