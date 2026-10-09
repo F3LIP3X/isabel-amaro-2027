@@ -16,3 +16,6 @@ dist/
 
 # Fotos originales sin optimizar
 assets/img/originales/
+
+# PDF de presupuestos (no se publica)
+assets/data/
