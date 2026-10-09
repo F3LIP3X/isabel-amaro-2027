@@ -3,6 +3,8 @@
 Web de la boda de Isabel y Amaro. Sitio estático (HTML + CSS + JS), sin dependencias
 ni proceso de compilación: se abre con doble clic y se publica en GitHub Pages.
 
+**Página publicada:** https://f3lip3x.github.io/isabel-amaro-2027/
+
 Paleta verde oliva oscuro, cal blanca y oro viejo. La portada es una composición
 centrada tipo invitación: los nombres flanquean la foto, que va en un arco apuntado
 de inspiración nazarí con el "&" como sello dorado. Tipografías *Bodoni Moda*

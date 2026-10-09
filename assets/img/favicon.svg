@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <polygon points="32,0.5 41.3,10.7 54.6,9.4 53.3,22.7 63.5,32 53.3,41.3 54.6,54.6 41.3,53.3 32,63.5 22.7,53.3 9.4,54.6 10.7,41.3 0.5,32 10.7,22.7 9.4,9.4 22.7,10.7" fill="#363d23" stroke="#d4b46f" stroke-width="3" stroke-linejoin="miter"/>
-  <text x="32" y="41.5" text-anchor="middle" font-family="'Bodoni 72', Didot, 'Bodoni MT', Georgia, 'Times New Roman', serif" font-weight="bold" font-size="29" fill="#d4b46f" letter-spacing="-2">I A</text>
+  <!-- Rombo dorado sobre verde oliva: el mismo motivo del monograma de la web -->
+  <polygon points="32,2 62,32 32,62 2,32" fill="#363d23" stroke="#d4b46f" stroke-width="3" stroke-linejoin="miter"/>
+  <text x="32" y="40" text-anchor="middle" font-family="'Bodoni 72', Didot, 'Bodoni MT', Georgia, 'Times New Roman', serif" font-weight="bold" font-size="23" fill="#d4b46f" letter-spacing="-1">I A</text>
 </svg>
