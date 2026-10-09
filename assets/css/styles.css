@@ -292,6 +292,9 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
   font-family: var(--display); font-size: clamp(1.15rem, 3.4vw, 1.4rem); line-height: 1.35;
 }
 .reserva .reserva__web{ display: block; margin-top: 2rem; text-align: center; }
+/* Texto seleccionado: dorado con verde oliva, en lugar del azul del navegador */
+::selection{ background: var(--gold-light); color: var(--olive); }
+
 /* Filete de tarjeta: dos líneas finas a sangre perdida, bajo la cabecera */
 .hero::before{
   content: ""; position: absolute; z-index: -1; pointer-events: none;
