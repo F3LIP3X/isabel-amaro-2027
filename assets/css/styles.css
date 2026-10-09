@@ -243,109 +243,99 @@ h1,h2,h3,h4,.nav__brand,.hero__date,.nav__count strong,.nav__count-today,
 /* ========================== PORTADA ========================== */
 .on-dark{ color: var(--ivory); }
 
-/* Vídeo desenfocado de fondo con un velo oliva; en el centro, la estrella de
-   ocho puntas (dos cuadrados cruzados) con los nombres, la fecha y la cuenta atrás */
+/* Portada tipográfica, como una invitación impresa: fondo oliva liso, sin foto
+   ni vídeo, un filete fino de tarjeta y el rombo dorado como único motivo.
+   Toda la jerarquía la llevan la Bodoni (nombres, fecha) y las versalitas Hanken. */
 .hero{
   position: relative; isolation: isolate;
   min-height: 100svh;
-  padding-block: calc(var(--nav-h) + 1rem) 1.5rem;
-  display: flex; align-items: center; justify-content: center;
+  padding: calc(var(--nav-h) + clamp(1.5rem, 5svh, 3rem)) var(--gutter) clamp(2rem, 6svh, 3.5rem);
+  display: flex; align-items: flex-end; justify-content: center;
   background-color: var(--olive);
+  /* Foto de la pareja con velo oliva para que el texto se lea */
+  background-image: linear-gradient(180deg, rgba(54,61,35,.6) 0%, rgba(54,61,35,.7) 50%, rgba(54,61,35,.9) 100%), url("../img/Foto1.jpeg");
+  background-size: cover, cover; background-position: center, center 72%;
   overflow: hidden;
 }
-.hero__video{
-  position: absolute; inset: 0; z-index: -2;
-  width: 100%; height: 100%; object-fit: cover;
-  filter: blur(5px) saturate(.85);
-  transform: scale(1.08);   /* que el desenfoque no deje bordes claros */
+@media (max-width: 860px){
 }
-.hero__veil{
-  position: absolute; inset: 0; z-index: -1;
-  background:
-    radial-gradient(ellipse at center, rgba(54,61,35,.25) 0%, rgba(54,61,35,.7) 75%),
-    rgba(54,61,35,.25);
+/* Móvil: la foto se amplía en altura para subir las caras y dejar el texto debajo */
+@media (max-width: 860px){
+  .hero{ background-size: cover, auto 150%; background-position: center, 50% 98%; }
 }
-
-.hero__star{
-  --s: min(780px, calc(100svh - var(--nav-h) - 2.5rem), 96vw);
-  position: relative; flex: none;
-  width: var(--s); aspect-ratio: 1;
-  container-type: inline-size;
-  display: grid; place-items: center;
+/* Filete de tarjeta: dos líneas finas a sangre perdida, bajo la cabecera */
+.hero::before{
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  inset: var(--nav-h) clamp(.75rem, 2.5vw, 2rem) clamp(.75rem, 2.5vw, 2rem);
+  border: 1px solid rgba(196,160,90,.38);
+  outline: 1px solid rgba(196,160,90,.16); outline-offset: -6px;
 }
-.hero__star-shape{ position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.hero__star-fill{ fill: rgba(54,61,35,.72); }
-.hero__star-line{ fill: none; stroke: var(--gold); stroke-width: 2; vector-effect: non-scaling-stroke; }
-.hero__star-line--fina{ stroke-width: 1; opacity: .55; }
-
-/* Ramas de olivo muy discretas que serpentean sobre las aristas de la estrella:
-   hoja plana translúcida con delineado fino; en los cruces alternos la arista pasa por encima */
-.hero__olivo{ position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; opacity: .8; }
-.olv-tallo{ fill: none; stroke: var(--leaf-light); stroke-opacity: .7; stroke-width: 1.1px; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.olv-hoja{ fill: rgba(169,178,127,.38); stroke: rgba(196,205,152,.75); stroke-width: .8px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.olv-rabo{ fill: none; stroke: var(--leaf-light); stroke-opacity: .7; stroke-width: .9px; stroke-linecap: round; vector-effect: non-scaling-stroke; }
-.olv-fruto{ fill: rgba(86,104,98,.85); stroke: rgba(196,205,152,.6); stroke-width: .7px; vector-effect: non-scaling-stroke; }
-.olv-paso-halo{ fill: none; stroke: rgba(48,55,32,.95); stroke-width: 4.5px; stroke-linecap: butt; vector-effect: non-scaling-stroke; }
-.olv-paso{ fill: none; stroke: var(--gold); stroke-width: 2px; stroke-linecap: butt; vector-effect: non-scaling-stroke; }
-@media (prefers-reduced-motion: no-preference){
-  .hero__olivo{ animation: entrar .9s ease .8s both; }
-}
-
-
 
 .hero__content{
-  position: relative; width: 62cqi;
+  position: relative; width: 100%; max-width: 46rem;
   display: flex; flex-direction: column; align-items: center; text-align: center;
 }
-/* Escala de la portada, todo en proporción a la estrella:
-   nombres 6,4 · fecha 3,1 */
+
+/* Nombres apilados en Bodoni de cartel: a este tamaño se usa el tamaño óptico
+   real (trazos finos y contraste alto), al contrario que en el resto de títulos */
 .hero__names{
-  font-size: max(1.35rem, 6.4cqi); line-height: 1.05; letter-spacing: -.01em;
-  white-space: nowrap;
+  display: flex; flex-direction: column; align-items: center;
+  font-weight: 400; line-height: .9; letter-spacing: -.02em;
+  font-size: clamp(3.25rem, min(19vw, 9svh), 7.5rem);
+  font-optical-sizing: auto; font-variation-settings: normal;
 }
-.hero__amp{ color: var(--gold-light); }
-/* Fecha en tres líneas con jerarquía editorial: las frases de enlace en
-   versalitas Hanken, la fecha (la cifra) en Bodoni */
+/* Móvil: nombres más pequeños para que no tapen las caras */
+@media (max-width: 860px){
+  .hero__names{ font-size: clamp(2.6rem, 14vw, 4.25rem); }
+}
+.hero__name{ display: block; }
+.hero__amp{
+  display: block; margin-block: .1em .02em;
+  font-style: italic; font-size: .4em; line-height: 1; letter-spacing: 0;
+  color: var(--gold-light);
+}
+
+/* Sello: el rombo dorado entre dos filetes que se desvanecen hacia fuera */
+.hero__seal{
+  display: flex; align-items: center; gap: .9rem;
+  width: min(22rem, 72vw); margin-top: clamp(1.5rem, 4.5svh, 2.75rem);
+}
+.hero__rule{ flex: 1; height: 1px; background: linear-gradient(to left, var(--gold), rgba(196,160,90,0)); }
+.hero__rule + .hero__ramita + .hero__rule{ background: linear-gradient(to right, var(--gold), rgba(196,160,90,0)); }
+.hero__ramita{ flex: none; width: clamp(4.5rem, 7vw, 5.5rem); height: auto; color: var(--gold-light); overflow: visible; }
+
+/* Fecha en tres líneas: frases de enlace en versalitas Hanken, la fecha en Bodoni */
 .hero__date{
-  margin-top: 3.6cqi;
+  margin-top: clamp(1.25rem, 4svh, 2.25rem);
   font-family: var(--sans); font-weight: 600; line-height: 1.3;
-  font-size: max(.75rem, 1.65cqi); letter-spacing: .18em; text-transform: uppercase;
+  font-size: clamp(.75rem, .45rem + .6vw, .875rem); letter-spacing: .24em; text-transform: uppercase;
   color: var(--ivory-soft);
 }
 .hero__date > span{ display: block; }
 .hero__date > span:nth-child(2){
-  margin-block: .45em .5em;
-  font-family: var(--display); font-weight: 500; text-transform: none; letter-spacing: 0;
-  font-size: max(1.15rem, 3.6cqi); line-height: 1.15; color: var(--ivory);
+  margin-block: .5em .55em;
+  font-family: var(--display); font-weight: 500; text-transform: none; letter-spacing: .01em;
+  font-size: clamp(1.6rem, 1rem + 2.4vw, 2.5rem); line-height: 1.1; color: var(--ivory);
   font-optical-sizing: none; font-variation-settings: "opsz" 11;
 }
 
 /* Cuenta atrás: vive en la cabecera (ver .nav__count) */
 
-/* El botón respira bajo la fecha */
-.hero__content .btn{ margin-top: 5cqi; }
+.hero__content .btn{ margin-top: clamp(1.75rem, 5svh, 3rem); }
 
-/* Entrada: la estrella aparece y el contenido después, en orden */
+/* Entrada: los nombres, el rombo que gira hasta su sitio y los filetes que se abren */
 @media (prefers-reduced-motion: no-preference){
-  .hero__star-shape{ animation: estrella 1.1s cubic-bezier(.2,.65,.3,1) .1s both; }
-  .hero__names, .hero__date, .hero .btn{ animation: entrar .7s ease both; }
-  .hero__names{ animation-delay: .35s; }
-  .hero__date{ animation-delay: .5s; }
-  .hero .btn{ animation-delay: .65s; }
+  .hero__names, .hero__date, .hero .btn{ animation: entrar .8s ease both; }
+  .hero__names{ animation-delay: .15s; }
+  .hero__ramita{ animation: rombo 1s cubic-bezier(.2,.65,.3,1) .45s both; }
+  .hero__rule{ animation: filete .9s cubic-bezier(.2,.65,.3,1) .6s both; transform-origin: right center; }
+  .hero__rule + .hero__ramita + .hero__rule{ transform-origin: left center; }
+  .hero__date{ animation-delay: .75s; }
+  .hero .btn{ animation-delay: .95s; }
 }
-@keyframes estrella{ from{ opacity: 0; transform: scale(.94) rotate(-8deg); } to{ opacity: 1; transform: none; } }
+@keyframes rombo{ from{ opacity: 0; transform: scale(.6) rotate(-45deg); } to{ opacity: 1; transform: none; } }
+@keyframes filete{ from{ transform: scaleX(0); } to{ transform: none; } }
 @keyframes entrar{ from{ opacity: 0; } to{ opacity: 1; } }
-
-/* En móvil la estrella es más ancha que la pantalla: sus puntas laterales se
-   salen y el cuadrado central aprovecha casi todo el ancho */
-@media (max-width: 860px){
-  .hero{ padding-block: calc(var(--nav-h) + .5rem) 1rem; }
-  .hero__star{ --s: min(132vw, 700px); }
-  .hero__content{ width: 60cqi; margin-top: 0; }
-  /* más aire arriba, donde la estrella se estrecha: título más pequeño y bloque compacto */
-  .hero__names{ font-size: max(1.15rem, 5.6cqi); }
-  .hero__date{ margin-top: 3cqi; }
-}
 
 /* ========================== BOTONES ========================== */
 .btn{
@@ -631,6 +621,8 @@ main{ counter-reset: capitulo; }
 .prices__sub .prices__row{ padding-block: .45rem; border-top: 0; }
 .prices__note{ margin: .5rem 0 1rem; font-size: var(--fs-sm); color: var(--muted); }
 
+.stay__actions{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+@media (max-width: 480px){ .stay__actions{ grid-template-columns: 1fr; } }
 .stay .stay__go{
   justify-self: stretch; display: flex; align-items: center; justify-content: center; gap: .55rem;
   min-height: 3rem; padding: .7rem 1.25rem; border-color: var(--line); background: var(--cal-tint);
@@ -753,7 +745,7 @@ main{ counter-reset: capitulo; }
 
 /* ========================== IMPRESIÓN ========================= */
 @media print{
-  .hero__video, .hero__veil, .hero__star-shape, .hero__olivo,
+  .hero::before, .hero__seal,
   .nav, .skip-link, .maps, .cal, .hero .btn, .rsvp .btn, #copyIban{ display: none; }
   .hero, .section, .footer{ background: none; color: #000; min-height: 0; }
   .deco, .crest{ display: none; }

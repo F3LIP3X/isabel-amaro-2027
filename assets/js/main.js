@@ -292,15 +292,6 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   });
 })();
 
-/* ---------- 9. Vídeo de portada ---------------------------- */
-// Con «reducir movimiento» el vídeo se queda quieto en su primer fotograma
-(function videoPortada(){
-  const v = $('#heroVideo');
-  if (!v || !matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  v.removeAttribute('autoplay');
-  v.pause();
-})();
-
 /* ---------- 10. Enlaces aún sin dirección ------------------ */
 // Un enlace que se abriría en otra pestaña pero sigue en "#" es un hueco
 // pendiente (p. ej. reservas de hotel): se oculta hasta que tenga URL real.
