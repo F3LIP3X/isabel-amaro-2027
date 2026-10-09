@@ -440,14 +440,18 @@ main{ counter-reset: capitulo; }
 .letter .prose__lead{ color: var(--olive); line-height: 1.45; }
 .letter__body{ font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 48ch; margin-inline: auto; }
 .letter__sign{
-  margin-top: 2.5rem; display: flex; justify-content: center; gap: 1.25rem 3rem; flex-wrap: wrap;
+  margin-top: 2.5rem; display: flex; justify-content: center; align-items: baseline; gap: 0 1.25rem; flex-wrap: wrap;
 }
+/* Firmas a mano: la única letra manuscrita de la web, solo para el nombre de los novios */
 .firma{
-  font-family: var(--display); font-style: italic;
-  font-size: 3rem; line-height: 1.15; font-weight: 400;
-  padding: 0 .5rem; color: var(--ink);
+  font-family: "Great Vibes", "Snell Roundhand", "Segoe Script", cursive;
+  font-size: 3.2rem; line-height: 1.2; font-weight: 400;
+  color: var(--olive);
 }
-@media (max-width: 480px){ .firma{ font-size: 2.5rem; } }
+@media (max-width: 480px){ .firma{ font-size: 2.6rem; } }
+/* Ramita de olivo entre las dos firmas */
+.firma__ramita{ width: 96px; height: auto; color: var(--leaf); flex: none; align-self: center; }
+@media (max-width: 480px){ .firma__ramita{ width: 72px; } }
 
 /* ========================= EL GRAN DÍA ======================= */
 /* Programa: una ficha por momento. Hora en Bodoni a la izquierda con filete dorado,
