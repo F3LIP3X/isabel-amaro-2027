@@ -73,7 +73,12 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       btn.removeAttribute('href');
       btn.removeAttribute('target');
       btn.setAttribute('aria-disabled', 'true');
-      btn.textContent = 'Formulario disponible muy pronto';
+      btn.setAttribute('aria-describedby', 'rsvpPendiente');
+      const nota = document.createElement('p');
+      nota.className = 'rsvp__note';
+      nota.id = 'rsvpPendiente';
+      nota.textContent = 'El formulario todavía no está abierto. En cuanto lo esté, este botón os llevará a él.';
+      btn.after(nota);
     }
   }
 
@@ -88,7 +93,10 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
   // Un IBAN de ejemplo (solo ceros) no se muestra ni se puede copiar
   const iban = $('#iban');
   const ibanReal = /[1-9]/.test(String(BODA.iban || '').replace(/^\D+/, ''));
-  if (iban) iban.textContent = ibanReal ? BODA.iban : 'Muy pronto lo tendréis aquí';
+  if (iban) {
+    iban.textContent = ibanReal ? BODA.iban : 'Muy pronto tendréis aquí nuestro número de cuenta.';
+    iban.classList.toggle('gift__iban--vacio', !ibanReal);
+  }
   if (!ibanReal) $('#copyIban')?.setAttribute('hidden', '');
 
   const titular = $('[data-titular]');
@@ -271,6 +279,7 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
   btn.addEventListener('click', async () => {
     const texto = iban.textContent.trim();
+    let copiado = true;
     try {
       await navigator.clipboard.writeText(texto);
     } catch {
@@ -281,13 +290,18 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
       ta.style.opacity = '0';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); } catch { /* sin portapapeles */ }
+      try { copiado = document.execCommand('copy'); } catch { copiado = false; }
       ta.remove();
     }
-    if (aviso) {
-      aviso.textContent = 'Número copiado';
-      clearTimeout(btn._t);
+    if (!aviso) return;
+    // Éxito, sin exclamaciones; error, en línea y diciendo qué hacer (B8, B9)
+    clearTimeout(btn._t);
+    aviso.classList.toggle('is-error', !copiado);
+    if (copiado) {
+      aviso.textContent = 'Número de cuenta copiado.';
       btn._t = setTimeout(() => { aviso.textContent = ''; }, 2500);
+    } else {
+      aviso.textContent = 'No hemos podido copiarlo. Mantened pulsado el número para copiarlo a mano.';
     }
   });
 })();
@@ -296,6 +310,41 @@ const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 // Un enlace que se abriría en otra pestaña pero sigue en "#" es un hueco
 // pendiente (p. ej. reservas de hotel): se oculta hasta que tenga URL real.
 $$('a[href="#"][target="_blank"]').forEach(a => { a.hidden = true; });
+
+/* ---------- 10b. Datos de alojamiento aún sin confirmar ------- */
+// Los marcadores del HTML («00 €», «Foto 1», href="#") se quedan tal cual para
+// rellenarlos más adelante; aquí solo se presentan como estado vacío (B9).
+(function alojamientoPendiente(){
+  const vacio = el => /^0+\s*€$/.test(el.textContent.replace(/\u00a0/g, ' ').trim());
+
+  // Precios a cero: «Por confirmar» en vez de una cifra que parece real
+  $$('.stay__from strong, .prices__row > dd').forEach(el => {
+    if (!vacio(el)) return;
+    const desde = el.closest('.stay__from');
+    el.textContent = desde ? 'por confirmar' : 'Por confirmar';
+    el.classList.add('is-vacio');
+    if (desde) { desde.classList.add('is-vacio'); desde.firstElementChild.textContent = 'precio'; }
+  });
+
+  // Ubicación sin enlace: botón deshabilitado de verdad, que dice por qué
+  $$('.stay__go[href="#"]').forEach(a => {
+    a.removeAttribute('href');
+    a.setAttribute('aria-disabled', 'true');
+    a.textContent = 'Ubicación por confirmar';
+  });
+
+  // Carrusel sin ninguna foto: una sola lámina compuesta, sin flechas ni puntos
+  $$('.carousel').forEach(car => {
+    const pista = $('.carousel__track', car);
+    const laminas = [...pista.children];
+    if (!laminas.length || !laminas.every(li => $('.carousel__placeholder', li))) return;
+    car.classList.add('carousel--vacio');
+    pista.removeAttribute('tabindex');
+    const primera = $('.carousel__placeholder', laminas[0]);
+    primera.setAttribute('aria-label', 'Fotos por confirmar');
+    primera.innerHTML = '<svg class="carousel__ramita" viewBox="0 0 120 60" aria-hidden="true" focusable="false"><use href="#ramita"/></svg><span>Fotos muy pronto</span>';
+  });
+})();
 
 /* ---------- 11. Imprimir con las preguntas desplegadas ------- */
 addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = true; }); });
@@ -317,6 +366,18 @@ addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = tr
     if (!pos) { el.hidden = true; return; }
     const centro = [pos[1], pos[0]];
 
+    el.classList.add('is-loading');
+    let cargado = false;
+    const fallo = () => {
+      if (cargado || el.querySelector('.map__error')) return;
+      el.classList.remove('is-loading');
+      el.classList.add('has-error');
+      const aviso = document.createElement('p');
+      aviso.className = 'map__error';
+      aviso.innerHTML = '<strong>No hemos podido cargar el mapa.</strong> <span>Usad el botón «Cómo llegar» para abrir la ruta.</span>';
+      el.appendChild(aviso);
+    };
+
     const mapa = new maplibregl.Map({
       container: el, style: 'https://tiles.openfreemap.org/styles/bright',
       center: centro, zoom: zoom[clave] || 15, cooperativeGestures: true, attributionControl: false
@@ -329,8 +390,13 @@ addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = tr
     marca.innerHTML = '<span class="pin__dot"></span>';
     new maplibregl.Marker({ element: marca, anchor: 'center' }).setLngLat(centro).addTo(mapa);
 
+    // Solo cuenta el fallo del estilo; una tesela suelta que falle no tapa el mapa
+    mapa.on('error', e => { if (!e.sourceId && !e.tile) fallo(); });
+
     // La atribución empieza plegada (se abre con el icono «i»)
     mapa.once('load', () => {
+      cargado = true;
+      el.classList.remove('is-loading');
       const a = el.querySelector('.maplibregl-ctrl-attrib');
       if (a) { a.classList.remove('maplibregl-compact-show'); a.removeAttribute('open'); }
     });
@@ -339,7 +405,7 @@ addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = tr
 
 /* ===== Carrusel de fotos de la tarjeta de hotel ===== */
 (function carrusel(){
-  $$('.carousel').forEach(car => {
+  $$('.carousel:not(.carousel--vacio)').forEach(car => {
     const pista = $('.carousel__track', car);
     const prev = $('.carousel__btn--prev', car), next = $('.carousel__btn--next', car);
     const puntos = $('.carousel__dots', car);
@@ -385,7 +451,7 @@ addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = tr
       respuesta.style.overflow = 'hidden';
       anim = respuesta.animate(
         [{ height: de[0], opacity: abrir ? 0 : 1 }, { height: de[1], opacity: abrir ? 1 : 0 }],
-        { duration: 320, easing: 'cubic-bezier(.2,.65,.3,1)' }
+        { duration: 320, easing: 'cubic-bezier(0.32,0.72,0,1)' }
       );
       anim.onfinish = () => {
         respuesta.style.overflow = '';
@@ -396,4 +462,19 @@ addEventListener('beforeprint', () => { $$('details').forEach(d => { d.open = tr
     item.addEventListener('pointerenter', () => mover(true));
     item.addEventListener('pointerleave', () => mover(false));
   });
+})();
+
+/* ---------- 14. Bloques que suben al entrar en pantalla ----- */
+(function revelado(){
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const bloques = $$('.section__head, .prose, .venue, .attire__item, .travel__item, .stay--card, .gift, .faq, .rsvp, .letter__sign');
+  bloques.forEach(el => el.classList.add('js-reveal'));
+  const io = new IntersectionObserver(entradas => {
+    entradas.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-in');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: .12 });
+  bloques.forEach(el => io.observe(el));
 })();
